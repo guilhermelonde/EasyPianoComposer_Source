@@ -1,4 +1,4 @@
-# EasyPianoComposer
+# Easy Piano Composer
 Authors: Guilherme Pereira Porto Londe, Jorge Menezes dos Santos, Rafael Gomes da Silva, Saymon Galvão Bandeira.
 
 Easy Piano Composer is a piano simulator for Windows with some improvements, like creation and manipulation of tracks. 
