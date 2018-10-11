@@ -126,6 +126,7 @@
     <Compile Include="ConfigurarTela.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="DadosUsuario.vb" />
     <Compile Include="Idioma.vb" />
     <Compile Include="Player.vb" />
     <Compile Include="SubPlayer.vb" />

@@ -1,10 +1,11 @@
 ﻿'--- TelaPrincipal ---
 'Autores: Rafael Gomes da Silva, Guilherme Pereira Porto Londe
-'última modificação: 26 de setembro de 2018
+'última modificação: 10 de outubro de 2018
 
 Imports System.Drawing
 Imports System.Windows.Forms
 Imports Compositor.My.Resources.Resources
+Imports Point = System.Drawing.Point
 
 Public Class TelaPrincipal
 
@@ -13,120 +14,22 @@ Public Class TelaPrincipal
     Public TemAlteracao As Boolean = False
     Private Inicializado As Boolean = False
     Private ModoApresentacao As Boolean = False
+    Private EscalaDestacada As Integer = -1
     Private F1 As Boolean = False
+    Private DestacarEscala As Boolean = True
+    Private MenuVisivel As Boolean = True
     Private LarguraTelaAnterior As Integer
     Private DiretorioArquivo As String
     Private CoordYTabela As Integer
     Private ObjetoIdioma As New Idioma
     Private VelocidadeAtual As Double
     Private ObjetoConfigurarTela As ConfigurarTela
+    Private ListaDestaques, ListaSemDestaques As New List(Of Integer)
     Friend WithEvents MenuVelocidade As New ContextMenuStrip
     Private LocalMenuIdioma As Point
     Private ObjetoDadoUsuario As DadosUsuario
+    Private WithEvents Timer As New System.Windows.Threading.DispatcherTimer
 
-    Private Class DadosUsuario
-        Public Cores As New List(Of Color)
-        Public Volume, IdIdioma As Integer
-        Public EspacamentoNotas, DiametroNotas As Double
-
-        Private Function ParseProprio(ByVal str As String)
-            Dim ret, av, p, i As Integer
-            av = 0
-            ret = 0
-            i = 0
-            p = 0
-            While i < str.Count AndAlso ((str.Chars(i) >= "0" And str.Chars(i) <= "9") Or str.Chars(i) = ",")
-                If str.Chars(i) = "," Then
-                    p = 1
-                Else
-                    ret = ret * 10 + Convert.ToInt32(str.Chars(i)) - 48
-                    av += p
-                End If
-                i += 1
-            End While
-            Return ret / Math.Pow(10, av)
-        End Function
-
-        Public Sub New()
-            IdIdioma = 1
-            Volume = 100
-            EspacamentoNotas = 5
-            DiametroNotas = 5.6
-            Cores.Add(Color.FromArgb(149, 154, 143))
-            Cores.Add(Color.Beige)
-            Cores.Add(Color.MediumBlue)
-            Cores.Add(Color.Red)
-            Cores.Add(Color.DimGray)
-            Cores.Add(Color.Gray)
-            Cores.Add(Color.Black)
-
-            If System.IO.File.Exists("userdata.inf") Then
-                Dim text = System.IO.File.ReadAllText("userdata.inf")
-                If text.Contains("IdiomId = ") Then
-                    Dim novoIdioma As Double
-                    novoIdioma = ParseProprio(text.Substring(text.IndexOf("IdiomId = ") + 10))
-                    If novoIdioma >= 0 And novoIdioma < Idioma.ContagemIdiomas Then
-                        IdIdioma = novoIdioma
-                    End If
-                End If
-                If text.Contains("Volume = ") Then
-                    Dim novoVolume As Double
-                    novoVolume = ParseProprio(text.Substring(text.IndexOf("Volume = ") + 9))
-                    If novoVolume >= 0 And novoVolume <= 100 Then
-                        Volume = novoVolume
-                    End If
-                End If
-                If text.Contains("hSpacing = ") Then
-                    Dim novoEspacamento As Double
-                    novoEspacamento = ParseProprio(text.Substring(text.IndexOf("hSpacing = ") + 11))
-                    novoEspacamento = Math.Floor(novoEspacamento * 10)
-                    If novoEspacamento >= 50 And novoEspacamento <= 100 Then
-                        EspacamentoNotas = novoEspacamento / 10
-                    End If
-                End If
-                If text.Contains("nDiameter = ") Then
-                    Dim novoDiametro As Double
-                    novoDiametro = ParseProprio(text.Substring(text.IndexOf("nDiameter = ") + 12))
-                    novoDiametro = Math.Floor(novoDiametro * 10)
-                    If novoDiametro >= 56 And novoDiametro <= 92 And (Int(novoDiametro + 1) Mod 3) = 0 Then
-                        DiametroNotas = novoDiametro / 10
-                    End If
-                End If
-                For i = 1 To 7
-                    Dim R, G, B As Integer
-                    R = -1
-                    G = -1
-                    B = -1
-                    If text.Contains("Color" & i & " = ") Then
-                        Dim X As String = text.Substring(text.IndexOf("Color" & i & " = ") + 9)
-                        R = ParseProprio(X)
-                        If (X.Contains(";")) Then
-                            X = X.Substring(X.IndexOf(";") + 1)
-                            G = ParseProprio(X)
-                            If (X.Contains(";")) Then
-                                X = X.Substring(X.IndexOf(";") + 1)
-                                B = ParseProprio(X)
-                            End If
-                        End If
-                    End If
-                    If R >= 0 And R <= 255 And G >= 0 And G <= 255 And B >= 0 And B <= 255 Then
-                        Cores.Item(i - 1) = Color.FromArgb(R, G, B)
-                    End If
-                Next
-            End If
-        End Sub
-
-        Public Sub Flush()
-            Dim Saida, SaidaCores As String
-            SaidaCores = ""
-            Saida = "IdiomId = " & IdIdioma & " " & vbCrLf & "Volume = " & Volume & " " & vbCrLf & "hSpacing = " & EspacamentoNotas & " " & vbCrLf & "nDiameter = " & DiametroNotas & " " & vbCrLf
-            For i = 1 To 7
-                SaidaCores = SaidaCores & ("Color" & i & " = " & Cores.Item(i - 1).R & ";" & Cores.Item(i - 1).G & ";" & Cores.Item(i - 1).B & vbCrLf)
-            Next
-            System.IO.File.WriteAllText("userdata.inf", Saida & SaidaCores)
-        End Sub
-
-    End Class
 
     Public Sub New()
         ' Esta chamada é requerida pelo designer.
@@ -135,8 +38,21 @@ Public Class TelaPrincipal
         LarguraTelaAnterior = Me.Width
         ObjetoDadoUsuario = New DadosUsuario
         ObjetoConfigurarTela = New ConfigurarTela(ObjetoIdioma, ObjetoDadoUsuario.EspacamentoNotas, ObjetoDadoUsuario.DiametroNotas, ObjetoDadoUsuario.Cores)
-        SP = New SubPlayer(TelaPai, Barra, Me, ObjetoDadoUsuario.EspacamentoNotas, ObjetoDadoUsuario.DiametroNotas, ObjetoIdioma, ObjetoDadoUsuario.Cores)
+        SP = New SubPlayer(TelaPai, Barra, Me, ObjetoDadoUsuario.EspacamentoNotas, ObjetoDadoUsuario.DiametroNotas, ObjetoIdioma, ObjetoDadoUsuario.Cores, Cronometro)
         ObjetoConfigurarTela.setSubPlayer(SP)
+        ModoApresentacao = ObjetoDadoUsuario.Apresentacao
+        SP.AtivacaoNota = ObjetoDadoUsuario.Ativacao
+        DestacarEscala = ObjetoDadoUsuario.AtivacaoE
+        If ObjetoDadoUsuario.Grade = False Then
+            ObjetoDadoUsuario.Grade = True
+            GradeVisivel(New Object, New EventArgs)
+        End If
+        If ObjetoDadoUsuario.Acordes = True Then
+            F1Pressionado()
+        End If
+        If ObjetoDadoUsuario.Menu = False Then
+            BarraMenuVisivel(New Object, New EventArgs)
+        End If
         CoordYTabela = 62
         ObjetoIdioma.IdIdioma = 1
         DiretorioArquivo = New String("")
@@ -148,6 +64,7 @@ Public Class TelaPrincipal
         SP.SetVolume(ObjetoDadoUsuario.Volume)
         ControleVolume.Hide()
         PainelVelocidade.Hide()
+        GanhouDestaque = New Point(-1, -1)
         ' Adicione qualquer inicialização após a chamada InitializeComponent().
     End Sub
 
@@ -179,6 +96,51 @@ Public Class TelaPrincipal
         MyBrush.Dispose()
         MyPen.Dispose()
         MyGraphics.Dispose()
+    End Sub
+
+    Public Sub DestacaEscala(ByVal Escala As Integer, ByVal Arg As Boolean)
+        If Arg = True Then
+            If DestacarEscala And Escala >= 0 And Escala < 61 Then
+                Destaque = Escala
+                ListaSemDestaques.Add(Escala)
+            End If
+        End If
+        If DestacarEscala = True Then
+            Timer.Interval = New TimeSpan(0, 0, 0, 0, 1)
+            Timer.Start()
+        End If
+    End Sub
+
+    Public Sub Timer_Tick(ByVal sender As Object, ByVal e As EventArgs) Handles Timer.Tick
+        Timer.Stop()
+        Dim Destaque = -1
+        Dim u = Math.Floor((ListaSemDestaques.Count - 1) / 2)
+        For i = 0 To u
+            Destaque = ListaSemDestaques.First
+            ListaSemDestaques.RemoveAt(0)
+        Next
+        If ListaSemDestaques.Count > 0 Then
+            Timer.Interval = New TimeSpan(0, 0, 0, 0, 1)
+            Timer.Start()
+        End If
+        SP.AlterarEscalaEmFoco(New Point(0, Destaque), 1)
+        Dim R, G, B As Integer
+        For Each i As Integer In ListaDestaques
+            R = Math.Round(Teclas.Controls("Tecla_" & CStr(i + 1)).BackColor.R / 255) * 255
+            G = Math.Round(Teclas.Controls("Tecla_" & CStr(i + 1)).BackColor.G / 255) * 255
+            B = Math.Round(Teclas.Controls("Tecla_" & CStr(i + 1)).BackColor.B / 255) * 255
+            Teclas.Controls("Tecla_" & CStr(i + 1)).BackColor = Color.FromArgb(R, G, B)
+        Next
+        ListaDestaques.Clear()
+        If Destaque >= 0 And Destaque < 61 Then
+            Dim c1 As Color = Teclas.Controls("Tecla_" & CStr(Destaque + 1)).BackColor
+            Dim c2 As Color = Color.Gray
+            R = c1.R * 0.75 + c2.R * 0.25
+            G = c1.G * 0.75 + c2.G * 0.25
+            B = c1.B * 0.75 + c2.B * 0.25
+            Teclas.Controls("Tecla_" & CStr(Destaque + 1)).BackColor = Color.FromArgb(R, G, B)
+            ListaDestaques.Add(Destaque)
+        End If
     End Sub
 
     Public Sub DesativaTecla(ByVal NumeroTecla As Integer)
@@ -282,6 +244,12 @@ Public Class TelaPrincipal
         End If
     End Sub
 
+    Private Sub SetDestacarEscala(sender As Object, e As EventArgs)
+        DestacarEscala = Not DestacarEscala
+        ObjetoDadoUsuario.AtivacaoE = Not ObjetoDadoUsuario.AtivacaoE
+        ObjetoDadoUsuario.Flush()
+    End Sub
+
     Private Sub AtualizaNomeJanela()
         If DiretorioArquivo.Count = 0 Then
             Me.Text = ObjetoIdioma.Entrada(28)
@@ -313,6 +281,10 @@ fimlaço:
             Return
         End If
 
+        Tocar.BackgroundImage = playIcon
+        SP.NovoArquivo()
+        DiretorioArquivo = ""
+        AtualizaNomeJanela()
         Dim FD As New OpenFileDialog()
         FD.Filter = ObjetoIdioma.Entrada(30) & " | *.mld"
         FD.Title = ObjetoIdioma.Entrada(29)
@@ -397,6 +369,7 @@ fimlaço:
         If SolicitacaoFechar() = False Then
             Return
         End If
+        Tocar.BackgroundImage = playIcon
         DiretorioArquivo = ""
         Me.Text = ObjetoIdioma.Entrada(28)
         SP.NovoArquivo()
@@ -520,6 +493,14 @@ fimlaço:
         If ModoEdição.Checked = True Then
             TemAlteracao = True
         End If
+    End Sub
+
+    Private Sub Tecla_MouseEnter(sender As Object, e As EventArgs) Handles Tecla_1.MouseEnter, Tecla_2.MouseEnter, Tecla_3.MouseEnter, Tecla_4.MouseEnter, Tecla_5.MouseEnter, Tecla_6.MouseEnter, Tecla_7.MouseEnter, Tecla_8.MouseEnter, Tecla_9.MouseEnter, Tecla_10.MouseEnter, Tecla_11.MouseEnter, Tecla_12.MouseEnter, Tecla_13.MouseEnter, Tecla_14.MouseEnter, Tecla_15.MouseEnter, Tecla_16.MouseEnter, Tecla_17.MouseEnter, Tecla_18.MouseEnter, Tecla_19.MouseEnter, Tecla_20.MouseEnter, Tecla_21.MouseEnter, Tecla_22.MouseEnter, Tecla_23.MouseEnter, Tecla_24.MouseEnter, Tecla_25.MouseEnter, Tecla_26.MouseEnter, Tecla_27.MouseEnter, Tecla_28.MouseEnter, Tecla_29.MouseEnter, Tecla_30.MouseEnter, Tecla_31.MouseEnter, Tecla_32.MouseEnter, Tecla_33.MouseEnter, Tecla_34.MouseEnter, Tecla_35.MouseEnter, Tecla_36.MouseEnter, Tecla_37.MouseEnter, Tecla_38.MouseEnter, Tecla_39.MouseEnter, Tecla_40.MouseEnter, Tecla_41.MouseEnter, Tecla_42.MouseEnter, Tecla_43.MouseEnter, Tecla_44.MouseEnter, Tecla_45.MouseEnter, Tecla_46.MouseEnter, Tecla_47.MouseEnter, Tecla_48.MouseEnter, Tecla_49.MouseEnter, Tecla_50.MouseEnter, Tecla_51.MouseEnter, Tecla_52.MouseEnter, Tecla_53.MouseEnter, Tecla_54.MouseEnter, Tecla_55.MouseEnter, Tecla_56.MouseEnter, Tecla_57.MouseEnter, Tecla_58.MouseEnter, Tecla_59.MouseEnter, Tecla_60.MouseEnter, Tecla_61.MouseEnter
+        DestacaEscala(Integer.Parse(sender.Name.split("_")(1) - 1), 1)
+    End Sub
+
+    Private Sub Tecla_MouseLeave(sender As Object, e As EventArgs) Handles Tecla_1.MouseLeave, Tecla_2.MouseLeave, Tecla_3.MouseLeave, Tecla_4.MouseLeave, Tecla_5.MouseLeave, Tecla_6.MouseLeave, Tecla_7.MouseLeave, Tecla_8.MouseLeave, Tecla_9.MouseLeave, Tecla_10.MouseLeave, Tecla_11.MouseLeave, Tecla_12.MouseLeave, Tecla_13.MouseLeave, Tecla_14.MouseLeave, Tecla_15.MouseLeave, Tecla_16.MouseLeave, Tecla_17.MouseLeave, Tecla_18.MouseLeave, Tecla_19.MouseLeave, Tecla_20.MouseLeave, Tecla_21.MouseLeave, Tecla_22.MouseLeave, Tecla_23.MouseLeave, Tecla_24.MouseLeave, Tecla_25.MouseLeave, Tecla_26.MouseLeave, Tecla_27.MouseLeave, Tecla_28.MouseLeave, Tecla_29.MouseLeave, Tecla_30.MouseLeave, Tecla_31.MouseLeave, Tecla_32.MouseLeave, Tecla_33.MouseLeave, Tecla_34.MouseLeave, Tecla_35.MouseLeave, Tecla_36.MouseLeave, Tecla_37.MouseLeave, Tecla_38.MouseLeave, Tecla_39.MouseLeave, Tecla_40.MouseLeave, Tecla_41.MouseLeave, Tecla_42.MouseLeave, Tecla_43.MouseLeave, Tecla_44.MouseLeave, Tecla_45.MouseLeave, Tecla_46.MouseLeave, Tecla_47.MouseLeave, Tecla_48.MouseLeave, Tecla_49.MouseLeave, Tecla_50.MouseLeave, Tecla_51.MouseLeave, Tecla_52.MouseLeave, Tecla_53.MouseLeave, Tecla_54.MouseLeave, Tecla_55.MouseLeave, Tecla_56.MouseLeave, Tecla_57.MouseLeave, Tecla_58.MouseLeave, Tecla_59.MouseLeave, Tecla_60.MouseLeave, Tecla_61.MouseLeave
+        DestacaEscala(Integer.Parse(sender.Name.split("_")(1) - 1), 0)
     End Sub
 
     Private Sub TelaPrincipal_KeyUp(sender As Object, e As KeyEventArgs) Handles MyBase.KeyUp
@@ -896,10 +877,15 @@ fimlaço:
 
     Private Sub GradeVisivel(sender As Object, e As EventArgs)
         SP.SetGradeVisivel()
+        ObjetoDadoUsuario.Grade = Not ObjetoDadoUsuario.Grade
+        ObjetoDadoUsuario.Flush()
     End Sub
 
     Private Sub BarraMenuVisivel(sender As Object, e As EventArgs)
         Me.MenuPrincipal.Visible = Not Me.MenuPrincipal.Visible
+        MenuVisivel = Not MenuVisivel
+        ObjetoDadoUsuario.Menu = MenuVisivel
+        ObjetoDadoUsuario.Flush()
         If Me.MenuPrincipal.Visible = True Then
             CoordYTabela = 62
         Else
@@ -912,6 +898,8 @@ fimlaço:
 
     Private Sub SetAtivacaoNota(sender As Object, e As EventArgs)
         SP.SetAtivacaoNota()
+        ObjetoDadoUsuario.Ativacao = SP.AtivacaoNota
+        ObjetoDadoUsuario.Flush()
     End Sub
 
     Private Sub SetIdioma(sender As Object, e As EventArgs)
@@ -923,10 +911,14 @@ fimlaço:
 
     Private Sub SetF1Pressionado(sender As Object, e As EventArgs)
         F1Pressionado()
+        ObjetoDadoUsuario.Acordes = Not ObjetoDadoUsuario.Acordes
+        ObjetoDadoUsuario.Flush()
     End Sub
 
     Private Sub SetModoApresentacao(sender As Object, e As EventArgs)
         ModoApresentacao = Not ModoApresentacao
+        ObjetoDadoUsuario.Apresentacao = Not ObjetoDadoUsuario.Apresentacao
+        ObjetoDadoUsuario.Flush()
         Redimensiona()
     End Sub
 
@@ -1006,6 +998,12 @@ fimlaço:
             itemBM.BackColor = System.Drawing.Color.Gray
         End If
         AddHandler itemBM.Click, AddressOf BarraMenuVisivel
+        Dim itemModoApresentacao = cms.Items.Add("   " & ObjetoIdioma.Entrada(54))
+        If ModoApresentacao = True Then
+            itemModoApresentacao.BackColor = System.Drawing.Color.Gray
+        End If
+        AddHandler itemModoApresentacao.Click, AddressOf SetModoApresentacao
+        cms.Items.Add(New ToolStripSeparator())
         Dim itemGrade = cms.Items.Add("   " & ObjetoIdioma.Entrada(12))
         If SP.GradeVisivel = True Then
             itemGrade.BackColor = System.Drawing.Color.Gray
@@ -1016,16 +1014,16 @@ fimlaço:
             itemAtivacao.BackColor = System.Drawing.Color.Gray
         End If
         AddHandler itemAtivacao.Click, AddressOf SetAtivacaoNota
+        Dim itemDestacarEscala = cms.Items.Add("   " & ObjetoIdioma.Entrada(35))
+        If DestacarEscala = True Then
+            itemDestacarEscala.BackColor = System.Drawing.Color.Gray
+        End If
+        AddHandler itemDestacarEscala.Click, AddressOf SetDestacarEscala
         Dim itemAcordes = cms.Items.Add("   " & ObjetoIdioma.Entrada(33))
         If F1 = True Then
             itemAcordes.BackColor = System.Drawing.Color.Gray
         End If
         AddHandler itemAcordes.Click, AddressOf SetF1Pressionado
-        Dim itemModoApresentacao = cms.Items.Add("   " & ObjetoIdioma.Entrada(54))
-        If ModoApresentacao = True Then
-            itemModoApresentacao.BackColor = System.Drawing.Color.Gray
-        End If
-        AddHandler itemModoApresentacao.Click, AddressOf SetModoApresentacao
         cms.Show(Me, New Point(Exibir.Left, Exibir.Top + Exibir.Height))
     End Sub
 
@@ -1081,12 +1079,12 @@ fimlaço:
         UpDownVelocidade.Value = 2
         UpDownVelocidade.Value = v
         VelocidadePersonalizada.Text = VelocidadeAtual
-        PainelVelocidade.Location = New Point(Controles.Left + 261, Controles.Top - 139)
+        PainelVelocidade.Location = New Point(Controles.Left + 315, Controles.Top - 139)
         PainelVelocidade.Show()
     End Sub
 
     Private Sub Volume_Click(sender As Object, e As EventArgs) Handles Volume.Click
-        ControleVolume.Left = Controles.Left + 38
+        ControleVolume.Left = Controles.Left + 86
         ControleVolume.Top = Controles.Top - 116
         ControleVolume.Show()
     End Sub
@@ -1163,6 +1161,13 @@ fimlaço:
     Private Sub AbrirConfigurarTela(sender As Object, e As EventArgs)
         ObjetoConfigurarTela.mostrar()
         AddHandler ObjetoConfigurarTela.FormClosing, AddressOf F_SalvarDadosUsuario
+    End Sub
+
+    Private Sub MenuPrincipal_Paint(sender As Object, e As PaintEventArgs) Handles MenuPrincipal.Paint
+        If MenuPrincipal.Visible <> MenuVisivel Then
+            MenuVisivel = MenuPrincipal.Visible
+            BarraMenuVisivel(New Object, New EventArgs)
+        End If
     End Sub
 
     Private Sub F_SalvarDadosUsuario(sender As Object, e As EventArgs)

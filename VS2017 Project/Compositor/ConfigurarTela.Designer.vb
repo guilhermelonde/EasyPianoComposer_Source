@@ -33,7 +33,6 @@ Partial Class ConfigurarTela
         Me.Panel1 = New System.Windows.Forms.Panel()
         Me.PadraoLimite = New System.Windows.Forms.Button()
         Me.Separador3 = New System.Windows.Forms.Panel()
-        Me.PadraoCor = New System.Windows.Forms.Button()
         Me.LabelFundo = New System.Windows.Forms.Label()
         Me.LabelNota = New System.Windows.Forms.Label()
         Me.LabelDestacada = New System.Windows.Forms.Label()
@@ -52,6 +51,8 @@ Partial Class ConfigurarTela
         Me.LabelLimites = New System.Windows.Forms.Label()
         Me.Separador1 = New System.Windows.Forms.Panel()
         Me.Panel3 = New System.Windows.Forms.Panel()
+        Me.SelecionaPadrao = New System.Windows.Forms.ComboBox()
+        Me.LabelPadrao = New System.Windows.Forms.Label()
         CType(Me.DiametroNota, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.EspacamentoNotas, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.Separador2.SuspendLayout()
@@ -168,16 +169,6 @@ Partial Class ConfigurarTela
         Me.Separador3.Name = "Separador3"
         Me.Separador3.Size = New System.Drawing.Size(350, 1)
         Me.Separador3.TabIndex = 9
-        '
-        'PadraoCor
-        '
-        Me.PadraoCor.Cursor = System.Windows.Forms.Cursors.Hand
-        Me.PadraoCor.Location = New System.Drawing.Point(289, 194)
-        Me.PadraoCor.Name = "PadraoCor"
-        Me.PadraoCor.Size = New System.Drawing.Size(63, 23)
-        Me.PadraoCor.TabIndex = 10
-        Me.PadraoCor.Text = "Padrão"
-        Me.PadraoCor.UseVisualStyleBackColor = True
         '
         'LabelFundo
         '
@@ -354,11 +345,31 @@ Partial Class ConfigurarTela
         Me.Panel3.Size = New System.Drawing.Size(350, 1)
         Me.Panel3.TabIndex = 9
         '
+        'SelecionaPadrao
+        '
+        Me.SelecionaPadrao.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
+        Me.SelecionaPadrao.FormattingEnabled = True
+        Me.SelecionaPadrao.Location = New System.Drawing.Point(309, 195)
+        Me.SelecionaPadrao.Name = "SelecionaPadrao"
+        Me.SelecionaPadrao.Size = New System.Drawing.Size(42, 21)
+        Me.SelecionaPadrao.TabIndex = 28
+        '
+        'LabelPadrao
+        '
+        Me.LabelPadrao.AutoSize = True
+        Me.LabelPadrao.Location = New System.Drawing.Point(200, 198)
+        Me.LabelPadrao.Name = "LabelPadrao"
+        Me.LabelPadrao.Size = New System.Drawing.Size(44, 13)
+        Me.LabelPadrao.TabIndex = 29
+        Me.LabelPadrao.Text = "Padrão:"
+        '
         'ConfigurarTela
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(364, 292)
+        Me.Controls.Add(Me.LabelPadrao)
+        Me.Controls.Add(Me.SelecionaPadrao)
         Me.Controls.Add(Me.Separador1)
         Me.Controls.Add(Me.LabelLimites)
         Me.Controls.Add(Me.Cor7)
@@ -376,7 +387,6 @@ Partial Class ConfigurarTela
         Me.Controls.Add(Me.LabelDestacada)
         Me.Controls.Add(Me.LabelNota)
         Me.Controls.Add(Me.LabelFundo)
-        Me.Controls.Add(Me.PadraoCor)
         Me.Controls.Add(Me.Separador3)
         Me.Controls.Add(Me.PadraoLimite)
         Me.Controls.Add(Me.Separador2)
@@ -410,7 +420,6 @@ Partial Class ConfigurarTela
     Friend WithEvents Separador2 As Forms.Panel
     Friend WithEvents PadraoLimite As Forms.Button
     Friend WithEvents Separador3 As Forms.Panel
-    Friend WithEvents PadraoCor As Forms.Button
     Friend WithEvents LabelFundo As Forms.Label
     Friend WithEvents LabelNota As Forms.Label
     Friend WithEvents LabelDestacada As Forms.Label
@@ -430,4 +439,6 @@ Partial Class ConfigurarTela
     Friend WithEvents LabelLimites As Forms.Label
     Friend WithEvents Separador1 As Forms.Panel
     Friend WithEvents Panel3 As Forms.Panel
+    Friend WithEvents SelecionaPadrao As Forms.ComboBox
+    Friend WithEvents LabelPadrao As Forms.Label
 End Class

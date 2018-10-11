@@ -1,12 +1,12 @@
 ﻿'--- Idioma ---
 'Autor: Guilherme Pereira Porto Londe
-'Última modificação: 26 de setembro de 2018
+'Última modificação: 11 de outubro de 2018
 
 Imports Microsoft.VisualBasic
 
 Public Class Idioma
     Public Const ContagemIdiomas = 2
-    Private Tabela(55, ContagemIdiomas) As String
+    Private Tabela(56, ContagemIdiomas) As String
     Public IdIdioma As Integer = 1
 
     Public Sub New()
@@ -80,10 +80,10 @@ Public Class Idioma
         Tabela(33, 1) = New String("Chords (F1)")
         Tabela(34, 0) = New String("Painel de notas")
         Tabela(34, 1) = New String("Notes panel")
-        Tabela(35, 0) = New String("Diâmetro da nota")
-        Tabela(35, 1) = New String("Note diameter")
-        Tabela(36, 0) = New String("Espaçamento horizontal")
-        Tabela(36, 1) = New String("Horizontal spacing")
+        Tabela(35, 0) = New String("Destaque de escala")
+        Tabela(35, 1) = New String("Scale highlighting")
+        Tabela(36, 0) = New String("Clássico")
+        Tabela(36, 1) = New String("Classic")
         Tabela(37, 0) = New String("Aplicar")
         Tabela(37, 1) = New String("Apply")
         Tabela(38, 0) = New String("Cancelar")
@@ -120,6 +120,8 @@ Public Class Idioma
         Tabela(53, 1) = New String("Error!")
         Tabela(54, 0) = New String("Modo de apresentação")
         Tabela(54, 1) = New String("Presentation mode")
+        Tabela(55, 0) = New String("Padrão de cor:")
+        Tabela(55, 1) = New String("Color pattern:")
     End Sub
 
     Public Function Entrada(ByVal i As Integer) As String

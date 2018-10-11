@@ -1,6 +1,6 @@
-﻿'--- TelaPrincipal ---
+﻿'--- ConfigurarTela ---
 'Autor: Guilherme Pereira Porto Londe
-'última modificação: 26 de setembro de 2018
+'última modificação: 11 de outubro de 2018
 
 Imports Color = System.Drawing.Color
 
@@ -9,22 +9,19 @@ Public Class ConfigurarTela
     Private ObjetoIdioma As Idioma
     Public EspacamentoNotasDouble As Double
     Public DiametroNotaDouble As Double
-    Public Cores, CoresPadrao As New List(Of Color)
+    Public Cores As New List(Of Color)
     Private SP As SubPlayer
     Private CD As New System.Windows.Forms.ColorDialog
 
     Public Sub New(ByRef NovoObjetoIdioma As Idioma, ByVal NovoEspacamento As Double, ByVal NovoDiametro As Double, ByRef NovoCores As List(Of Color))
         InitializeComponent()
         ObjetoIdioma = NovoObjetoIdioma
-        CoresPadrao.Add(Color.FromArgb(255, 149, 154, 143))
-        CoresPadrao.Add(Color.Beige)
-        CoresPadrao.Add(Color.MediumBlue)
-        CoresPadrao.Add(Color.Red)
-        CoresPadrao.Add(Color.DimGray)
-        CoresPadrao.Add(Color.Gray)
-        CoresPadrao.Add(Color.Black)
         EspacamentoNotasDouble = NovoEspacamento
         DiametroNotaDouble = NovoDiametro
+        SelecionaPadrao.Items.Clear()
+        SelecionaPadrao.Items.Add("1")
+        SelecionaPadrao.Items.Add("2")
+        SelecionaPadrao.Items.Add("")
         For i = 0 To NovoCores.Count - 1
             Cores.Add(NovoCores.Item(i))
         Next
@@ -42,7 +39,7 @@ Public Class ConfigurarTela
         Me.Text = ObjetoIdioma.Entrada(34)
         Aplicar.Text = ObjetoIdioma.Entrada(37)
         Cancelar.Text = ObjetoIdioma.Entrada(38)
-        PadraoCor.Text = ObjetoIdioma.Entrada(39)
+        LabelPadrao.Text = ObjetoIdioma.Entrada(39)
         PadraoLimite.Text = ObjetoIdioma.Entrada(39)
         LabelCores.Text = ObjetoIdioma.Entrada(41)
         LabelLimites.Text = ObjetoIdioma.Entrada(40)
@@ -55,6 +52,7 @@ Public Class ConfigurarTela
         LabelDestacada.Text = ObjetoIdioma.Entrada(48)
         LabelSelecionada.Text = ObjetoIdioma.Entrada(49)
         LabelCursor.Text = ObjetoIdioma.Entrada(50)
+        LabelPadrao.Text = ObjetoIdioma.Entrada(55)
         For i = 0 To Cores.Count - 1
             Me.Controls("Cor" & CStr(i + 1)).BackColor = Cores.Item(i)
         Next
@@ -83,16 +81,6 @@ Public Class ConfigurarTela
         Me.Close()
     End Sub
 
-    Private Sub PadraoCor_Click(sender As Object, e As EventArgs) Handles PadraoCor.Click
-        Cores.Clear()
-        For i = 0 To CoresPadrao.Count - 1
-            Cores.Add(CoresPadrao.Item(i))
-        Next
-        For i = 0 To Cores.Count - 1
-            Me.Controls("Cor" & CStr(i + 1)).BackColor = Cores.Item(i)
-        Next
-    End Sub
-
     Private Sub Me_FormClosing(sender As Object, e As System.Windows.Forms.FormClosingEventArgs) Handles Me.FormClosing
         e.Cancel = True
         Me.Hide()
@@ -109,6 +97,41 @@ Public Class ConfigurarTela
         If CD.ShowDialog <> Windows.Forms.DialogResult.Cancel Then
             Me.Controls(sender.Name).backColor = CD.Color
         End If
+    End Sub
+
+    Private Sub SelecionaPadrao_SelectedIndexChanged(sender As Object, e As EventArgs) Handles SelecionaPadrao.SelectedIndexChanged
+        If SelecionaPadrao.SelectedIndex >= 0 And SelecionaPadrao.SelectedIndex <= 1 Then
+            PadraoCor(SelecionaPadrao.SelectedIndex)
+            For i = 0 To Cores.Count - 1
+                Me.Controls("Cor" & CStr(i + 1)).BackColor = Cores.Item(i)
+            Next
+        End If
+    End Sub
+
+    Private Sub SelecionaPadrao_Click(sender As Object, e As EventArgs) Handles SelecionaPadrao.Click
+        SelecionaPadrao.SelectedIndex = 2
+    End Sub
+
+    Private Sub PadraoCor(ByVal i As Integer)
+        Cores.Clear()
+        Select Case i
+            Case 0
+                Cores.Add(Color.FromArgb(149, 154, 143))
+                Cores.Add(Color.Beige)
+                Cores.Add(Color.MediumBlue)
+                Cores.Add(Color.Red)
+                Cores.Add(Color.DimGray)
+                Cores.Add(Color.Gray)
+                Cores.Add(Color.Black)
+            Case 1
+                Cores.Add(Color.FromArgb(0, 0, 0))
+                Cores.Add(Color.FromArgb(113, 45, 255))
+                Cores.Add(Color.FromArgb(128, 255, 255))
+                Cores.Add(Color.FromArgb(125, 242, 255))
+                Cores.Add(Color.FromArgb(64, 0, 64))
+                Cores.Add(Color.FromArgb(64, 0, 64))
+                Cores.Add(Color.FromArgb(64, 0, 64))
+        End Select
     End Sub
 
 End Class

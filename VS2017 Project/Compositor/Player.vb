@@ -1,6 +1,6 @@
 ﻿'--- Player ---
 'Autores: Guilherme Pereira Porto Londe, Jorge Menezes dos Santos
-'Última modificação: 26 de setembro de 2018
+'Última modificação: 10 de outubro de 2018
 
 Imports System.IO
 Imports System.Collections
@@ -10,9 +10,9 @@ Imports System.Windows.Forms
 
 Public Class Player
 
-    Public CompMaximoMelodia As Integer = 3000
-    'Define o comprimento máximo da melodia. O valor 3000 representa que a melodia
-    'pode durar até 5 minutos na velocidade 1x.
+    Public CompMaximoMelodia As Integer = 9000
+    'Define o comprimento máximo da melodia. O valor 9000 representa que a melodia
+    'pode durar até 15 minutos na velocidade 1x.
 
     Private TN As TocaNota = Nothing
     'Instanciar apenas este objeto do tipo TocaNota
@@ -67,6 +67,9 @@ Public Class Player
     End Sub
 
     Public Sub Inserir(ByVal TempoInicio As Integer, ByVal Escala As Integer)
+        If TempoInicio < 0 Or TempoInicio >= CompMaximoMelodia Then
+            Return
+        End If
         Notas(TempoInicio).Add(Escala)
         If TempoInicio + 1 > MaiorTI Then
             MaiorTI = TempoInicio + 1
@@ -106,53 +109,82 @@ Public Class Player
         TN.SetVolume(V)
     End Sub
 
+    Public Function GetCronometro() As Integer
+        Return Cursor * Intervalo / 100
+    End Function
+
     Public Sub Carregar(ByVal NomeArquivo As String, ByRef Velocidade As Double)
+        Velocidade = 100 / Intervalo
+        NovoArquivo()
+        Dim NotasAux(CompMaximoMelodia + 1) As List(Of Integer)
+        Dim ComprimentoFaixa As Integer = 0
         Try
             Dim Arquivo As New FileStream(NomeArquivo, FileMode.Open)
             Dim Serializador As New BinaryFormatter
-            Notas = DirectCast(Serializador.Deserialize(Arquivo), List(Of Integer)())
+            NotasAux = DirectCast(Serializador.Deserialize(Arquivo), List(Of Integer)())
+            ComprimentoFaixa = NotasAux.Length - 1
             Arquivo.Close()
-            MaiorTI = 1
-            For i = 0 To CompMaximoMelodia - 1
-                If Notas(i).Count > 10 Then
-                    Throw New System.Exception("")
-                End If
-                If Notas(i).Count > 0 Then
-                    Notas(i).Sort()
-                    MaiorTI = i + 1
-                    Dim C() As Integer = {0, 0, 0, 0, 0, 0}
-                    For j = 0 To Notas(i).Count - 1
-                        If j > 0 AndAlso Notas(i).Item(j - 1) = Notas(i).Item(j) Then
-                            Throw New System.Exception("")
-                        End If
-                        If Notas(i).Item(j) < 0 Or Notas(i).Item(j) > 60 Then
-                            Throw New System.Exception("")
-                        End If
-                        C(Math.Floor(Notas(i).Item(j) / 12)) += 1
-                        If C(Math.Floor(Notas(i).Item(j) / 12)) > 5 Then
-                            Throw New System.Exception("")
-                        End If
-                    Next
-                End If
-            Next
-            Velocidade = Math.Max(0.5, Notas(CompMaximoMelodia).Item(0) / 100)
-            Velocidade = Math.Min(Velocidade, 2)
-            If Notas(CompMaximoMelodia).Count <> 1 Then
+            If ComprimentoFaixa > CompMaximoMelodia + 1 Then
                 Throw New System.Exception("")
             End If
-        Catch e As Exception
-            For i = 0 To CompMaximoMelodia
-                Notas(i) = New List(Of Integer)
+            MaiorTI = 1
+            For i = 0 To ComprimentoFaixa - 2
+                If IsNothing(Notas(i)) = False Then
+                    If NotasAux(i).Count > 10 Then
+                        Throw New System.Exception("")
+                    End If
+                    If NotasAux(i).Count > 0 Then
+                        NotasAux(i).Sort()
+                        Dim HouveNotaValida As Boolean = False
+                        Dim C() As Integer = {0, 0, 0, 0, 0, 0}
+                        For j = 0 To NotasAux(i).Count - 1
+                            If j > 0 AndAlso NotasAux(i).Item(j - 1) = NotasAux(i).Item(j) Then
+                                Throw New System.Exception("")
+                            End If
+                            If NotasAux(i).Item(j) < 0 Or NotasAux(i).Item(j) > 60 Then
+                                GoTo pular
+                            End If
+                            HouveNotaValida = True
+                            C(Math.Floor(NotasAux(i).Item(j) / 12)) += 1
+                            If C(Math.Floor(NotasAux(i).Item(j) / 12)) > 5 Then
+                                Throw New System.Exception("")
+                            End If
+pular:
+                        Next
+                        If HouveNotaValida = True Then
+                            MaiorTI = i + 1
+                        End If
+                    End If
+                End If
             Next
+            If IsNothing(NotasAux(ComprimentoFaixa - 1)) = False Then
+                If NotasAux(ComprimentoFaixa - 1).Count = 1 Then
+                    Velocidade = Math.Max(0.5, NotasAux(ComprimentoFaixa - 1).Item(0) / 100)
+                    Velocidade = Math.Min(Velocidade, 2)
+                    SetVelocidade(Velocidade)
+                End If
+            End If
+        Catch e As Exception
+            NovoArquivo()
             Throw e
         End Try
+        For i = 0 To ComprimentoFaixa - 2
+            For Each j As Integer In NotasAux(i)
+                Notas(i).Add(j)
+            Next
+        Next
     End Sub
 
     Public Sub Salvar(ByVal NomeArquivo As String)
         Try
             Dim Arquivo As New FileStream(NomeArquivo, FileMode.Create)
             Dim Serializador As New BinaryFormatter
-            Serializador.Serialize(Arquivo, Notas)
+            Dim NotasAux(MaiorTI + 1) As List(Of Integer)
+            For i = 0 To MaiorTI
+                NotasAux(i) = Notas(i)
+            Next
+            NotasAux(MaiorTI) = Notas(CompMaximoMelodia)
+            Serializador.Serialize(Arquivo, NotasAux)
             Arquivo.Close()
         Catch e As Exception
             Throw e

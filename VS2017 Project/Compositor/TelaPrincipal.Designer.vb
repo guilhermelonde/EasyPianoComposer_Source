@@ -86,6 +86,7 @@ Partial Class TelaPrincipal
         Me.Tecla_52 = New System.Windows.Forms.Button()
         Me.Tecla_50 = New System.Windows.Forms.Button()
         Me.Controles = New System.Windows.Forms.Panel()
+        Me.Cronometro = New System.Windows.Forms.Label()
         Me.Divisor2 = New System.Windows.Forms.PictureBox()
         Me.Volume = New System.Windows.Forms.Button()
         Me.Próximo = New System.Windows.Forms.Button()
@@ -145,10 +146,10 @@ Partial Class TelaPrincipal
         'Tecla_1
         '
         Me.Tecla_1.BackColor = System.Drawing.Color.White
+        Me.Tecla_1.Cursor = System.Windows.Forms.Cursors.Hand
         Me.Tecla_1.FlatAppearance.BorderColor = System.Drawing.Color.Black
         Me.Tecla_1.FlatAppearance.BorderSize = 0
         Me.Tecla_1.FlatAppearance.MouseDownBackColor = System.Drawing.Color.White
-        Me.Tecla_1.FlatAppearance.MouseOverBackColor = System.Drawing.Color.White
         Me.Tecla_1.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.Tecla_1.Location = New System.Drawing.Point(10, 10)
         Me.Tecla_1.Name = "Tecla_1"
@@ -160,10 +161,10 @@ Partial Class TelaPrincipal
         'Tecla_3
         '
         Me.Tecla_3.BackColor = System.Drawing.Color.White
+        Me.Tecla_3.Cursor = System.Windows.Forms.Cursors.Hand
         Me.Tecla_3.FlatAppearance.BorderColor = System.Drawing.Color.Black
         Me.Tecla_3.FlatAppearance.BorderSize = 0
         Me.Tecla_3.FlatAppearance.MouseDownBackColor = System.Drawing.Color.White
-        Me.Tecla_3.FlatAppearance.MouseOverBackColor = System.Drawing.Color.White
         Me.Tecla_3.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.Tecla_3.Location = New System.Drawing.Point(36, 10)
         Me.Tecla_3.Name = "Tecla_3"
@@ -175,10 +176,10 @@ Partial Class TelaPrincipal
         'Tecla_6
         '
         Me.Tecla_6.BackColor = System.Drawing.Color.White
+        Me.Tecla_6.Cursor = System.Windows.Forms.Cursors.Hand
         Me.Tecla_6.FlatAppearance.BorderColor = System.Drawing.Color.Black
         Me.Tecla_6.FlatAppearance.BorderSize = 0
         Me.Tecla_6.FlatAppearance.MouseDownBackColor = System.Drawing.Color.White
-        Me.Tecla_6.FlatAppearance.MouseOverBackColor = System.Drawing.Color.White
         Me.Tecla_6.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.Tecla_6.Location = New System.Drawing.Point(88, 10)
         Me.Tecla_6.Name = "Tecla_6"
@@ -190,10 +191,10 @@ Partial Class TelaPrincipal
         'Tecla_5
         '
         Me.Tecla_5.BackColor = System.Drawing.Color.White
+        Me.Tecla_5.Cursor = System.Windows.Forms.Cursors.Hand
         Me.Tecla_5.FlatAppearance.BorderColor = System.Drawing.Color.Black
         Me.Tecla_5.FlatAppearance.BorderSize = 0
         Me.Tecla_5.FlatAppearance.MouseDownBackColor = System.Drawing.Color.White
-        Me.Tecla_5.FlatAppearance.MouseOverBackColor = System.Drawing.Color.White
         Me.Tecla_5.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.Tecla_5.Location = New System.Drawing.Point(62, 10)
         Me.Tecla_5.Name = "Tecla_5"
@@ -205,10 +206,10 @@ Partial Class TelaPrincipal
         'Tecla_13
         '
         Me.Tecla_13.BackColor = System.Drawing.Color.White
+        Me.Tecla_13.Cursor = System.Windows.Forms.Cursors.Hand
         Me.Tecla_13.FlatAppearance.BorderColor = System.Drawing.Color.Black
         Me.Tecla_13.FlatAppearance.BorderSize = 0
         Me.Tecla_13.FlatAppearance.MouseDownBackColor = System.Drawing.Color.White
-        Me.Tecla_13.FlatAppearance.MouseOverBackColor = System.Drawing.Color.White
         Me.Tecla_13.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.Tecla_13.Location = New System.Drawing.Point(193, 10)
         Me.Tecla_13.Name = "Tecla_13"
@@ -220,10 +221,10 @@ Partial Class TelaPrincipal
         'Tecla_12
         '
         Me.Tecla_12.BackColor = System.Drawing.Color.White
+        Me.Tecla_12.Cursor = System.Windows.Forms.Cursors.Hand
         Me.Tecla_12.FlatAppearance.BorderColor = System.Drawing.Color.Black
         Me.Tecla_12.FlatAppearance.BorderSize = 0
         Me.Tecla_12.FlatAppearance.MouseDownBackColor = System.Drawing.Color.White
-        Me.Tecla_12.FlatAppearance.MouseOverBackColor = System.Drawing.Color.White
         Me.Tecla_12.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.Tecla_12.Location = New System.Drawing.Point(166, 10)
         Me.Tecla_12.Name = "Tecla_12"
@@ -235,10 +236,10 @@ Partial Class TelaPrincipal
         'Tecla_10
         '
         Me.Tecla_10.BackColor = System.Drawing.Color.White
+        Me.Tecla_10.Cursor = System.Windows.Forms.Cursors.Hand
         Me.Tecla_10.FlatAppearance.BorderColor = System.Drawing.Color.Black
         Me.Tecla_10.FlatAppearance.BorderSize = 0
         Me.Tecla_10.FlatAppearance.MouseDownBackColor = System.Drawing.Color.White
-        Me.Tecla_10.FlatAppearance.MouseOverBackColor = System.Drawing.Color.White
         Me.Tecla_10.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.Tecla_10.Location = New System.Drawing.Point(140, 10)
         Me.Tecla_10.Name = "Tecla_10"
@@ -250,10 +251,10 @@ Partial Class TelaPrincipal
         'Tecla_8
         '
         Me.Tecla_8.BackColor = System.Drawing.Color.White
+        Me.Tecla_8.Cursor = System.Windows.Forms.Cursors.Hand
         Me.Tecla_8.FlatAppearance.BorderColor = System.Drawing.Color.Black
         Me.Tecla_8.FlatAppearance.BorderSize = 0
         Me.Tecla_8.FlatAppearance.MouseDownBackColor = System.Drawing.Color.White
-        Me.Tecla_8.FlatAppearance.MouseOverBackColor = System.Drawing.Color.White
         Me.Tecla_8.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.Tecla_8.Location = New System.Drawing.Point(114, 10)
         Me.Tecla_8.Name = "Tecla_8"
@@ -265,10 +266,10 @@ Partial Class TelaPrincipal
         'Tecla_27
         '
         Me.Tecla_27.BackColor = System.Drawing.Color.White
+        Me.Tecla_27.Cursor = System.Windows.Forms.Cursors.Hand
         Me.Tecla_27.FlatAppearance.BorderColor = System.Drawing.Color.Black
         Me.Tecla_27.FlatAppearance.BorderSize = 0
         Me.Tecla_27.FlatAppearance.MouseDownBackColor = System.Drawing.Color.White
-        Me.Tecla_27.FlatAppearance.MouseOverBackColor = System.Drawing.Color.White
         Me.Tecla_27.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.Tecla_27.Location = New System.Drawing.Point(402, 10)
         Me.Tecla_27.Name = "Tecla_27"
@@ -280,10 +281,10 @@ Partial Class TelaPrincipal
         'Tecla_25
         '
         Me.Tecla_25.BackColor = System.Drawing.Color.White
+        Me.Tecla_25.Cursor = System.Windows.Forms.Cursors.Hand
         Me.Tecla_25.FlatAppearance.BorderColor = System.Drawing.Color.Black
         Me.Tecla_25.FlatAppearance.BorderSize = 0
         Me.Tecla_25.FlatAppearance.MouseDownBackColor = System.Drawing.Color.White
-        Me.Tecla_25.FlatAppearance.MouseOverBackColor = System.Drawing.Color.White
         Me.Tecla_25.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.Tecla_25.Location = New System.Drawing.Point(376, 10)
         Me.Tecla_25.Name = "Tecla_25"
@@ -295,10 +296,10 @@ Partial Class TelaPrincipal
         'Tecla_24
         '
         Me.Tecla_24.BackColor = System.Drawing.Color.White
+        Me.Tecla_24.Cursor = System.Windows.Forms.Cursors.Hand
         Me.Tecla_24.FlatAppearance.BorderColor = System.Drawing.Color.Black
         Me.Tecla_24.FlatAppearance.BorderSize = 0
         Me.Tecla_24.FlatAppearance.MouseDownBackColor = System.Drawing.Color.White
-        Me.Tecla_24.FlatAppearance.MouseOverBackColor = System.Drawing.Color.White
         Me.Tecla_24.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.Tecla_24.Location = New System.Drawing.Point(349, 10)
         Me.Tecla_24.Name = "Tecla_24"
@@ -310,10 +311,10 @@ Partial Class TelaPrincipal
         'Tecla_22
         '
         Me.Tecla_22.BackColor = System.Drawing.Color.White
+        Me.Tecla_22.Cursor = System.Windows.Forms.Cursors.Hand
         Me.Tecla_22.FlatAppearance.BorderColor = System.Drawing.Color.Black
         Me.Tecla_22.FlatAppearance.BorderSize = 0
         Me.Tecla_22.FlatAppearance.MouseDownBackColor = System.Drawing.Color.White
-        Me.Tecla_22.FlatAppearance.MouseOverBackColor = System.Drawing.Color.White
         Me.Tecla_22.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.Tecla_22.Location = New System.Drawing.Point(323, 10)
         Me.Tecla_22.Name = "Tecla_22"
@@ -325,10 +326,10 @@ Partial Class TelaPrincipal
         'Tecla_20
         '
         Me.Tecla_20.BackColor = System.Drawing.Color.White
+        Me.Tecla_20.Cursor = System.Windows.Forms.Cursors.Hand
         Me.Tecla_20.FlatAppearance.BorderColor = System.Drawing.Color.Black
         Me.Tecla_20.FlatAppearance.BorderSize = 0
         Me.Tecla_20.FlatAppearance.MouseDownBackColor = System.Drawing.Color.White
-        Me.Tecla_20.FlatAppearance.MouseOverBackColor = System.Drawing.Color.White
         Me.Tecla_20.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.Tecla_20.Location = New System.Drawing.Point(297, 10)
         Me.Tecla_20.Name = "Tecla_20"
@@ -340,10 +341,10 @@ Partial Class TelaPrincipal
         'Tecla_18
         '
         Me.Tecla_18.BackColor = System.Drawing.Color.White
+        Me.Tecla_18.Cursor = System.Windows.Forms.Cursors.Hand
         Me.Tecla_18.FlatAppearance.BorderColor = System.Drawing.Color.Black
         Me.Tecla_18.FlatAppearance.BorderSize = 0
         Me.Tecla_18.FlatAppearance.MouseDownBackColor = System.Drawing.Color.White
-        Me.Tecla_18.FlatAppearance.MouseOverBackColor = System.Drawing.Color.White
         Me.Tecla_18.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.Tecla_18.Location = New System.Drawing.Point(271, 10)
         Me.Tecla_18.Name = "Tecla_18"
@@ -355,10 +356,10 @@ Partial Class TelaPrincipal
         'Tecla_17
         '
         Me.Tecla_17.BackColor = System.Drawing.Color.White
+        Me.Tecla_17.Cursor = System.Windows.Forms.Cursors.Hand
         Me.Tecla_17.FlatAppearance.BorderColor = System.Drawing.Color.Black
         Me.Tecla_17.FlatAppearance.BorderSize = 0
         Me.Tecla_17.FlatAppearance.MouseDownBackColor = System.Drawing.Color.White
-        Me.Tecla_17.FlatAppearance.MouseOverBackColor = System.Drawing.Color.White
         Me.Tecla_17.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.Tecla_17.Location = New System.Drawing.Point(245, 10)
         Me.Tecla_17.Name = "Tecla_17"
@@ -370,10 +371,10 @@ Partial Class TelaPrincipal
         'Tecla_15
         '
         Me.Tecla_15.BackColor = System.Drawing.Color.White
+        Me.Tecla_15.Cursor = System.Windows.Forms.Cursors.Hand
         Me.Tecla_15.FlatAppearance.BorderColor = System.Drawing.Color.Black
         Me.Tecla_15.FlatAppearance.BorderSize = 0
         Me.Tecla_15.FlatAppearance.MouseDownBackColor = System.Drawing.Color.White
-        Me.Tecla_15.FlatAppearance.MouseOverBackColor = System.Drawing.Color.White
         Me.Tecla_15.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.Tecla_15.Location = New System.Drawing.Point(219, 10)
         Me.Tecla_15.Name = "Tecla_15"
@@ -385,10 +386,10 @@ Partial Class TelaPrincipal
         'Tecla_54
         '
         Me.Tecla_54.BackColor = System.Drawing.Color.White
+        Me.Tecla_54.Cursor = System.Windows.Forms.Cursors.Hand
         Me.Tecla_54.FlatAppearance.BorderColor = System.Drawing.Color.Black
         Me.Tecla_54.FlatAppearance.BorderSize = 0
         Me.Tecla_54.FlatAppearance.MouseDownBackColor = System.Drawing.Color.White
-        Me.Tecla_54.FlatAppearance.MouseOverBackColor = System.Drawing.Color.White
         Me.Tecla_54.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.Tecla_54.Location = New System.Drawing.Point(820, 10)
         Me.Tecla_54.Name = "Tecla_54"
@@ -400,10 +401,10 @@ Partial Class TelaPrincipal
         'Tecla_53
         '
         Me.Tecla_53.BackColor = System.Drawing.Color.White
+        Me.Tecla_53.Cursor = System.Windows.Forms.Cursors.Hand
         Me.Tecla_53.FlatAppearance.BorderColor = System.Drawing.Color.Black
         Me.Tecla_53.FlatAppearance.BorderSize = 0
         Me.Tecla_53.FlatAppearance.MouseDownBackColor = System.Drawing.Color.White
-        Me.Tecla_53.FlatAppearance.MouseOverBackColor = System.Drawing.Color.White
         Me.Tecla_53.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.Tecla_53.Location = New System.Drawing.Point(794, 10)
         Me.Tecla_53.Name = "Tecla_53"
@@ -415,10 +416,10 @@ Partial Class TelaPrincipal
         'Tecla_51
         '
         Me.Tecla_51.BackColor = System.Drawing.Color.White
+        Me.Tecla_51.Cursor = System.Windows.Forms.Cursors.Hand
         Me.Tecla_51.FlatAppearance.BorderColor = System.Drawing.Color.Black
         Me.Tecla_51.FlatAppearance.BorderSize = 0
         Me.Tecla_51.FlatAppearance.MouseDownBackColor = System.Drawing.Color.White
-        Me.Tecla_51.FlatAppearance.MouseOverBackColor = System.Drawing.Color.White
         Me.Tecla_51.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.Tecla_51.Location = New System.Drawing.Point(768, 10)
         Me.Tecla_51.Name = "Tecla_51"
@@ -430,10 +431,10 @@ Partial Class TelaPrincipal
         'Tecla_49
         '
         Me.Tecla_49.BackColor = System.Drawing.Color.White
+        Me.Tecla_49.Cursor = System.Windows.Forms.Cursors.Hand
         Me.Tecla_49.FlatAppearance.BorderColor = System.Drawing.Color.Black
         Me.Tecla_49.FlatAppearance.BorderSize = 0
         Me.Tecla_49.FlatAppearance.MouseDownBackColor = System.Drawing.Color.White
-        Me.Tecla_49.FlatAppearance.MouseOverBackColor = System.Drawing.Color.White
         Me.Tecla_49.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.Tecla_49.Location = New System.Drawing.Point(742, 10)
         Me.Tecla_49.Name = "Tecla_49"
@@ -445,10 +446,10 @@ Partial Class TelaPrincipal
         'Tecla_48
         '
         Me.Tecla_48.BackColor = System.Drawing.Color.White
+        Me.Tecla_48.Cursor = System.Windows.Forms.Cursors.Hand
         Me.Tecla_48.FlatAppearance.BorderColor = System.Drawing.Color.Black
         Me.Tecla_48.FlatAppearance.BorderSize = 0
         Me.Tecla_48.FlatAppearance.MouseDownBackColor = System.Drawing.Color.White
-        Me.Tecla_48.FlatAppearance.MouseOverBackColor = System.Drawing.Color.White
         Me.Tecla_48.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.Tecla_48.Location = New System.Drawing.Point(715, 10)
         Me.Tecla_48.Name = "Tecla_48"
@@ -460,10 +461,10 @@ Partial Class TelaPrincipal
         'Tecla_46
         '
         Me.Tecla_46.BackColor = System.Drawing.Color.White
+        Me.Tecla_46.Cursor = System.Windows.Forms.Cursors.Hand
         Me.Tecla_46.FlatAppearance.BorderColor = System.Drawing.Color.Black
         Me.Tecla_46.FlatAppearance.BorderSize = 0
         Me.Tecla_46.FlatAppearance.MouseDownBackColor = System.Drawing.Color.White
-        Me.Tecla_46.FlatAppearance.MouseOverBackColor = System.Drawing.Color.White
         Me.Tecla_46.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.Tecla_46.Location = New System.Drawing.Point(689, 10)
         Me.Tecla_46.Name = "Tecla_46"
@@ -475,10 +476,10 @@ Partial Class TelaPrincipal
         'Tecla_44
         '
         Me.Tecla_44.BackColor = System.Drawing.Color.White
+        Me.Tecla_44.Cursor = System.Windows.Forms.Cursors.Hand
         Me.Tecla_44.FlatAppearance.BorderColor = System.Drawing.Color.Black
         Me.Tecla_44.FlatAppearance.BorderSize = 0
         Me.Tecla_44.FlatAppearance.MouseDownBackColor = System.Drawing.Color.White
-        Me.Tecla_44.FlatAppearance.MouseOverBackColor = System.Drawing.Color.White
         Me.Tecla_44.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.Tecla_44.Location = New System.Drawing.Point(663, 10)
         Me.Tecla_44.Name = "Tecla_44"
@@ -490,10 +491,10 @@ Partial Class TelaPrincipal
         'Tecla_42
         '
         Me.Tecla_42.BackColor = System.Drawing.Color.White
+        Me.Tecla_42.Cursor = System.Windows.Forms.Cursors.Hand
         Me.Tecla_42.FlatAppearance.BorderColor = System.Drawing.Color.Black
         Me.Tecla_42.FlatAppearance.BorderSize = 0
         Me.Tecla_42.FlatAppearance.MouseDownBackColor = System.Drawing.Color.White
-        Me.Tecla_42.FlatAppearance.MouseOverBackColor = System.Drawing.Color.White
         Me.Tecla_42.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.Tecla_42.Location = New System.Drawing.Point(637, 10)
         Me.Tecla_42.Name = "Tecla_42"
@@ -505,10 +506,10 @@ Partial Class TelaPrincipal
         'Tecla_41
         '
         Me.Tecla_41.BackColor = System.Drawing.Color.White
+        Me.Tecla_41.Cursor = System.Windows.Forms.Cursors.Hand
         Me.Tecla_41.FlatAppearance.BorderColor = System.Drawing.Color.Black
         Me.Tecla_41.FlatAppearance.BorderSize = 0
         Me.Tecla_41.FlatAppearance.MouseDownBackColor = System.Drawing.Color.White
-        Me.Tecla_41.FlatAppearance.MouseOverBackColor = System.Drawing.Color.White
         Me.Tecla_41.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.Tecla_41.Location = New System.Drawing.Point(611, 10)
         Me.Tecla_41.Name = "Tecla_41"
@@ -520,10 +521,10 @@ Partial Class TelaPrincipal
         'Tecla_39
         '
         Me.Tecla_39.BackColor = System.Drawing.Color.White
+        Me.Tecla_39.Cursor = System.Windows.Forms.Cursors.Hand
         Me.Tecla_39.FlatAppearance.BorderColor = System.Drawing.Color.Black
         Me.Tecla_39.FlatAppearance.BorderSize = 0
         Me.Tecla_39.FlatAppearance.MouseDownBackColor = System.Drawing.Color.White
-        Me.Tecla_39.FlatAppearance.MouseOverBackColor = System.Drawing.Color.White
         Me.Tecla_39.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.Tecla_39.Location = New System.Drawing.Point(585, 10)
         Me.Tecla_39.Name = "Tecla_39"
@@ -535,10 +536,10 @@ Partial Class TelaPrincipal
         'Tecla_37
         '
         Me.Tecla_37.BackColor = System.Drawing.Color.White
+        Me.Tecla_37.Cursor = System.Windows.Forms.Cursors.Hand
         Me.Tecla_37.FlatAppearance.BorderColor = System.Drawing.Color.Black
         Me.Tecla_37.FlatAppearance.BorderSize = 0
         Me.Tecla_37.FlatAppearance.MouseDownBackColor = System.Drawing.Color.White
-        Me.Tecla_37.FlatAppearance.MouseOverBackColor = System.Drawing.Color.White
         Me.Tecla_37.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.Tecla_37.Location = New System.Drawing.Point(559, 10)
         Me.Tecla_37.Name = "Tecla_37"
@@ -550,10 +551,10 @@ Partial Class TelaPrincipal
         'Tecla_36
         '
         Me.Tecla_36.BackColor = System.Drawing.Color.White
+        Me.Tecla_36.Cursor = System.Windows.Forms.Cursors.Hand
         Me.Tecla_36.FlatAppearance.BorderColor = System.Drawing.Color.Black
         Me.Tecla_36.FlatAppearance.BorderSize = 0
         Me.Tecla_36.FlatAppearance.MouseDownBackColor = System.Drawing.Color.White
-        Me.Tecla_36.FlatAppearance.MouseOverBackColor = System.Drawing.Color.White
         Me.Tecla_36.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.Tecla_36.Location = New System.Drawing.Point(532, 10)
         Me.Tecla_36.Name = "Tecla_36"
@@ -565,10 +566,10 @@ Partial Class TelaPrincipal
         'Tecla_34
         '
         Me.Tecla_34.BackColor = System.Drawing.Color.White
+        Me.Tecla_34.Cursor = System.Windows.Forms.Cursors.Hand
         Me.Tecla_34.FlatAppearance.BorderColor = System.Drawing.Color.Black
         Me.Tecla_34.FlatAppearance.BorderSize = 0
         Me.Tecla_34.FlatAppearance.MouseDownBackColor = System.Drawing.Color.White
-        Me.Tecla_34.FlatAppearance.MouseOverBackColor = System.Drawing.Color.White
         Me.Tecla_34.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.Tecla_34.Location = New System.Drawing.Point(506, 10)
         Me.Tecla_34.Name = "Tecla_34"
@@ -580,10 +581,10 @@ Partial Class TelaPrincipal
         'Tecla_32
         '
         Me.Tecla_32.BackColor = System.Drawing.Color.White
+        Me.Tecla_32.Cursor = System.Windows.Forms.Cursors.Hand
         Me.Tecla_32.FlatAppearance.BorderColor = System.Drawing.Color.Black
         Me.Tecla_32.FlatAppearance.BorderSize = 0
         Me.Tecla_32.FlatAppearance.MouseDownBackColor = System.Drawing.Color.White
-        Me.Tecla_32.FlatAppearance.MouseOverBackColor = System.Drawing.Color.White
         Me.Tecla_32.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.Tecla_32.Location = New System.Drawing.Point(480, 10)
         Me.Tecla_32.Name = "Tecla_32"
@@ -595,10 +596,10 @@ Partial Class TelaPrincipal
         'Tecla_30
         '
         Me.Tecla_30.BackColor = System.Drawing.Color.White
+        Me.Tecla_30.Cursor = System.Windows.Forms.Cursors.Hand
         Me.Tecla_30.FlatAppearance.BorderColor = System.Drawing.Color.Black
         Me.Tecla_30.FlatAppearance.BorderSize = 0
         Me.Tecla_30.FlatAppearance.MouseDownBackColor = System.Drawing.Color.White
-        Me.Tecla_30.FlatAppearance.MouseOverBackColor = System.Drawing.Color.White
         Me.Tecla_30.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.Tecla_30.Location = New System.Drawing.Point(454, 10)
         Me.Tecla_30.Name = "Tecla_30"
@@ -610,10 +611,10 @@ Partial Class TelaPrincipal
         'Tecla_29
         '
         Me.Tecla_29.BackColor = System.Drawing.Color.White
+        Me.Tecla_29.Cursor = System.Windows.Forms.Cursors.Hand
         Me.Tecla_29.FlatAppearance.BorderColor = System.Drawing.Color.Black
         Me.Tecla_29.FlatAppearance.BorderSize = 0
         Me.Tecla_29.FlatAppearance.MouseDownBackColor = System.Drawing.Color.White
-        Me.Tecla_29.FlatAppearance.MouseOverBackColor = System.Drawing.Color.White
         Me.Tecla_29.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.Tecla_29.Location = New System.Drawing.Point(428, 10)
         Me.Tecla_29.Name = "Tecla_29"
@@ -625,10 +626,10 @@ Partial Class TelaPrincipal
         'Tecla_61
         '
         Me.Tecla_61.BackColor = System.Drawing.Color.White
+        Me.Tecla_61.Cursor = System.Windows.Forms.Cursors.Hand
         Me.Tecla_61.FlatAppearance.BorderColor = System.Drawing.Color.Black
         Me.Tecla_61.FlatAppearance.BorderSize = 0
         Me.Tecla_61.FlatAppearance.MouseDownBackColor = System.Drawing.Color.White
-        Me.Tecla_61.FlatAppearance.MouseOverBackColor = System.Drawing.Color.White
         Me.Tecla_61.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.Tecla_61.Location = New System.Drawing.Point(925, 10)
         Me.Tecla_61.Name = "Tecla_61"
@@ -640,10 +641,10 @@ Partial Class TelaPrincipal
         'Tecla_60
         '
         Me.Tecla_60.BackColor = System.Drawing.Color.White
+        Me.Tecla_60.Cursor = System.Windows.Forms.Cursors.Hand
         Me.Tecla_60.FlatAppearance.BorderColor = System.Drawing.Color.Black
         Me.Tecla_60.FlatAppearance.BorderSize = 0
         Me.Tecla_60.FlatAppearance.MouseDownBackColor = System.Drawing.Color.White
-        Me.Tecla_60.FlatAppearance.MouseOverBackColor = System.Drawing.Color.White
         Me.Tecla_60.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.Tecla_60.Location = New System.Drawing.Point(898, 10)
         Me.Tecla_60.Name = "Tecla_60"
@@ -655,10 +656,10 @@ Partial Class TelaPrincipal
         'Tecla_58
         '
         Me.Tecla_58.BackColor = System.Drawing.Color.White
+        Me.Tecla_58.Cursor = System.Windows.Forms.Cursors.Hand
         Me.Tecla_58.FlatAppearance.BorderColor = System.Drawing.Color.Black
         Me.Tecla_58.FlatAppearance.BorderSize = 0
         Me.Tecla_58.FlatAppearance.MouseDownBackColor = System.Drawing.Color.White
-        Me.Tecla_58.FlatAppearance.MouseOverBackColor = System.Drawing.Color.White
         Me.Tecla_58.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.Tecla_58.Location = New System.Drawing.Point(872, 10)
         Me.Tecla_58.Name = "Tecla_58"
@@ -670,10 +671,10 @@ Partial Class TelaPrincipal
         'Tecla_56
         '
         Me.Tecla_56.BackColor = System.Drawing.Color.White
+        Me.Tecla_56.Cursor = System.Windows.Forms.Cursors.Hand
         Me.Tecla_56.FlatAppearance.BorderColor = System.Drawing.Color.Black
         Me.Tecla_56.FlatAppearance.BorderSize = 0
         Me.Tecla_56.FlatAppearance.MouseDownBackColor = System.Drawing.Color.White
-        Me.Tecla_56.FlatAppearance.MouseOverBackColor = System.Drawing.Color.White
         Me.Tecla_56.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.Tecla_56.Location = New System.Drawing.Point(846, 10)
         Me.Tecla_56.Name = "Tecla_56"
@@ -685,10 +686,10 @@ Partial Class TelaPrincipal
         'Tecla_2
         '
         Me.Tecla_2.BackColor = System.Drawing.Color.Black
+        Me.Tecla_2.Cursor = System.Windows.Forms.Cursors.Hand
         Me.Tecla_2.FlatAppearance.BorderColor = System.Drawing.Color.Black
         Me.Tecla_2.FlatAppearance.BorderSize = 0
         Me.Tecla_2.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Black
-        Me.Tecla_2.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Black
         Me.Tecla_2.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.Tecla_2.ForeColor = System.Drawing.SystemColors.GrayText
         Me.Tecla_2.Location = New System.Drawing.Point(28, 10)
@@ -701,10 +702,10 @@ Partial Class TelaPrincipal
         'Tecla_4
         '
         Me.Tecla_4.BackColor = System.Drawing.Color.Black
+        Me.Tecla_4.Cursor = System.Windows.Forms.Cursors.Hand
         Me.Tecla_4.FlatAppearance.BorderColor = System.Drawing.Color.Black
         Me.Tecla_4.FlatAppearance.BorderSize = 0
         Me.Tecla_4.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Black
-        Me.Tecla_4.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Black
         Me.Tecla_4.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.Tecla_4.ForeColor = System.Drawing.SystemColors.GrayText
         Me.Tecla_4.Location = New System.Drawing.Point(54, 10)
@@ -717,10 +718,10 @@ Partial Class TelaPrincipal
         'Tecla_7
         '
         Me.Tecla_7.BackColor = System.Drawing.Color.Black
+        Me.Tecla_7.Cursor = System.Windows.Forms.Cursors.Hand
         Me.Tecla_7.FlatAppearance.BorderColor = System.Drawing.Color.Black
         Me.Tecla_7.FlatAppearance.BorderSize = 0
         Me.Tecla_7.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Black
-        Me.Tecla_7.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Black
         Me.Tecla_7.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.Tecla_7.ForeColor = System.Drawing.SystemColors.GrayText
         Me.Tecla_7.Location = New System.Drawing.Point(106, 10)
@@ -733,10 +734,10 @@ Partial Class TelaPrincipal
         'Tecla_9
         '
         Me.Tecla_9.BackColor = System.Drawing.Color.Black
+        Me.Tecla_9.Cursor = System.Windows.Forms.Cursors.Hand
         Me.Tecla_9.FlatAppearance.BorderColor = System.Drawing.Color.Black
         Me.Tecla_9.FlatAppearance.BorderSize = 0
         Me.Tecla_9.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Black
-        Me.Tecla_9.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Black
         Me.Tecla_9.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.Tecla_9.ForeColor = System.Drawing.SystemColors.GrayText
         Me.Tecla_9.Location = New System.Drawing.Point(132, 10)
@@ -749,10 +750,10 @@ Partial Class TelaPrincipal
         'Tecla_11
         '
         Me.Tecla_11.BackColor = System.Drawing.Color.Black
+        Me.Tecla_11.Cursor = System.Windows.Forms.Cursors.Hand
         Me.Tecla_11.FlatAppearance.BorderColor = System.Drawing.Color.Black
         Me.Tecla_11.FlatAppearance.BorderSize = 0
         Me.Tecla_11.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Black
-        Me.Tecla_11.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Black
         Me.Tecla_11.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.Tecla_11.ForeColor = System.Drawing.SystemColors.GrayText
         Me.Tecla_11.Location = New System.Drawing.Point(158, 10)
@@ -765,10 +766,10 @@ Partial Class TelaPrincipal
         'Tecla_23
         '
         Me.Tecla_23.BackColor = System.Drawing.Color.Black
+        Me.Tecla_23.Cursor = System.Windows.Forms.Cursors.Hand
         Me.Tecla_23.FlatAppearance.BorderColor = System.Drawing.Color.Black
         Me.Tecla_23.FlatAppearance.BorderSize = 0
         Me.Tecla_23.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Black
-        Me.Tecla_23.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Black
         Me.Tecla_23.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.Tecla_23.ForeColor = System.Drawing.SystemColors.GrayText
         Me.Tecla_23.Location = New System.Drawing.Point(341, 10)
@@ -781,10 +782,10 @@ Partial Class TelaPrincipal
         'Tecla_21
         '
         Me.Tecla_21.BackColor = System.Drawing.Color.Black
+        Me.Tecla_21.Cursor = System.Windows.Forms.Cursors.Hand
         Me.Tecla_21.FlatAppearance.BorderColor = System.Drawing.Color.Black
         Me.Tecla_21.FlatAppearance.BorderSize = 0
         Me.Tecla_21.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Black
-        Me.Tecla_21.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Black
         Me.Tecla_21.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.Tecla_21.ForeColor = System.Drawing.SystemColors.GrayText
         Me.Tecla_21.Location = New System.Drawing.Point(315, 10)
@@ -797,10 +798,10 @@ Partial Class TelaPrincipal
         'Tecla_19
         '
         Me.Tecla_19.BackColor = System.Drawing.Color.Black
+        Me.Tecla_19.Cursor = System.Windows.Forms.Cursors.Hand
         Me.Tecla_19.FlatAppearance.BorderColor = System.Drawing.Color.Black
         Me.Tecla_19.FlatAppearance.BorderSize = 0
         Me.Tecla_19.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Black
-        Me.Tecla_19.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Black
         Me.Tecla_19.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.Tecla_19.ForeColor = System.Drawing.SystemColors.GrayText
         Me.Tecla_19.Location = New System.Drawing.Point(289, 10)
@@ -813,10 +814,10 @@ Partial Class TelaPrincipal
         'Tecla_16
         '
         Me.Tecla_16.BackColor = System.Drawing.Color.Black
+        Me.Tecla_16.Cursor = System.Windows.Forms.Cursors.Hand
         Me.Tecla_16.FlatAppearance.BorderColor = System.Drawing.Color.Black
         Me.Tecla_16.FlatAppearance.BorderSize = 0
         Me.Tecla_16.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Black
-        Me.Tecla_16.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Black
         Me.Tecla_16.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.Tecla_16.ForeColor = System.Drawing.SystemColors.GrayText
         Me.Tecla_16.Location = New System.Drawing.Point(237, 10)
@@ -829,10 +830,10 @@ Partial Class TelaPrincipal
         'Tecla_14
         '
         Me.Tecla_14.BackColor = System.Drawing.Color.Black
+        Me.Tecla_14.Cursor = System.Windows.Forms.Cursors.Hand
         Me.Tecla_14.FlatAppearance.BorderColor = System.Drawing.Color.Black
         Me.Tecla_14.FlatAppearance.BorderSize = 0
         Me.Tecla_14.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Black
-        Me.Tecla_14.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Black
         Me.Tecla_14.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.Tecla_14.ForeColor = System.Drawing.SystemColors.GrayText
         Me.Tecla_14.Location = New System.Drawing.Point(211, 10)
@@ -845,10 +846,10 @@ Partial Class TelaPrincipal
         'Tecla_35
         '
         Me.Tecla_35.BackColor = System.Drawing.Color.Black
+        Me.Tecla_35.Cursor = System.Windows.Forms.Cursors.Hand
         Me.Tecla_35.FlatAppearance.BorderColor = System.Drawing.Color.Black
         Me.Tecla_35.FlatAppearance.BorderSize = 0
         Me.Tecla_35.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Black
-        Me.Tecla_35.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Black
         Me.Tecla_35.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.Tecla_35.ForeColor = System.Drawing.SystemColors.GrayText
         Me.Tecla_35.Location = New System.Drawing.Point(524, 10)
@@ -861,10 +862,10 @@ Partial Class TelaPrincipal
         'Tecla_33
         '
         Me.Tecla_33.BackColor = System.Drawing.Color.Black
+        Me.Tecla_33.Cursor = System.Windows.Forms.Cursors.Hand
         Me.Tecla_33.FlatAppearance.BorderColor = System.Drawing.Color.Black
         Me.Tecla_33.FlatAppearance.BorderSize = 0
         Me.Tecla_33.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Black
-        Me.Tecla_33.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Black
         Me.Tecla_33.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.Tecla_33.ForeColor = System.Drawing.SystemColors.GrayText
         Me.Tecla_33.Location = New System.Drawing.Point(498, 10)
@@ -877,10 +878,10 @@ Partial Class TelaPrincipal
         'Tecla_31
         '
         Me.Tecla_31.BackColor = System.Drawing.Color.Black
+        Me.Tecla_31.Cursor = System.Windows.Forms.Cursors.Hand
         Me.Tecla_31.FlatAppearance.BorderColor = System.Drawing.Color.Black
         Me.Tecla_31.FlatAppearance.BorderSize = 0
         Me.Tecla_31.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Black
-        Me.Tecla_31.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Black
         Me.Tecla_31.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.Tecla_31.ForeColor = System.Drawing.SystemColors.GrayText
         Me.Tecla_31.Location = New System.Drawing.Point(472, 10)
@@ -893,10 +894,10 @@ Partial Class TelaPrincipal
         'Tecla_28
         '
         Me.Tecla_28.BackColor = System.Drawing.Color.Black
+        Me.Tecla_28.Cursor = System.Windows.Forms.Cursors.Hand
         Me.Tecla_28.FlatAppearance.BorderColor = System.Drawing.Color.Black
         Me.Tecla_28.FlatAppearance.BorderSize = 0
         Me.Tecla_28.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Black
-        Me.Tecla_28.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Black
         Me.Tecla_28.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.Tecla_28.ForeColor = System.Drawing.SystemColors.GrayText
         Me.Tecla_28.Location = New System.Drawing.Point(420, 10)
@@ -909,10 +910,10 @@ Partial Class TelaPrincipal
         'Tecla_26
         '
         Me.Tecla_26.BackColor = System.Drawing.Color.Black
+        Me.Tecla_26.Cursor = System.Windows.Forms.Cursors.Hand
         Me.Tecla_26.FlatAppearance.BorderColor = System.Drawing.Color.Black
         Me.Tecla_26.FlatAppearance.BorderSize = 0
         Me.Tecla_26.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Black
-        Me.Tecla_26.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Black
         Me.Tecla_26.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.Tecla_26.ForeColor = System.Drawing.SystemColors.GrayText
         Me.Tecla_26.Location = New System.Drawing.Point(394, 10)
@@ -925,10 +926,10 @@ Partial Class TelaPrincipal
         'Tecla_47
         '
         Me.Tecla_47.BackColor = System.Drawing.Color.Black
+        Me.Tecla_47.Cursor = System.Windows.Forms.Cursors.Hand
         Me.Tecla_47.FlatAppearance.BorderColor = System.Drawing.Color.Black
         Me.Tecla_47.FlatAppearance.BorderSize = 0
         Me.Tecla_47.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Black
-        Me.Tecla_47.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Black
         Me.Tecla_47.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.Tecla_47.ForeColor = System.Drawing.SystemColors.GrayText
         Me.Tecla_47.Location = New System.Drawing.Point(707, 10)
@@ -941,10 +942,10 @@ Partial Class TelaPrincipal
         'Tecla_45
         '
         Me.Tecla_45.BackColor = System.Drawing.Color.Black
+        Me.Tecla_45.Cursor = System.Windows.Forms.Cursors.Hand
         Me.Tecla_45.FlatAppearance.BorderColor = System.Drawing.Color.Black
         Me.Tecla_45.FlatAppearance.BorderSize = 0
         Me.Tecla_45.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Black
-        Me.Tecla_45.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Black
         Me.Tecla_45.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.Tecla_45.ForeColor = System.Drawing.SystemColors.GrayText
         Me.Tecla_45.Location = New System.Drawing.Point(681, 10)
@@ -957,10 +958,10 @@ Partial Class TelaPrincipal
         'Tecla_43
         '
         Me.Tecla_43.BackColor = System.Drawing.Color.Black
+        Me.Tecla_43.Cursor = System.Windows.Forms.Cursors.Hand
         Me.Tecla_43.FlatAppearance.BorderColor = System.Drawing.Color.Black
         Me.Tecla_43.FlatAppearance.BorderSize = 0
         Me.Tecla_43.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Black
-        Me.Tecla_43.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Black
         Me.Tecla_43.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.Tecla_43.ForeColor = System.Drawing.SystemColors.GrayText
         Me.Tecla_43.Location = New System.Drawing.Point(655, 10)
@@ -973,10 +974,10 @@ Partial Class TelaPrincipal
         'Tecla_40
         '
         Me.Tecla_40.BackColor = System.Drawing.Color.Black
+        Me.Tecla_40.Cursor = System.Windows.Forms.Cursors.Hand
         Me.Tecla_40.FlatAppearance.BorderColor = System.Drawing.Color.Black
         Me.Tecla_40.FlatAppearance.BorderSize = 0
         Me.Tecla_40.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Black
-        Me.Tecla_40.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Black
         Me.Tecla_40.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.Tecla_40.ForeColor = System.Drawing.SystemColors.GrayText
         Me.Tecla_40.Location = New System.Drawing.Point(603, 10)
@@ -989,10 +990,10 @@ Partial Class TelaPrincipal
         'Tecla_38
         '
         Me.Tecla_38.BackColor = System.Drawing.Color.Black
+        Me.Tecla_38.Cursor = System.Windows.Forms.Cursors.Hand
         Me.Tecla_38.FlatAppearance.BorderColor = System.Drawing.Color.Black
         Me.Tecla_38.FlatAppearance.BorderSize = 0
         Me.Tecla_38.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Black
-        Me.Tecla_38.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Black
         Me.Tecla_38.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.Tecla_38.ForeColor = System.Drawing.SystemColors.GrayText
         Me.Tecla_38.Location = New System.Drawing.Point(577, 10)
@@ -1005,10 +1006,10 @@ Partial Class TelaPrincipal
         'Tecla_59
         '
         Me.Tecla_59.BackColor = System.Drawing.Color.Black
+        Me.Tecla_59.Cursor = System.Windows.Forms.Cursors.Hand
         Me.Tecla_59.FlatAppearance.BorderColor = System.Drawing.Color.Black
         Me.Tecla_59.FlatAppearance.BorderSize = 0
         Me.Tecla_59.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Black
-        Me.Tecla_59.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Black
         Me.Tecla_59.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.Tecla_59.ForeColor = System.Drawing.SystemColors.GrayText
         Me.Tecla_59.Location = New System.Drawing.Point(890, 10)
@@ -1021,10 +1022,10 @@ Partial Class TelaPrincipal
         'Tecla_57
         '
         Me.Tecla_57.BackColor = System.Drawing.Color.Black
+        Me.Tecla_57.Cursor = System.Windows.Forms.Cursors.Hand
         Me.Tecla_57.FlatAppearance.BorderColor = System.Drawing.Color.Black
         Me.Tecla_57.FlatAppearance.BorderSize = 0
         Me.Tecla_57.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Black
-        Me.Tecla_57.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Black
         Me.Tecla_57.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.Tecla_57.ForeColor = System.Drawing.SystemColors.GrayText
         Me.Tecla_57.Location = New System.Drawing.Point(864, 10)
@@ -1037,10 +1038,10 @@ Partial Class TelaPrincipal
         'Tecla_55
         '
         Me.Tecla_55.BackColor = System.Drawing.Color.Black
+        Me.Tecla_55.Cursor = System.Windows.Forms.Cursors.Hand
         Me.Tecla_55.FlatAppearance.BorderColor = System.Drawing.Color.Black
         Me.Tecla_55.FlatAppearance.BorderSize = 0
         Me.Tecla_55.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Black
-        Me.Tecla_55.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Black
         Me.Tecla_55.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.Tecla_55.ForeColor = System.Drawing.SystemColors.GrayText
         Me.Tecla_55.Location = New System.Drawing.Point(838, 10)
@@ -1053,10 +1054,10 @@ Partial Class TelaPrincipal
         'Tecla_52
         '
         Me.Tecla_52.BackColor = System.Drawing.Color.Black
+        Me.Tecla_52.Cursor = System.Windows.Forms.Cursors.Hand
         Me.Tecla_52.FlatAppearance.BorderColor = System.Drawing.Color.Black
         Me.Tecla_52.FlatAppearance.BorderSize = 0
         Me.Tecla_52.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Black
-        Me.Tecla_52.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Black
         Me.Tecla_52.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.Tecla_52.ForeColor = System.Drawing.SystemColors.GrayText
         Me.Tecla_52.Location = New System.Drawing.Point(786, 10)
@@ -1069,10 +1070,10 @@ Partial Class TelaPrincipal
         'Tecla_50
         '
         Me.Tecla_50.BackColor = System.Drawing.Color.Black
+        Me.Tecla_50.Cursor = System.Windows.Forms.Cursors.Hand
         Me.Tecla_50.FlatAppearance.BorderColor = System.Drawing.Color.Black
         Me.Tecla_50.FlatAppearance.BorderSize = 0
         Me.Tecla_50.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Black
-        Me.Tecla_50.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Black
         Me.Tecla_50.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.Tecla_50.ForeColor = System.Drawing.SystemColors.GrayText
         Me.Tecla_50.Location = New System.Drawing.Point(760, 10)
@@ -1084,6 +1085,7 @@ Partial Class TelaPrincipal
         '
         'Controles
         '
+        Me.Controles.Controls.Add(Me.Cronometro)
         Me.Controles.Controls.Add(Me.Divisor2)
         Me.Controles.Controls.Add(Me.Volume)
         Me.Controles.Controls.Add(Me.Próximo)
@@ -1092,15 +1094,24 @@ Partial Class TelaPrincipal
         Me.Controles.Controls.Add(Me.Tocar)
         Me.Controles.Controls.Add(Me.PictureBox5)
         Me.Controles.Controls.Add(Me.Velocidade)
-        Me.Controles.Location = New System.Drawing.Point(319, 378)
+        Me.Controles.Location = New System.Drawing.Point(255, 378)
         Me.Controles.Name = "Controles"
-        Me.Controles.Size = New System.Drawing.Size(365, 42)
+        Me.Controles.Size = New System.Drawing.Size(472, 42)
         Me.Controles.TabIndex = 61
+        '
+        'Cronometro
+        '
+        Me.Cronometro.AutoSize = True
+        Me.Cronometro.Location = New System.Drawing.Point(23, 15)
+        Me.Cronometro.Name = "Cronometro"
+        Me.Cronometro.Size = New System.Drawing.Size(49, 13)
+        Me.Cronometro.TabIndex = 76
+        Me.Cronometro.Text = "00:00:00"
         '
         'Divisor2
         '
         Me.Divisor2.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
-        Me.Divisor2.Location = New System.Drawing.Point(6, 6)
+        Me.Divisor2.Location = New System.Drawing.Point(60, 6)
         Me.Divisor2.Margin = New System.Windows.Forms.Padding(0)
         Me.Divisor2.Name = "Divisor2"
         Me.Divisor2.Size = New System.Drawing.Size(26, 30)
@@ -1118,7 +1129,7 @@ Partial Class TelaPrincipal
         Me.Volume.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.Volume.Font = New System.Drawing.Font("Microsoft Sans Serif", 6.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Volume.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
-        Me.Volume.Location = New System.Drawing.Point(16, 10)
+        Me.Volume.Location = New System.Drawing.Point(70, 10)
         Me.Volume.Name = "Volume"
         Me.Volume.Size = New System.Drawing.Size(68, 23)
         Me.Volume.TabIndex = 73
@@ -1137,7 +1148,7 @@ Partial Class TelaPrincipal
         Me.Próximo.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent
         Me.Próximo.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.Próximo.ForeColor = System.Drawing.Color.MidnightBlue
-        Me.Próximo.Location = New System.Drawing.Point(212, 5)
+        Me.Próximo.Location = New System.Drawing.Point(266, 5)
         Me.Próximo.Name = "Próximo"
         Me.Próximo.Size = New System.Drawing.Size(32, 32)
         Me.Próximo.TabIndex = 4
@@ -1153,7 +1164,7 @@ Partial Class TelaPrincipal
         Me.Anterior.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Transparent
         Me.Anterior.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent
         Me.Anterior.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.Anterior.Location = New System.Drawing.Point(101, 5)
+        Me.Anterior.Location = New System.Drawing.Point(155, 5)
         Me.Anterior.Name = "Anterior"
         Me.Anterior.Size = New System.Drawing.Size(32, 32)
         Me.Anterior.TabIndex = 3
@@ -1169,7 +1180,7 @@ Partial Class TelaPrincipal
         Me.Parar.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Transparent
         Me.Parar.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent
         Me.Parar.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.Parar.Location = New System.Drawing.Point(175, 5)
+        Me.Parar.Location = New System.Drawing.Point(229, 5)
         Me.Parar.Name = "Parar"
         Me.Parar.Size = New System.Drawing.Size(32, 32)
         Me.Parar.TabIndex = 2
@@ -1185,7 +1196,7 @@ Partial Class TelaPrincipal
         Me.Tocar.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Transparent
         Me.Tocar.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent
         Me.Tocar.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.Tocar.Location = New System.Drawing.Point(138, 5)
+        Me.Tocar.Location = New System.Drawing.Point(192, 5)
         Me.Tocar.Name = "Tocar"
         Me.Tocar.Size = New System.Drawing.Size(32, 32)
         Me.Tocar.TabIndex = 0
@@ -1194,7 +1205,7 @@ Partial Class TelaPrincipal
         'PictureBox5
         '
         Me.PictureBox5.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
-        Me.PictureBox5.Location = New System.Drawing.Point(236, 6)
+        Me.PictureBox5.Location = New System.Drawing.Point(290, 6)
         Me.PictureBox5.Margin = New System.Windows.Forms.Padding(0)
         Me.PictureBox5.Name = "PictureBox5"
         Me.PictureBox5.Size = New System.Drawing.Size(26, 30)
@@ -1212,7 +1223,7 @@ Partial Class TelaPrincipal
         Me.Velocidade.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.Velocidade.Font = New System.Drawing.Font("Microsoft Sans Serif", 6.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Velocidade.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
-        Me.Velocidade.Location = New System.Drawing.Point(246, 10)
+        Me.Velocidade.Location = New System.Drawing.Point(300, 10)
         Me.Velocidade.Name = "Velocidade"
         Me.Velocidade.Size = New System.Drawing.Size(68, 23)
         Me.Velocidade.TabIndex = 75
@@ -1715,7 +1726,7 @@ Partial Class TelaPrincipal
         Me.VelocidadePersonalizada.Mask = "0,00 x"
         Me.VelocidadePersonalizada.MinimumSize = New System.Drawing.Size(0, 16)
         Me.VelocidadePersonalizada.Name = "VelocidadePersonalizada"
-        Me.VelocidadePersonalizada.Size = New System.Drawing.Size(30, 16)
+        Me.VelocidadePersonalizada.Size = New System.Drawing.Size(30, 13)
         Me.VelocidadePersonalizada.TabIndex = 79
         Me.VelocidadePersonalizada.TextMaskFormat = System.Windows.Forms.MaskFormat.ExcludePromptAndLiterals
         '
@@ -1756,6 +1767,7 @@ Partial Class TelaPrincipal
         Me.MinimumSize = New System.Drawing.Size(498, 588)
         Me.Name = "TelaPrincipal"
         Me.Controles.ResumeLayout(False)
+        Me.Controles.PerformLayout()
         CType(Me.Divisor2, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.PictureBox5, System.ComponentModel.ISupportInitialize).EndInit()
         Me.Teclas.ResumeLayout(False)
@@ -1877,4 +1889,5 @@ Partial Class TelaPrincipal
     Friend WithEvents PainelVelocidade As Forms.Panel
     Friend WithEvents ListaVelocidades As Forms.ListBox
     Friend WithEvents VelocidadePersonalizada As Forms.MaskedTextBox
+    Friend WithEvents Cronometro As Forms.Label
 End Class

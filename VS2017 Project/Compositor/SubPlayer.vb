@@ -1,6 +1,6 @@
 ﻿'--- SubPlayer ---
 'Autor: Guilherme Pereira Porto Londe
-'Última modificação: 26 de setembro de 2018
+'Última modificação: 11 de outubro de 2018
 
 Imports System.Windows.Forms
 Imports System.Collections
@@ -13,7 +13,7 @@ Public Class SubPlayer
     Public Const MaxAltura = 61
     Public RaioEscala As Double
     Public EspacamentoEscala As Double
-    Private ComprimentoAtual As Integer
+    Public ComprimentoAtual As Integer
     Friend WithEvents Tela As System.Windows.Forms.Label
     Friend WithEvents Barra As System.Windows.Forms.ProgressBar
     Friend WithEvents Ui As TelaPrincipal
@@ -23,14 +23,19 @@ Public Class SubPlayer
     Private NumNotas(MaxComprim) As Integer
     Public Tabela(MaxComprim, MaxAltura) As NotaGrafica
     Private ModoEdicao, ModoCascata As Boolean
+    Private ListaDir As New List(Of Integer)
     Public dX, dY As Integer
     Private difH, difV As Double
     Private margemH, margemV As Integer
     Private UltimaPosicaoMouse As New System.Drawing.Point(-1, -1)
+    Private UltimaEscalaDestacada As New System.Drawing.Point(-1, -1)
     Private UltimaPosicaoX As Integer
+    Private PosicaoMovimentoX As Integer
     Private PrimeiraPosicaoX As Integer
     Private MousePressionado As Boolean
     Private FeitoMovimento As Boolean
+    Private TemMovimento As Integer = 0
+    Private BloquearMovimento As Boolean = 0
     Private BotaoDireito As Boolean
     Public GradeVisivel As Boolean
     Public AtivacaoNota As Boolean
@@ -43,7 +48,14 @@ Public Class SubPlayer
     Private PilhaDesfazer, PilhaRefazer As New Stack(Of NoPilha)
     Private ObjetoIdioma As Idioma
     Private Cores As New List(Of System.Drawing.Color)
-
+    Private WithEvents TimerPassanota As New System.Windows.Threading.DispatcherTimer
+    Private TerminoPassaNota As Integer
+    Private WithEvents TimerMovenotas As New System.Windows.Threading.DispatcherTimer
+    Private WithEvents TimerAguardaFinalizacao As New System.Windows.Threading.DispatcherTimer
+    Private OperacaoTimerAguarda As Integer
+    Private Cronometro As System.Windows.Forms.Label
+    Private TempoInicioColar As Integer
+    Private DiretorioArquivo As String
 
 
     Public Class Nota
@@ -70,6 +82,7 @@ Public Class SubPlayer
     End Class
 
     Public Class NotaGrafica
+        Public OperacaoNaoPropagada As Integer = -1
         Public Visivel As Boolean
         Public Selecionado As Boolean
         Public CorNota, CorSelecionado, CorDestacado As Color
@@ -84,6 +97,7 @@ Public Class SubPlayer
             Visivel = False
             Selecionado = False
             Me.SubPlayerPai = SubPlayerPai
+            NaoPropagado = False
         End Sub
 
         Public Sub SetCoordenadas(ByVal Left As Integer, ByVal Top As Integer, ByVal RaioMax As Double)
@@ -104,17 +118,7 @@ Public Class SubPlayer
             CorDestacado = NovoCorDestacado
         End Sub
 
-        Public Sub SetVisivel(ByVal Arg As Boolean)
-            If SubPlayerPai.Tela.Width <= 0 Then
-                Return
-            End If
-            If Arg = Visivel Then
-                If Visivel = True And Selecionado = True Then
-                    SetSelecionado(False)
-                End If
-                Return
-            End If
-            Selecionado = False
+        Private Sub SetVisivelEfetivo(ByVal Arg As Boolean)
             If Arg = True Then
                 Dim i = Math.Ceiling(X - RaioMax)
                 For Each u As Integer In ListaV
@@ -133,17 +137,24 @@ Public Class SubPlayer
                 Next
             End If
             Visivel = Arg
+            OperacaoNaoPropagada = -1
         End Sub
 
-        Public Sub SetSelecionado(ByVal Arg As Boolean)
+        Public Sub SetVisivel(ByVal Arg As Boolean)
             If SubPlayerPai.Tela.Width <= 0 Then
                 Return
             End If
-            If Arg = Selecionado Or Visivel = False Then
+            If Arg = Visivel Then
+                If Visivel = True And Selecionado = True Then
+                    SetSelecionado(False)
+                End If
                 Return
             End If
+            Selecionado = False
+            SetVisivelEfetivo(Arg)
+        End Sub
 
-            Dim RM_2 As Double = RaioMax * RaioMax
+        Private Sub SetSelecionadoEfetivo(ByVal Arg As Boolean)
             If Arg = True Then
                 Dim i = Math.Ceiling(X - RaioMax)
                 For Each u As Integer In ListaV
@@ -162,6 +173,17 @@ Public Class SubPlayer
                 Next
             End If
             Selecionado = Arg
+            OperacaoNaoPropagada = -1
+        End Sub
+
+        Public Sub SetSelecionado(ByVal Arg As Boolean)
+            If SubPlayerPai.Tela.Width <= 0 Then
+                Return
+            End If
+            If Arg = Selecionado Or Visivel = False Then
+                Return
+            End If
+            SetSelecionadoEfetivo(Arg)
         End Sub
 
         Public Sub SetAtivado()
@@ -175,6 +197,43 @@ Public Class SubPlayer
                 Next j
                 i += 1
             Next
+            OperacaoNaoPropagada = -1
+        End Sub
+
+        Public Sub Propaga()
+            If OperacaoNaoPropagada <> -1 Then
+                Select Case OperacaoNaoPropagada
+                    Case 0
+                        SetSelecionadoEfetivo(False)
+                    Case 1
+                        SetVisivelEfetivo(False)
+                    Case 2
+                        SetSelecionadoEfetivo(True)
+                    Case 3
+                        SetVisivelEfetivo(True)
+                End Select
+                OperacaoNaoPropagada = -1
+                Return
+            End If
+        End Sub
+
+        Public Sub EstadoAnterior()
+            Dim p1 As Color = SubPlayerPai.bm.GetPixel(X, Y - RaioMax)
+            Dim p2 As Color = SubPlayerPai.bm.GetPixel(X, Y + RaioMax)
+            Dim p3 As Color = SubPlayerPai.bm.GetPixel(X - RaioMax, Y)
+            Dim p4 As Color = SubPlayerPai.bm.GetPixel(X + RaioMax, Y)
+            If Selecionado = True Then
+                If p1 <> CorSelecionado Or p2 <> CorSelecionado Or p3 <> CorSelecionado Or p4 <> CorSelecionado Then
+                    Selecionado = False
+                    SetSelecionado(True)
+                End If
+            ElseIf Visivel = True Then
+                If p1 <> CorNota Or p2 <> CorNota Or p3 <> CorNota Or p4 <> CorNota Then
+                    Visivel = False
+                    SetVisivel(True)
+                End If
+            End If
+            OperacaoNaoPropagada = -1
         End Sub
 
         Public Function EstaNaRegiao(ByVal X As Integer,
@@ -433,7 +492,9 @@ Public Class SubPlayer
             Tela.Image = bm
         ElseIf e.Button = Windows.Forms.MouseButtons.Right Then
             ObjetoSelecaoRetangular.FinalizaSelecaoRetangular()
-            FinalizaMovimento()
+            If DeveAguardar(-1) = False Then
+                FinalizaMovimento()
+            End If
             BotaoDireito = True
         End If
     End Sub
@@ -441,19 +502,19 @@ Public Class SubPlayer
     Private Sub FinalizaMovimento()
         MousePressionado = False
         If FeitoMovimento = False Or NotasSelecionadas.Count = 0 Then
+            Tela.Image = CLR
             If RetirarDaSelecao.X <> -1 Then
                 Tabela(RetirarDaSelecao.X, RetirarDaSelecao.Y).SetSelecionado(False)
                 Dim i As Integer = 0
                 For Each item As NotaSelecionada In NotasSelecionadas
                     If item.Escala = RetirarDaSelecao.Y And item.TempoOriginal = RetirarDaSelecao.X Then
                         NotasSelecionadas.RemoveAt(i)
-                        Tela.Image = CLR
-                        Tela.Image = bm
                         Return
                     End If
                     i += 1
                 Next
             End If
+            Tela.Image = bm
             Return
         End If
         FeitoMovimento = False
@@ -522,36 +583,53 @@ fimlaço:
             NotasSelecionadas.Add(P)
         Next
         Ui.TemAlteracao = True
+        AlterarEscalaEmFoco(New System.Drawing.Point(-1, -1), 0)
+        ReparaNotas()
         Tela.Image = bm
+    End Sub
+
+    Private Sub MostrarMenu()
+        Dim cms = New ContextMenuStrip
+        If NotasSelecionadas.Count > 0 Then
+            Dim itemCopiar = cms.Items.Add(ObjetoIdioma.Entrada(7))
+            itemCopiar.Tag = 1
+            AddHandler itemCopiar.Click, AddressOf EscolhaMenu
+            Dim itemCortar = cms.Items.Add(ObjetoIdioma.Entrada(6))
+            itemCortar.Tag = 2
+            AddHandler itemCortar.Click, AddressOf EscolhaMenu
+        End If
+        Dim itemColar = cms.Items.Add(ObjetoIdioma.Entrada(8))
+        itemColar.Tag = 3
+        AddHandler itemColar.Click, AddressOf EscolhaMenu
+        If NotasSelecionadas.Count > 0 Then
+            Dim itemExcluir = cms.Items.Add(ObjetoIdioma.Entrada(9))
+            itemExcluir.Tag = 2
+            AddHandler itemExcluir.Click, AddressOf EscolhaMenu
+        End If
+        cms.Show(Tela, Tela.PointToClient(Windows.Forms.Cursor.Position))
+        UltimaPosicaoX = (Tela.PointToClient(Windows.Forms.Cursor.Position).X - dX)
+        BotaoDireito = False
     End Sub
 
     Private Sub Tela_MouseUp(ByVal sender As System.Object,
                            ByVal e As System.Windows.Forms.MouseEventArgs) Handles Tela.MouseUp
         If BotaoDireito Then
-            Dim cms = New ContextMenuStrip
-            If NotasSelecionadas.Count > 0 Then
-                Dim itemCopiar = cms.Items.Add(ObjetoIdioma.Entrada(7))
-                itemCopiar.Tag = 1
-                AddHandler itemCopiar.Click, AddressOf EscolhaMenu
-                Dim itemCortar = cms.Items.Add(ObjetoIdioma.Entrada(6))
-                itemCortar.Tag = 2
-                AddHandler itemCortar.Click, AddressOf EscolhaMenu
+            If DeveAguardar(4) = True Then
+                Return
             End If
-            Dim itemColar = cms.Items.Add(ObjetoIdioma.Entrada(8))
-            itemColar.Tag = 3
-            AddHandler itemColar.Click, AddressOf EscolhaMenu
-            If NotasSelecionadas.Count > 0 Then
-                Dim itemExcluir = cms.Items.Add(ObjetoIdioma.Entrada(9))
-                itemExcluir.Tag = 2
-                AddHandler itemExcluir.Click, AddressOf EscolhaMenu
-            End If
-            cms.Show(Tela, e.Location)
-            UltimaPosicaoX = (Tela.PointToClient(Windows.Forms.Cursor.Position).X - dX)
-            BotaoDireito = False
+            FinalizaMovimento()
+            MostrarMenu()
         Else
             ObjetoSelecaoRetangular.FinalizaSelecaoRetangular()
-            FinalizaMovimento()
+            If DeveAguardar(-1) = False Then
+                FinalizaMovimento()
+                BloquearMovimento = False
+            End If
         End If
+    End Sub
+
+    Private Sub Tela_MouseLeave(ByVal sender As Object, ByVal e As EventArgs) Handles Tela.MouseLeave
+        AlterarEscalaEmFoco(New System.Drawing.Point(-1, -1), 1)
     End Sub
 
     Private Sub EscolhaMenu(ByVal sender As Object, ByVal e As EventArgs)
@@ -623,56 +701,138 @@ fimlaço:
         Next
     End Sub
 
+    Public Sub AlterarEscalaEmFoco(ByVal EscalaDestacada As System.Drawing.Point, ByVal AtualizaTela As Boolean)
+        EscalaDestacada.Y = 60 - EscalaDestacada.Y
+        If EscalaDestacada.X < 0 Or EscalaDestacada.X >= ComprimentoAtual Or ObjetoPlayer.Tocando = True Then
+            EscalaDestacada.X = -1
+        End If
+        If EscalaDestacada.Y < 0 Or EscalaDestacada.Y >= MaxAltura Or ObjetoPlayer.Tocando = True Then
+            EscalaDestacada.Y = -1
+        End If
+        Dim Alteracao As Boolean = False
+        If UltimaEscalaDestacada.Y <> -1 And UltimaEscalaDestacada.X <> -1 And (EscalaDestacada.Y <> UltimaEscalaDestacada.Y Or EscalaDestacada.X = -1) Then
+            y = margemV + UltimaEscalaDestacada.Y * difV - difV / 3
+            For i = y To y + difV
+                For j = 0 To bm.Width - 1
+                    bm.SetPixel(j, i, Cores.Item(0))
+                Next
+            Next
+            DesenhaGrade(bm, y, y + difV)
+            DesenhaMarcaInicioFim(y, y + difV)
+            Alteracao = True
+        End If
+        If EscalaDestacada.Y <> UltimaEscalaDestacada.Y And EscalaDestacada.Y <> -1 And EscalaDestacada.X <> -1 Then
+            y = margemV + EscalaDestacada.Y * difV - difV / 3
+            Dim R As Integer = Cores.Item(2).R * 0.25 + Cores.Item(0).R * 0.75
+            Dim G As Integer = Cores.Item(2).G * 0.25 + Cores.Item(0).G * 0.75
+            Dim B As Integer = Cores.Item(2).B * 0.25 + Cores.Item(0).B * 0.75
+            Dim NovaCorFundo As Color = Color.FromArgb(R, G, B)
+            For i = y To y + difV Step 2
+                ini = 0
+                If (i - y) Mod 4 = 0 Then
+                    ini = 2
+                End If
+                For j = ini To bm.Width - 1 Step 4
+                    bm.SetPixel(j, i, NovaCorFundo)
+                Next
+            Next
+            DesenhaGrade(bm, y, y + difV)
+            DesenhaMarcaInicioFim(y, y + difV)
+            Alteracao = True
+        End If
+        If Alteracao = True And AtualizaTela = True Then
+            Tela.Image = CLR
+            ReparaNotas()
+            Tela.Image = bm
+        End If
+        UltimaEscalaDestacada = EscalaDestacada
+    End Sub
+
+    Private Sub PropagaAlteracoesNotas()
+        For i = 0 To ComprimentoAtual - 1
+            For j = 0 To MaxAltura - 1
+                Tabela(i, j).Propaga()
+            Next
+        Next
+    End Sub
+
+    Private Sub ReparaNotas()
+        For i = 0 To ComprimentoAtual - 1
+            For j = 0 To MaxAltura - 1
+                Tabela(i, j).EstadoAnterior()
+            Next
+        Next
+    End Sub
+
     Private Sub Tela_MouseMove(ByVal sender As System.Object,
                            ByVal e As System.EventArgs) Handles Tela.MouseMove
         If Windows.Forms.Cursor.Position = UltimaPosicaoMouse Then
             Return
         End If
         If ObjetoSelecaoRetangular.ESelecaoRetangular Then
+            AlterarEscalaEmFoco(New System.Drawing.Point(-1, -1), 1)
             UltimaPosicaoMouse = Windows.Forms.Cursor.Position
             ObjetoSelecaoRetangular.SetSelecaoRetangular(Windows.Forms.Cursor.Position)
             Return
         End If
-        If MousePressionado = True And ObjetoPlayer.Tocando = False Then
+        If MousePressionado = True And ObjetoPlayer.Tocando = False And BloquearMovimento = False Then
+            AlterarEscalaEmFoco(New System.Drawing.Point(-1, -1), 1)
             If NotasSelecionadas.Count = 0 Then
                 Return
             End If
             Dim cX As Integer = Tela.PointToClient(Windows.Forms.Cursor.Position).X - dX
-            Dim pX As Integer = Math.Round((cX - margemH) / difH)
+            PosicaoMovimentoX = Math.Round((cX - margemH) / difH)
             If FeitoMovimento = False Then
                 CompletarSelecaoCascata()
                 ExcluirNotasSelecionadasPlayer()
                 NotasSelecionadas.Sort()
+                UltimaPosicaoX = PosicaoMovimentoX
+                PrimeiraPosicaoX = PosicaoMovimentoX
             End If
-            MoveSelecionados(pX, UltimaPosicaoX)
-            PrimeiraPosicaoX = pX
-            UltimaPosicaoX = pX
             FeitoMovimento = True
+            TemMovimento += 1
+            TimerMovenotas.Interval = New TimeSpan(0, 0, 0, 0, 2)
+            TimerMovenotas.Start()
         Else
-            UltimaPosicaoMouse = Windows.Forms.Cursor.Position
-            Dim R As System.Drawing.Point = DescobreNota(UltimaPosicaoMouse)
-            If R.X <> -1 And R.Y <> -1 Then
-                Tela.Cursor = System.Windows.Forms.Cursors.Hand
-            Else
-                Tela.Cursor = System.Windows.Forms.Cursors.Arrow
+            If BloquearMovimento = False Then
+                Dim x As Integer = Tela.PointToClient(Windows.Forms.Cursor.Position).X - dX
+                Dim y As Integer = Tela.PointToClient(Windows.Forms.Cursor.Position).Y - dY
+                Dim EscalaDestacada As System.Drawing.Point = NotaMaisProxima(New System.Drawing.Point(x, y))
+                If EscalaDestacada.Y >= 0 And EscalaDestacada.Y < MaxAltura Then
+                    Ui.DestacaEscala(EscalaDestacada.Y, 1)
+                End If
+                UltimaPosicaoMouse = Windows.Forms.Cursor.Position
+                Dim R As System.Drawing.Point = DescobreNota(UltimaPosicaoMouse)
+                If R.X <> -1 And R.Y <> -1 Then
+                    Tela.Cursor = System.Windows.Forms.Cursors.Hand
+                Else
+                    Tela.Cursor = System.Windows.Forms.Cursors.Arrow
+                End If
+                Tela.Image = bm
             End If
         End If
     End Sub
 
     Private Sub MoveSelecionados(ByVal nX As Integer, ByVal uX As Integer)
-        Tela.Image = CLR
         Dim dif As Integer = (nX - uX)
+        If dif = 0 Then
+            Return
+        End If
         Dim Var As Integer = Math.Ceiling(ComprimentoAtual / 2)
         For Each it As NotaSelecionada In NotasSelecionadas
             Dim TA As Integer = ObjetoPlayer.Cursor - (Var - it.TempoAtual)
             If TA >= 0 And TA < ObjetoPlayer.CompMaximoMelodia Then
                 If it.EraSelecionado = True Then
                     If it.TempoAtual >= 0 And it.TempoAtual < ComprimentoAtual Then
-                        Tabela(it.TempoAtual, it.Escala).SetSelecionado(False)
+                        Tabela(it.TempoAtual, it.Escala).Selecionado = False
+                        Tabela(it.TempoAtual, it.Escala).Visivel = True
+                        Tabela(it.TempoAtual, it.Escala).OperacaoNaoPropagada = 0
                     End If
                 Else
                     If it.TempoAtual >= 0 And it.TempoAtual < ComprimentoAtual Then
-                        Tabela(it.TempoAtual, it.Escala).SetVisivel(False)
+                        Tabela(it.TempoAtual, it.Escala).Visivel = False
+                        Tabela(it.TempoAtual, it.Escala).Selecionado = False
+                        Tabela(it.TempoAtual, it.Escala).OperacaoNaoPropagada = 1
                     End If
                 End If
             End If
@@ -696,7 +856,9 @@ fimlaço:
                 If iTA >= 0 And iTA < ComprimentoAtual AndAlso Tabela(iTA, it.Escala).Visivel = True Then
                     it.EraSelecionado = True
                     If it.ESelecionado = True Then
-                        Tabela(it.TempoAtual, it.Escala).SetSelecionado(True)
+                        Tabela(it.TempoAtual, it.Escala).Selecionado = True
+                        Tabela(it.TempoAtual, it.Escala).Visivel = True
+                        Tabela(it.TempoAtual, it.Escala).OperacaoNaoPropagada = 2
                     End If
                 Else
                     it.EraSelecionado = False
@@ -720,10 +882,12 @@ fimlaço:
                         Else
                             ListaEscalaPorTempo.Add(it.Escala)
                             If iTA >= 0 And iTA < ComprimentoAtual Then
-                                Tabela(it.TempoAtual, it.Escala).SetVisivel(True)
+                                Tabela(it.TempoAtual, it.Escala).Visivel = True
+                                Tabela(it.TempoAtual, it.Escala).Selecionado = False
+                                Tabela(it.TempoAtual, it.Escala).OperacaoNaoPropagada = 3
                                 If it.ESelecionado = True Then
-                                    Tabela(it.TempoAtual, it.Escala).Selecionado = False
-                                    Tabela(it.TempoAtual, it.Escala).SetSelecionado(True)
+                                    Tabela(it.TempoAtual, it.Escala).Selecionado = True
+                                    Tabela(it.TempoAtual, it.Escala).OperacaoNaoPropagada = 2
                                 End If
                             End If
                             it.FoiInserido = True
@@ -732,6 +896,9 @@ fimlaço:
                 End If
             End If
         Next
+        Tela.Image = CLR
+        PropagaAlteracoesNotas()
+        ReparaNotas()
         Tela.Image = bm
     End Sub
 
@@ -745,35 +912,28 @@ fimlaço:
 
     Private Sub PassaNotas(ByVal dir As Integer)
         ObjetoSelecaoRetangular.FinalizaSelecaoRetangular()
-        For Each it As NotaSelecionada In NotasSelecionadas
-            If it.TempoAtual >= 0 And it.TempoAtual < ComprimentoAtual And it.EraSelecionado = False Then
-                Tabela(it.TempoAtual, it.Escala).SetVisivel(False)
+        ListaDir.Add(dir)
+        If ObjetoPlayer.Tocando = True Then
+            auxiliarAtualizar()
+            If AtivacaoNota = True Then
+                Dim Var As Integer = Math.Ceiling(ComprimentoAtual / 2)
+                For i = 0 To MaxAltura - 1
+                    If Tabela(Var, i).Visivel Then
+                        Tabela(Var, i).SetAtivado()
+                    End If
+                Next
             End If
-            it.TempoAtual -= dir
-            it.TempoOriginal -= dir
-        Next
-        ObjetoPlayer.Cursor += dir
-        Atualizar()
-        PrimeiraPosicaoX -= dir
-        For Each it As NotaSelecionada In NotasSelecionadas
-            If it.TempoAtual >= 0 And it.TempoAtual < ComprimentoAtual And it.EraSelecionado = False Then
-                Tabela(it.TempoAtual, it.Escala).SetVisivel(True)
-                If it.ESelecionado = True Then
-                    Tabela(it.TempoAtual, it.Escala).SetSelecionado(True)
-                End If
+        Else
+            BloquearMovimento = True
+            If TimerPassanota.IsEnabled = False Then
+                TimerPassanota.Interval = New TimeSpan(0, 0, 0, 0, 23)
+                TimerPassanota.Start()
+                TerminoPassaNota = 2
             End If
-        Next
-        If ObjetoPlayer.Tocando = True And AtivacaoNota = True Then
-            Dim Var As Integer = Math.Ceiling(ComprimentoAtual / 2)
-            For i = 0 To MaxAltura - 1
-                If Tabela(Var, i).Visivel Then
-                    Tabela(Var, i).SetAtivado()
-                End If
-            Next
         End If
     End Sub
 
-    Private Sub DesenhaMarcaInicioFim()
+    Private Sub DesenhaMarcaInicioFim(ByVal y1 As Integer, ByVal y2 As Integer)
         Dim X As Integer = Math.Ceiling(ComprimentoAtual / 2) - ObjetoPlayer.Cursor - 1
         If X >= 0 Then
             X = Tabela(X, 0).X
@@ -786,9 +946,12 @@ fimlaço:
             End If
         End If
         If X <> -1 Then
-            Dim aux As Boolean = True
             If Cores.Item(4) <> Cores.Item(0) Then
-                For i = 0 To bm.Height - 1
+                Dim aux As Boolean = True
+                If y1 Mod 6 > 0 And y1 Mod 6 <= 3 Then
+                    aux = False
+                End If
+                For i = y1 To y2
                     If aux Then
                         bm.SetPixel(X, i, Cores.Item(4))
                         bm.SetPixel(X - 1, i, Cores.Item(4))
@@ -837,10 +1000,10 @@ fimlaço:
                 Tabela(i, j).SetVisivel(False)
             Next j
         Next i
-        bm = New System.Drawing.Bitmap(My.Resources.Screen, New System.Drawing.Size(Tela.Width, Tela.Height))
-        For i = 0 To bm.Height - 1
-            For j = 0 To bm.Width - 1
-                bm.SetPixel(j, i, Cores.Item(0))
+        orig = New System.Drawing.Bitmap(My.Resources.Screen, New System.Drawing.Size(Tela.Width, Tela.Height))
+        For i = 0 To orig.Height - 1
+            For j = 0 To orig.Width - 1
+                orig.SetPixel(j, i, Cores.Item(0))
             Next
         Next
         margemH = 0.015 * orig.Width
@@ -856,36 +1019,18 @@ fimlaço:
             it.TempoAtual += d1
             it.TempoOriginal += d1
         Next
-        difH = (bm.Width - (2 * margemH)) / ComprimentoAtual
-        difV = (bm.Height - (2 * margemV)) / MaxAltura
-        Dim CX As Integer = Tela.Width / 2 + 1
-        Dim CY As Integer = Tela.Height / 2 - 2
-        If GradeVisivel Then
-            For i = margemH - 3 To (bm.Width - margemH) + 3
-                For j = 1 To 61 Step 12
-                    bm.SetPixel(i, margemV + Math.Floor(difV * j) - 4, Cores.Item(6))
-                Next
-            Next
-            If Cores.Item(5) <> Cores.Item(0) Then
-                Dim aux As Boolean = False
-                For i = 0 To bm.Height - 1
-                    If aux Then
-                        bm.SetPixel(CX, i, Cores.Item(5))
-                        bm.SetPixel(CX - 1, i, Cores.Item(5))
-                    End If
-                    If i Mod 3 = 0 Then
-                        aux = Not aux
-                    End If
-                Next
-            End If
-        End If
-        orig = New System.Drawing.Bitmap(bm)
+        difH = (orig.Width - (2 * margemH)) / ComprimentoAtual
+        difV = (orig.Height - (2 * margemV)) / MaxAltura
+        DesenhaGrade(orig, 0, orig.Height - 1)
+        bm = New System.Drawing.Bitmap(orig)
         For i = 0 To ComprimentoAtual
             NumNotas(i) = 0
         Next
         Dim dX As Integer = ((Tela.Width - orig.Width) / 2)
         Dim dY As Integer = ((Tela.Height - orig.Height) / 2)
         Dim pH As Integer = Math.Ceiling(ComprimentoAtual / 2) * -1
+        Dim CX As Integer = Tela.Width / 2 + 1
+        Dim CY As Integer = Tela.Height / 2 - 2
         RaioEscala = NovoRaio
         For i = 0 To ComprimentoAtual - 1
             NumNotas(i) = 0
@@ -900,6 +1045,38 @@ fimlaço:
         PassaNotas(0)
     End Sub
 
+    Private Sub DesenhaGrade(ByRef A As System.Drawing.Bitmap, ByVal y1 As Integer, ByVal y2 As Integer)
+        If GradeVisivel Then
+            If Cores.Item(6) <> Cores.Item(0) Then
+                For j = 1 To 61 Step 12
+                    Dim nj As Integer = margemV + Math.Floor(difV * j) - 4
+                    If nj >= y1 And nj <= y2 Then
+                        For i = margemH - 3 To (A.Width - margemH) + 3
+                            A.SetPixel(i, nj, Cores.Item(6))
+                        Next
+                    End If
+                Next
+            End If
+            If Cores.Item(5) <> Cores.Item(0) Then
+                Dim CX As Integer = A.Width / 2 + 1
+                Dim aux As Boolean = False
+                If y1 Mod 6 = 0 Or y1 Mod 6 > 3 Then
+                    aux = True
+                End If
+                For i = y1 To y2
+                    If aux Then
+                        A.SetPixel(CX, i, Cores.Item(5))
+                        A.SetPixel(CX - 1, i, Cores.Item(5))
+                    End If
+                    If i Mod 3 = 0 Then
+                        aux = Not aux
+                    End If
+                Next
+            End If
+        End If
+    End Sub
+
+
     Public Function NotaMaisProxima(ByVal c As System.Drawing.Point) As System.Drawing.Point
         Dim pX As Integer = Math.Round((c.X - margemH) / difH)
         Dim pY As Integer = 60 - Math.Round((c.Y - margemV) / difV)
@@ -907,7 +1084,8 @@ fimlaço:
     End Function
 
     Public Sub New(ByRef TelaPai As System.Windows.Forms.Label, ByRef Barra As System.Windows.Forms.ProgressBar,
-                   ByRef Ui As TelaPrincipal, ByVal NovoEspacamento As Double, ByVal NovoRaio As Double, ByRef NovoIdioma As Idioma, ByRef NovoCores As List(Of Color))
+                   ByRef Ui As TelaPrincipal, ByVal NovoEspacamento As Double, ByVal NovoRaio As Double, ByRef NovoIdioma As Idioma,
+                   ByRef NovoCores As List(Of Color), ByRef NovoCronometro As System.Windows.Forms.Label)
         orig = My.Resources.Screen
         bm = New System.Drawing.Bitmap(My.Resources.Screen)
         Tela = TelaPai
@@ -927,6 +1105,7 @@ fimlaço:
         MarcaInicioFim = -1
         AtualizaTamanhoTabela(NovoEspacamento, NovoRaio, NovoCores)
         ObjetoIdioma = NovoIdioma
+        Cronometro = NovoCronometro
     End Sub
 
     Public Sub ProximoTabela()
@@ -978,11 +1157,78 @@ fimlaço:
         Tela.Image = bm
     End Sub
 
+    Private Sub TimerAguardaFinalizacao_Tick(ByVal sender As Object, ByVal e As EventArgs) Handles TimerAguardaFinalizacao.Tick
+        If ListaDir.Count = 0 And TemMovimento = 0 Then
+            BloquearMovimento = False
+            TimerAguardaFinalizacao.Stop()
+            FinalizaMovimento()
+            Select Case OperacaoTimerAguarda
+                Case 0
+                    Proximo()
+                Case 1
+                    Anterior()
+                Case 2
+                    Tocar()
+                Case 3
+                    Excluir()
+                Case 4
+                    MostrarMenu()
+                Case 5
+                    Colar(TempoInicioColar)
+                Case 6
+                    Desfazer()
+                Case 7
+                    Refazer()
+                Case 8
+                    SelecionaTudo()
+                Case 9
+                    SalvarArquivo(DiretorioArquivo)
+            End Select
+        End If
+    End Sub
+
+    Private Sub TimerMovenotas_Tick(ByVal sender As Object, ByVal e As EventArgs) Handles TimerMovenotas.Tick
+        TimerMovenotas.Stop()
+        TemMovimento = 0
+        MoveSelecionados(PosicaoMovimentoX, UltimaPosicaoX)
+        PrimeiraPosicaoX = PosicaoMovimentoX
+        UltimaPosicaoX = PosicaoMovimentoX
+        FeitoMovimento = True
+    End Sub
+
+    Private Sub TimerPassanota_Tick(ByVal sender As Object, ByVal e As EventArgs) Handles TimerPassanota.Tick
+        If ListaDir.Count = 0 Then
+            If TerminoPassaNota = 0 Then
+                TimerPassanota.Stop()
+                BloquearMovimento = False
+            End If
+            TerminoPassaNota -= 1
+        Else
+            BloquearMovimento = True
+            TerminoPassaNota = 2
+        End If
+        AuxiliarAtualizar()
+    End Sub
+
+    Public Function DeveAguardar(ByVal NovaOperacao As Integer) As Boolean
+        If ListaDir.Count > 0 Or TemMovimento > 0 Then
+            BloquearMovimento = True
+            OperacaoTimerAguarda = NovaOperacao
+            TimerAguardaFinalizacao.Interval = New TimeSpan(0, 0, 0, 0, 59)
+            TimerAguardaFinalizacao.Start()
+            Return True
+        End If
+        Return False
+    End Function
+
     Public Sub Proximo()
         If ObjetoPlayer.Cursor = ObjetoPlayer.CompMaximoMelodia - 1 Then
             Return
         End If
         ObjetoPlayer.Pausar()
+        If ListaDir.Count = 0 And DeveAguardar(0) = True Then
+            Return
+        End If
         PassaNotas(1)
     End Sub
 
@@ -991,7 +1237,40 @@ fimlaço:
             Return
         End If
         ObjetoPlayer.Pausar()
+        If ListaDir.Count = 0 And DeveAguardar(1) = True Then
+            Return
+        End If
         PassaNotas(-1)
+    End Sub
+
+    Private Sub AuxiliarAtualizar()
+        If TemMovimento > 0 Then
+            TimerPassanota.Start()
+            Return
+        End If
+        If ListaDir.Count = 0 Then
+            Return
+        End If
+        Dim dir As Integer = ListaDir.First
+        ListaDir.RemoveAt(0)
+        For Each it As NotaSelecionada In NotasSelecionadas
+            If it.TempoAtual >= 0 And it.TempoAtual < ComprimentoAtual And it.EraSelecionado = False Then
+                Tabela(it.TempoAtual, it.Escala).SetVisivel(False)
+            End If
+            it.TempoAtual -= dir
+            it.TempoOriginal -= dir
+        Next
+        ObjetoPlayer.Cursor += dir
+        Atualizar()
+        For Each it As NotaSelecionada In NotasSelecionadas
+            If it.TempoAtual >= 0 And it.TempoAtual < ComprimentoAtual And it.EraSelecionado = False Then
+                Tabela(it.TempoAtual, it.Escala).SetVisivel(True)
+                If it.ESelecionado = True Then
+                    Tabela(it.TempoAtual, it.Escala).SetSelecionado(True)
+                End If
+            End If
+        Next
+        PrimeiraPosicaoX -= dir
     End Sub
 
     Public Sub Atualizar()
@@ -1017,11 +1296,32 @@ fimlaço:
                 NumNotas(i) += 1
             Next
         Next i
-        DesenhaMarcaInicioFim()
+        If UltimaEscalaDestacada <> New System.Drawing.Point(-1, -1) Then
+            AlterarEscalaEmFoco(New System.Drawing.Point(-1, -1), 0)
+            ReparaNotas()
+        End If
+        DesenhaMarcaInicioFim(0, orig.Height - 1)
+        Dim tac = ObjetoPlayer.GetCronometro()
+        Dim t1 As Integer = Math.Floor(tac / 600)
+        Dim t2 As Integer = Math.Floor((tac Mod 600) / 10)
+        Dim t3 As Integer = (tac Mod 600) Mod 10
+        Dim c1, c2 As String
+        c1 = ""
+        c2 = ""
+        If t1 < 10 Then
+            c1 = "0"
+        End If
+        If t2 < 10 Then
+            c2 = "0"
+        End If
+        Cronometro.Text = c1 & t1 & ":" & c2 & t2 & ":" & t3
         Tela.Image = bm
     End Sub
 
     Public Sub Desfazer()
+        If DeveAguardar(7) = True Then
+            Return
+        End If
         LimpaSelecao()
         If PilhaDesfazer.Count = 0 Then
             Return
@@ -1044,6 +1344,9 @@ fimlaço:
     End Sub
 
     Public Sub Refazer()
+        If DeveAguardar(7) = True Then
+            Return
+        End If
         LimpaSelecao()
         If PilhaRefazer.Count = 0 Then
             Return
@@ -1066,7 +1369,9 @@ fimlaço:
     End Sub
 
     Public Sub SetModoCascata(ByVal ModoCascata As Boolean)
-        FinalizaMovimento()
+        If DeveAguardar(-1) = False Then
+            FinalizaMovimento()
+        End If
         Me.ModoCascata = ModoCascata
     End Sub
 
@@ -1092,7 +1397,11 @@ fimlaço:
     End Sub
 
     Public Sub SelecionaTudo()
-        FinalizaMovimento()
+        If DeveAguardar(8) = True Then
+            Return
+        Else
+            FinalizaMovimento()
+        End If
         NotasSelecionadas.Clear()
         Tela.Image = CLR
         Dim alde As List(Of Integer)
@@ -1138,6 +1447,12 @@ fimlaço:
     End Sub
 
     Public Sub SalvarArquivo(ByVal NomeArquivo As String)
+        If DeveAguardar(9) Then
+            DiretorioArquivo = NomeArquivo
+            Return
+        Else
+            FinalizaMovimento()
+        End If
         Try
             ObjetoPlayer.Salvar(NomeArquivo)
         Catch ex As Exception
@@ -1154,7 +1469,9 @@ fimlaço:
     End Sub
 
     Public Sub Tocar()
-        FinalizaMovimento()
+        If DeveAguardar(2) = True Then
+            Return
+        End If
         ObjetoPlayer.Tocar(ObjetoPlayer.Cursor)
         Tela.Image = CLR
         If AtivacaoNota = True Then
@@ -1169,6 +1486,7 @@ fimlaço:
     End Sub
 
     Public Sub Pausar()
+        BloquearMovimento = False
         ObjetoPlayer.Pausar()
         While ListaDesativaTeclaTI.Count > 0
             Ui.DesativaTecla(ListaDesativaTeclaEscala.Item(0))
@@ -1179,6 +1497,7 @@ fimlaço:
     End Sub
 
     Public Sub Parar()
+        BloquearMovimento = False
         ObjetoPlayer.Pausar()
         PassaNotas(-ObjetoPlayer.Cursor)
         While ListaDesativaTeclaTI.Count > 0
@@ -1246,6 +1565,10 @@ fimlaçocp:
     End Sub
 
     Public Sub Colar(ByVal TempoInicio As Integer)
+        If DeveAguardar(5) = True Then
+            TempoInicioColar = TempoInicio
+            Return
+        End If
         LimpaSelecao()
         Dim ListaEscalaPorTempo As New List(Of Integer)
         Dim TempoUltimaEscala As Integer = -1
@@ -1313,6 +1636,9 @@ fimlaçocp:
     End Sub
 
     Public Sub Excluir()
+        If DeveAguardar(3) = True Then
+            Return
+        End If
         ExcluirNotasSelecionadasPlayer()
         Dim NRemocoes As Integer = 0
         Dim Var As Integer = Math.Ceiling(ComprimentoAtual / 2)
