@@ -102,9 +102,6 @@ Public Class ConfigurarTela
     Private Sub SelecionaPadrao_SelectedIndexChanged(sender As Object, e As EventArgs) Handles SelecionaPadrao.SelectedIndexChanged
         If SelecionaPadrao.SelectedIndex >= 0 And SelecionaPadrao.SelectedIndex <= 1 Then
             PadraoCor(SelecionaPadrao.SelectedIndex)
-            For i = 0 To Cores.Count - 1
-                Me.Controls("Cor" & CStr(i + 1)).BackColor = Cores.Item(i)
-            Next
         End If
     End Sub
 
@@ -113,25 +110,28 @@ Public Class ConfigurarTela
     End Sub
 
     Private Sub PadraoCor(ByVal i As Integer)
-        Cores.Clear()
+        Dim l As New List(Of Color)
         Select Case i
             Case 0
-                Cores.Add(Color.FromArgb(149, 154, 143))
-                Cores.Add(Color.Beige)
-                Cores.Add(Color.MediumBlue)
-                Cores.Add(Color.Red)
-                Cores.Add(Color.DimGray)
-                Cores.Add(Color.Gray)
-                Cores.Add(Color.Black)
+                l.Add(Color.FromArgb(149, 154, 143))
+                l.Add(Color.Beige)
+                l.Add(Color.MediumBlue)
+                l.Add(Color.Red)
+                l.Add(Color.DimGray)
+                l.Add(Color.Gray)
+                l.Add(Color.Black)
             Case 1
-                Cores.Add(Color.FromArgb(0, 0, 0))
-                Cores.Add(Color.FromArgb(113, 45, 255))
-                Cores.Add(Color.FromArgb(128, 255, 255))
-                Cores.Add(Color.FromArgb(125, 242, 255))
-                Cores.Add(Color.FromArgb(64, 0, 64))
-                Cores.Add(Color.FromArgb(64, 0, 64))
-                Cores.Add(Color.FromArgb(64, 0, 64))
+                l.Add(Color.FromArgb(0, 0, 0))
+                l.Add(Color.FromArgb(113, 45, 255))
+                l.Add(Color.FromArgb(128, 255, 255))
+                l.Add(Color.FromArgb(125, 242, 255))
+                l.Add(Color.FromArgb(64, 0, 64))
+                l.Add(Color.FromArgb(64, 0, 64))
+                l.Add(Color.FromArgb(64, 0, 64))
         End Select
+        For i = 0 To Cores.Count - 1
+            Me.Controls("Cor" & CStr(i + 1)).BackColor = l.Item(i)
+        Next
     End Sub
 
 End Class
