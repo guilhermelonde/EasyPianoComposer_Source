@@ -1464,6 +1464,8 @@ fimlaço:
     End Sub
 
     Public Sub NovoArquivo()
+        PilhaDesfazer.Clear()
+        PilhaRefazer.Clear()
         ObjetoPlayer.NovoArquivo()
         Parar()
     End Sub
