@@ -1,6 +1,6 @@
 ﻿'--- SubPlayer ---
 'Autor: Guilherme Pereira Porto Londe
-'Última modificação: 11 de outubro de 2018
+'Última modificação: 13 de outubro de 2018
 
 Imports System.Windows.Forms
 Imports System.Collections
@@ -453,7 +453,6 @@ Public Class SubPlayer
         BotaoDireito = False
         Dim R As System.Drawing.Point = DescobreNota(Windows.Forms.Cursor.Position)
         If e.Button = Windows.Forms.MouseButtons.Left Then
-            Tela.Image = CLR
             Dim aux As Boolean = R.X <> -1
             If aux Then
                 aux = Tabela(R.X, R.Y).Selecionado
@@ -489,6 +488,7 @@ Public Class SubPlayer
             End If
             MousePressionado = True
             FeitoMovimento = False
+            Tela.Image = CLR
             Tela.Image = bm
         ElseIf e.Button = Windows.Forms.MouseButtons.Right Then
             ObjetoSelecaoRetangular.FinalizaSelecaoRetangular()
@@ -509,6 +509,7 @@ Public Class SubPlayer
                 For Each item As NotaSelecionada In NotasSelecionadas
                     If item.Escala = RetirarDaSelecao.Y And item.TempoOriginal = RetirarDaSelecao.X Then
                         NotasSelecionadas.RemoveAt(i)
+                        Tela.Image = bm
                         Return
                     End If
                     i += 1
@@ -907,14 +908,15 @@ fimlaço:
         Dim v As Double = Barra.PointToClient(Windows.Forms.Cursor.Position).X / Barra.Width
         Dim noc As Integer = Math.Round(v * ObjetoPlayer.MaiorTI)
         PassaNotas(noc - ObjetoPlayer.Cursor)
-        Barra.Value = (ObjetoPlayer.Cursor * 100) / ObjetoPlayer.MaiorTI
+        v = (ObjetoPlayer.Cursor * 100) / ObjetoPlayer.MaiorTI
+        Barra.Value = Math.Max(0, Math.Min(v, 100))
     End Sub
 
     Private Sub PassaNotas(ByVal dir As Integer)
         ObjetoSelecaoRetangular.FinalizaSelecaoRetangular()
         ListaDir.Add(dir)
         If ObjetoPlayer.Tocando = True Then
-            auxiliarAtualizar()
+            AuxiliarAtualizar()
             If AtivacaoNota = True Then
                 Dim Var As Integer = Math.Ceiling(ComprimentoAtual / 2)
                 For i = 0 To MaxAltura - 1
@@ -1569,6 +1571,9 @@ fimlaçocp:
     Public Sub Colar(ByVal TempoInicio As Integer)
         If DeveAguardar(5) = True Then
             TempoInicioColar = TempoInicio
+            Return
+        End If
+        If AreaTransferencia.Count = 0 Then
             Return
         End If
         LimpaSelecao()
