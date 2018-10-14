@@ -1254,6 +1254,9 @@ fimlaço:
             Return
         End If
         Dim dir As Integer = ListaDir.First
+        If ObjetoPlayer.Cursor + dir < 0 Or ObjetoPlayer.Cursor + dir >= ObjetoPlayer.CompMaximoMelodia Then
+            Return
+        End If
         ListaDir.RemoveAt(0)
         For Each it As NotaSelecionada In NotasSelecionadas
             If it.TempoAtual >= 0 And it.TempoAtual < ComprimentoAtual And it.EraSelecionado = False Then
@@ -1475,6 +1478,8 @@ fimlaço:
     Public Sub Tocar()
         If DeveAguardar(2) = True Then
             Return
+        Else
+            FinalizaMovimento()
         End If
         ObjetoPlayer.Tocar(ObjetoPlayer.Cursor)
         Tela.Image = CLR
