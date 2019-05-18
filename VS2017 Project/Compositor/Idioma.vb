@@ -1,12 +1,12 @@
 ﻿'--- Idioma ---
 'Autor: Guilherme Pereira Porto Londe
-'Última modificação: 11 de outubro de 2018
+'Última modificação: 17 de maio de 2019
 
 Imports Microsoft.VisualBasic
 
 Public Class Idioma
     Public Const ContagemIdiomas = 2
-    Private Tabela(56, ContagemIdiomas) As String
+    Private Tabela(58, ContagemIdiomas) As String
     Public IdIdioma As Integer = 1
 
     Public Sub New()
@@ -84,8 +84,8 @@ Public Class Idioma
         Tabela(35, 1) = New String("Scale highlighting")
         Tabela(36, 0) = New String("Clássico")
         Tabela(36, 1) = New String("Classic")
-        Tabela(37, 0) = New String("Aplicar")
-        Tabela(37, 1) = New String("Apply")
+        Tabela(37, 0) = New String("Simular")
+        Tabela(37, 1) = New String("Simulate")
         Tabela(38, 0) = New String("Cancelar")
         Tabela(38, 1) = New String("Cancel")
         Tabela(39, 0) = New String("Padrão")
@@ -122,6 +122,10 @@ Public Class Idioma
         Tabela(54, 1) = New String("Presentation mode")
         Tabela(55, 0) = New String("Padrão de cor:")
         Tabela(55, 1) = New String("Color pattern:")
+        Tabela(56, 0) = New String("Mover para próxima oitava")
+        Tabela(56, 1) = New String("Move to the next octave")
+        Tabela(57, 0) = New String("Mover para oitava anterior")
+        Tabela(57, 1) = New String("Move to the previous octave")
     End Sub
 
     Public Function Entrada(ByVal i As Integer) As String

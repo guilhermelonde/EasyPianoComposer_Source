@@ -27,7 +27,7 @@ Partial Class ConfigurarTela
         Me.LabelDiametro = New System.Windows.Forms.Label()
         Me.LabelEspacamento = New System.Windows.Forms.Label()
         Me.Confirmar = New System.Windows.Forms.Button()
-        Me.Aplicar = New System.Windows.Forms.Button()
+        Me.Simular = New System.Windows.Forms.Button()
         Me.Cancelar = New System.Windows.Forms.Button()
         Me.Separador2 = New System.Windows.Forms.Panel()
         Me.Panel1 = New System.Windows.Forms.Panel()
@@ -115,15 +115,15 @@ Partial Class ConfigurarTela
         Me.Confirmar.Text = "Ok"
         Me.Confirmar.UseVisualStyleBackColor = True
         '
-        'Aplicar
+        'Simular
         '
-        Me.Aplicar.Cursor = System.Windows.Forms.Cursors.Hand
-        Me.Aplicar.Location = New System.Drawing.Point(13, 256)
-        Me.Aplicar.Name = "Aplicar"
-        Me.Aplicar.Size = New System.Drawing.Size(75, 23)
-        Me.Aplicar.TabIndex = 5
-        Me.Aplicar.Text = "Aplicar"
-        Me.Aplicar.UseVisualStyleBackColor = True
+        Me.Simular.Cursor = System.Windows.Forms.Cursors.Hand
+        Me.Simular.Location = New System.Drawing.Point(13, 256)
+        Me.Simular.Name = "Simular"
+        Me.Simular.Size = New System.Drawing.Size(75, 23)
+        Me.Simular.TabIndex = 5
+        Me.Simular.Text = "Simular"
+        Me.Simular.UseVisualStyleBackColor = True
         '
         'Cancelar
         '
@@ -391,7 +391,7 @@ Partial Class ConfigurarTela
         Me.Controls.Add(Me.PadraoLimite)
         Me.Controls.Add(Me.Separador2)
         Me.Controls.Add(Me.Cancelar)
-        Me.Controls.Add(Me.Aplicar)
+        Me.Controls.Add(Me.Simular)
         Me.Controls.Add(Me.Confirmar)
         Me.Controls.Add(Me.LabelEspacamento)
         Me.Controls.Add(Me.LabelDiametro)
@@ -415,7 +415,7 @@ Partial Class ConfigurarTela
     Friend WithEvents LabelDiametro As Forms.Label
     Friend WithEvents LabelEspacamento As Forms.Label
     Friend WithEvents Confirmar As Forms.Button
-    Friend WithEvents Aplicar As Forms.Button
+    Friend WithEvents Simular As Forms.Button
     Friend WithEvents Cancelar As Forms.Button
     Friend WithEvents Separador2 As Forms.Panel
     Friend WithEvents PadraoLimite As Forms.Button

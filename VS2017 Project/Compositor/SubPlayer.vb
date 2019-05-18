@@ -1,6 +1,6 @@
 ﻿'--- SubPlayer ---
 'Autor: Guilherme Pereira Porto Londe
-'Última modificação: 13 de outubro de 2018
+'Última modificação: 18 de maio de 2019
 
 Imports System.Windows.Forms
 Imports System.Collections
@@ -604,8 +604,15 @@ fimlaço:
         AddHandler itemColar.Click, AddressOf EscolhaMenu
         If NotasSelecionadas.Count > 0 Then
             Dim itemExcluir = cms.Items.Add(ObjetoIdioma.Entrada(9))
-            itemExcluir.Tag = 2
+            itemExcluir.Tag = 4
             AddHandler itemExcluir.Click, AddressOf EscolhaMenu
+            cms.Items.Add(New ToolStripSeparator())
+            Dim itemProximaOitava = cms.Items.Add(ObjetoIdioma.Entrada(56))
+            itemProximaOitava.Tag = 5
+            AddHandler itemProximaOitava.Click, AddressOf EscolhaMenu
+            Dim itemOitavaAnterior = cms.Items.Add(ObjetoIdioma.Entrada(57))
+            itemOitavaAnterior.Tag = 6
+            AddHandler itemOitavaAnterior.Click, AddressOf EscolhaMenu
         End If
         cms.Show(Tela, Tela.PointToClient(Windows.Forms.Cursor.Position))
         UltimaPosicaoX = (Tela.PointToClient(Windows.Forms.Cursor.Position).X - dX)
@@ -648,6 +655,10 @@ fimlaço:
                 Colar(ObjetoPlayer.Cursor + (UltimaPosicaoX - Var))
             Case 4
                 Excluir()
+            Case 5
+                MoveEntreOitavas(1)
+            Case 6
+                MoveEntreOitavas(-1)
         End Select
     End Sub
 
@@ -898,6 +909,111 @@ fimlaço:
             End If
         Next
         Tela.Image = CLR
+        PropagaAlteracoesNotas()
+        ReparaNotas()
+        Tela.Image = bm
+    End Sub
+
+    Private Sub MoveEntreOitavas(ByVal dir As Integer)
+        Dim Var As Integer = Math.Ceiling(ComprimentoAtual / 2)
+        Dim c As Integer = 0
+        For Each it As NotaSelecionada In NotasSelecionadas
+            Dim TA As Integer = ObjetoPlayer.Cursor - (Var - it.TempoAtual)
+            If TA >= 0 And TA < ObjetoPlayer.CompMaximoMelodia Then
+                If it.TempoAtual >= 0 And it.TempoAtual < ComprimentoAtual Then
+                    Tabela(it.TempoAtual, it.Escala).Visivel = False
+                    Tabela(it.TempoAtual, it.Escala).Selecionado = False
+                    Tabela(it.TempoAtual, it.Escala).OperacaoNaoPropagada = 1
+                End If
+            End If
+            Dim NP2 As New NoPilha
+            NP2.Escala = it.Escala
+            NP2.TempoInicio = TA
+            NP2.Nseguintes = 1
+            NP2.ParaInserir = True
+            PilhaDesfazer.Push(NP2)
+            c += 1
+        Next
+        ExcluirNotasSelecionadasPlayer()
+        Dim ListaEscalaPorTempo As New List(Of Integer)
+        Dim ListaTemp As New List(Of NotaSelecionada)
+        Dim TempoUltimaEscala As Integer = -1
+        For Each it As NotaSelecionada In NotasSelecionadas
+            Dim TA As Integer = ObjetoPlayer.Cursor - (Var - it.TempoAtual)
+            it.FoiInserido = False
+            If TA <> TempoUltimaEscala Then
+                ListaEscalaPorTempo.Clear()
+                Dim temp As List(Of Integer) = ObjetoPlayer.PegaNotas(TA)
+                For Each it2 As Integer In temp
+                    ListaEscalaPorTempo.Add(it2)
+                Next
+                TempoUltimaEscala = TA
+            End If
+            Dim iTA As Integer = it.TempoAtual
+            Dim iES As Integer = it.Escala + dir * 12
+            it.Escala = iES
+            If iES >= 0 And iES <= 60 Then
+                If iTA >= 0 And iTA < ComprimentoAtual AndAlso Tabela(iTA, iES).Visivel = True Then
+                    Tabela(it.TempoAtual, iES).Selecionado = False
+                    Tabela(it.TempoAtual, iES).Visivel = True
+                    Tabela(it.TempoAtual, iES).OperacaoNaoPropagada = 0
+                Else
+                    it.EraSelecionado = False
+                    Dim MesmaOitava As Integer = 0
+                    Dim inf As Integer = Math.Floor(iES / 12) * 12
+                    Dim sup As Integer = inf + 11
+                    For Each item As Integer In ListaEscalaPorTempo
+                        If item >= inf And item <= sup Then
+                            MesmaOitava += 1
+                            If item = iES Then
+                                MesmaOitava = 5
+                                it.EraSelecionado = True
+                            End If
+                        End If
+                    Next
+                    If MesmaOitava >= 5 Then
+                        Continue For
+                    Else
+                        ListaEscalaPorTempo.Add(iES)
+                        it.FoiInserido = True
+                        it.TempoOriginal = it.TempoAtual
+                        ListaTemp.Add(it)
+                    End If
+                End If
+            End If
+        Next
+        PrimeiraPosicaoX = UltimaPosicaoX
+        InserirNotasSelecionadasPlayer(ListaTemp)
+        Atualizar()
+        Tela.Image = CLR
+        NotasSelecionadas.Clear()
+        For Each it As NotaSelecionada In ListaTemp
+            Dim P As New NotaSelecionada
+            P.Escala = it.Escala
+            P.TempoOriginal = it.TempoOriginal
+            P.TempoAtual = it.TempoAtual
+            P.EraSelecionado = False
+            P.ESelecionado = True
+            P.FoiInserido = it.FoiInserido
+            NotasSelecionadas.Add(P)
+            If it.TempoAtual >= 0 And it.TempoAtual < ComprimentoAtual Then
+                Tabela(it.TempoAtual, it.Escala).Visivel = True
+                Tabela(it.TempoAtual, it.Escala).Selecionado = True
+                Tabela(it.TempoAtual, it.Escala).OperacaoNaoPropagada = 2
+            End If
+            Dim TA As Integer = ObjetoPlayer.Cursor - (Var - it.TempoAtual)
+            Dim NP2 As New NoPilha
+            NP2.Escala = it.Escala
+            NP2.TempoInicio = TA
+            NP2.Nseguintes = 1
+            NP2.ParaInserir = False
+            PilhaDesfazer.Push(NP2)
+            c += 1
+        Next
+        PilhaDesfazer.Peek.Nseguintes = c
+        PilhaRefazer.Clear()
+        Ui.TemAlteracao = True
+        AlterarEscalaEmFoco(New System.Drawing.Point(-1, -1), 0)
         PropagaAlteracoesNotas()
         ReparaNotas()
         Tela.Image = bm
@@ -1254,10 +1370,14 @@ fimlaço:
             Return
         End If
         Dim dir As Integer = ListaDir.First
+        Dim itensRemover = Math.Max(1, Int(ListaDir.Count / 2))
+        While itensRemover > 0
+            ListaDir.RemoveAt(0)
+            itensRemover = itensRemover - 1
+        End While
         If ObjetoPlayer.Cursor + dir < 0 Or ObjetoPlayer.Cursor + dir >= ObjetoPlayer.CompMaximoMelodia Then
             Return
         End If
-        ListaDir.RemoveAt(0)
         For Each it As NotaSelecionada In NotasSelecionadas
             If it.TempoAtual >= 0 And it.TempoAtual < ComprimentoAtual And it.EraSelecionado = False Then
                 Tabela(it.TempoAtual, it.Escala).SetVisivel(False)

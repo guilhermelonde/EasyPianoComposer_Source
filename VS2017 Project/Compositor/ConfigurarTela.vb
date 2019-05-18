@@ -1,6 +1,6 @@
 ﻿'--- ConfigurarTela ---
 'Autor: Guilherme Pereira Porto Londe
-'última modificação: 11 de outubro de 2018
+'última modificação: 18 de maio de 2019
 
 Imports Color = System.Drawing.Color
 
@@ -8,23 +8,33 @@ Public Class ConfigurarTela
 
     Private ObjetoIdioma As Idioma
     Public EspacamentoNotasDouble As Double
+    Public EspacamentoNotasDoubleBackup As Double
     Public DiametroNotaDouble As Double
+    Public DiametroNotaDoubleBackup As Double
     Public Cores As New List(Of Color)
+    Public CoresBackup As New List(Of Color)
+    Private Const NumTemas = 5
     Private SP As SubPlayer
     Private CD As New System.Windows.Forms.ColorDialog
+    Private houveSimulacao
 
     Public Sub New(ByRef NovoObjetoIdioma As Idioma, ByVal NovoEspacamento As Double, ByVal NovoDiametro As Double, ByRef NovoCores As List(Of Color))
         InitializeComponent()
         ObjetoIdioma = NovoObjetoIdioma
         EspacamentoNotasDouble = NovoEspacamento
+        EspacamentoNotasDoubleBackup = NovoEspacamento
         DiametroNotaDouble = NovoDiametro
+        DiametroNotaDoubleBackup = NovoDiametro
         SelecionaPadrao.Items.Clear()
-        SelecionaPadrao.Items.Add("1")
-        SelecionaPadrao.Items.Add("2")
+        For i = 1 To NumTemas
+            SelecionaPadrao.Items.Add(i.ToString())
+        Next
         SelecionaPadrao.Items.Add("")
         For i = 0 To NovoCores.Count - 1
             Cores.Add(NovoCores.Item(i))
+            CoresBackup.Add(NovoCores.Item(i))
         Next
+        houveSimulacao = False
     End Sub
 
     Public Sub setSubPlayer(ByRef novoSubPlayer As SubPlayer)
@@ -37,7 +47,7 @@ Public Class ConfigurarTela
         LabelDiametro.Text = ObjetoIdioma.Entrada(35)
         LabelEspacamento.Text = ObjetoIdioma.Entrada(36)
         Me.Text = ObjetoIdioma.Entrada(34)
-        Aplicar.Text = ObjetoIdioma.Entrada(37)
+        Simular.Text = ObjetoIdioma.Entrada(37)
         Cancelar.Text = ObjetoIdioma.Entrada(38)
         LabelPadrao.Text = ObjetoIdioma.Entrada(39)
         PadraoLimite.Text = ObjetoIdioma.Entrada(39)
@@ -60,7 +70,14 @@ Public Class ConfigurarTela
     End Sub
 
     Private Sub Confirmar_Click(sender As Object, e As EventArgs) Handles Confirmar.Click
-        Aplicar.PerformClick()
+        Simular.PerformClick()
+        houveSimulacao = False
+        CoresBackup.Clear()
+        For i = 0 To Cores.Count - 1
+            CoresBackup.Add(Cores.Item(i))
+        Next
+        DiametroNotaDoubleBackup = DiametroNotaDouble
+        EspacamentoNotasDoubleBackup = EspacamentoNotasDouble
         Me.Close()
     End Sub
 
@@ -68,16 +85,27 @@ Public Class ConfigurarTela
         SP.AtualizaTamanhoTabela(EspacamentoNotasDouble, DiametroNotaDouble / 2, Cores)
     End Sub
 
-    Private Sub Aplicar_Click(sender As Object, e As EventArgs) Handles Aplicar.Click
+    Private Sub Simular_Click(sender As Object, e As EventArgs) Handles Simular.Click
         EspacamentoNotasDouble = EspacamentoNotas.Value
         DiametroNotaDouble = DiametroNota.Value
         For i = 0 To Cores.Count - 1
             Cores.Item(i) = Me.Controls("Cor" & CStr(i + 1)).BackColor
         Next
+        houveSimulacao = True
         AtualizarTela()
     End Sub
 
     Private Sub Cancelar_Click(sender As Object, e As EventArgs) Handles Cancelar.Click
+        If (houveSimulacao) Then
+            Cores.Clear()
+            For i = 0 To CoresBackup.Count - 1
+                Cores.Add(CoresBackup.Item(i))
+            Next
+            EspacamentoNotasDouble = EspacamentoNotasDoubleBackup
+            DiametroNotaDouble = DiametroNotaDoubleBackup
+            SP.AtualizaTamanhoTabela(EspacamentoNotasDouble, DiametroNotaDouble / 2, Cores)
+            houveSimulacao = False
+        End If
         Me.Close()
     End Sub
 
@@ -100,13 +128,13 @@ Public Class ConfigurarTela
     End Sub
 
     Private Sub SelecionaPadrao_SelectedIndexChanged(sender As Object, e As EventArgs) Handles SelecionaPadrao.SelectedIndexChanged
-        If SelecionaPadrao.SelectedIndex >= 0 And SelecionaPadrao.SelectedIndex <= 1 Then
+        If SelecionaPadrao.SelectedIndex >= 0 And SelecionaPadrao.SelectedIndex < NumTemas Then
             PadraoCor(SelecionaPadrao.SelectedIndex)
         End If
     End Sub
 
     Private Sub SelecionaPadrao_Click(sender As Object, e As EventArgs) Handles SelecionaPadrao.Click
-        SelecionaPadrao.SelectedIndex = 2
+        SelecionaPadrao.SelectedIndex = NumTemas
     End Sub
 
     Private Sub PadraoCor(ByVal i As Integer)
@@ -121,13 +149,37 @@ Public Class ConfigurarTela
                 l.Add(Color.Gray)
                 l.Add(Color.Black)
             Case 1
+                l.Add(Color.FromArgb(10, 5, 9))
+                l.Add(Color.FromArgb(94, 141, 151))
+                l.Add(Color.FromArgb(255, 83, 108))
+                l.Add(Color.FromArgb(255, 83, 108))
+                l.Add(Color.FromArgb(46, 31, 86))
+                l.Add(Color.FromArgb(46, 31, 86))
+                l.Add(Color.FromArgb(46, 31, 86))
+            Case 2
+                l.Add(Color.FromArgb(128, 128, 128))
+                l.Add(Color.FromArgb(64, 0, 128))
+                l.Add(Color.FromArgb(221, 217, 255))
+                l.Add(Color.FromArgb(0, 255, 255))
+                l.Add(Color.FromArgb(85, 82, 122))
+                l.Add(Color.FromArgb(43, 45, 66))
                 l.Add(Color.FromArgb(0, 0, 0))
-                l.Add(Color.FromArgb(113, 45, 255))
-                l.Add(Color.FromArgb(128, 255, 255))
-                l.Add(Color.FromArgb(125, 242, 255))
-                l.Add(Color.FromArgb(64, 0, 64))
-                l.Add(Color.FromArgb(64, 0, 64))
-                l.Add(Color.FromArgb(64, 0, 64))
+            Case 3
+                l.Add(Color.FromArgb(22, 22, 29))
+                l.Add(Color.FromArgb(240, 213, 162))
+                l.Add(Color.FromArgb(82, 163, 111))
+                l.Add(Color.FromArgb(191, 84, 53))
+                l.Add(Color.FromArgb(103, 81, 67))
+                l.Add(Color.FromArgb(85, 82, 72))
+                l.Add(Color.FromArgb(14, 10, 10))
+            Case 4
+                l.Add(Color.FromArgb(18, 18, 16))
+                l.Add(Color.FromArgb(196, 0, 39))
+                l.Add(Color.FromArgb(210, 177, 79))
+                l.Add(Color.FromArgb(255, 255, 226))
+                l.Add(Color.FromArgb(94, 49, 34))
+                l.Add(Color.FromArgb(97, 48, 69))
+                l.Add(Color.FromArgb(97, 48, 69))
         End Select
         For i = 0 To Cores.Count - 1
             Me.Controls("Cor" & CStr(i + 1)).BackColor = l.Item(i)
