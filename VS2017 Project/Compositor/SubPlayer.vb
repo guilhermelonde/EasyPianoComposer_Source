@@ -1,6 +1,6 @@
 ﻿'--- SubPlayer ---
 'Autor: Guilherme Pereira Porto Londe
-'Última modificação: 18 de maio de 2019
+'Última modificação: 10 de julho de 2019
 
 Imports System.Windows.Forms
 Imports System.Collections
@@ -1204,6 +1204,7 @@ fimlaço:
     Public Sub New(ByRef TelaPai As System.Windows.Forms.Label, ByRef Barra As System.Windows.Forms.ProgressBar,
                    ByRef Ui As TelaPrincipal, ByVal NovoEspacamento As Double, ByVal NovoRaio As Double, ByRef NovoIdioma As Idioma,
                    ByRef NovoCores As List(Of Color), ByRef NovoCronometro As System.Windows.Forms.Label)
+        ObjetoPlayer = New Player(Me)
         orig = My.Resources.Screen
         bm = New System.Drawing.Bitmap(My.Resources.Screen)
         Tela = TelaPai
@@ -1519,6 +1520,10 @@ fimlaço:
 
     Public Sub SetVolume(ByVal V As Integer)
         ObjetoPlayer.SetVolume(V)
+    End Sub
+
+    Public Sub SetDiretorioAudio(ByVal S As String)
+        ObjetoPlayer.SetDiretorioAudio(S)
     End Sub
 
     Public Sub SelecionaTudo()

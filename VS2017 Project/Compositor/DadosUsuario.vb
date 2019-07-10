@@ -1,6 +1,6 @@
 ﻿'--- ConfigurarTela ---
 'Autor: Guilherme Pereira Porto Londe
-'última modificação: 5 de outubro de 2018
+'última modificação: 10 de julho de 2019
 
 Imports Color = System.Drawing.Color
 
@@ -9,6 +9,7 @@ Public Class DadosUsuario
     Public Volume, IdIdioma As Integer
     Public EspacamentoNotas, DiametroNotas As Double
     Public Acordes, Grade, Apresentacao, Menu, Ativacao, AtivacaoE As Boolean
+    Public DiretorioAudio As String
 
     Private Function ParseProprio(ByVal str As String)
         Dim ret, av, p, i As Integer
@@ -39,6 +40,7 @@ Public Class DadosUsuario
         Menu = 1
         Ativacao = 1
         AtivacaoE = 1
+        DiretorioAudio = "default"
         Cores.Add(Color.FromArgb(149, 154, 143))
         Cores.Add(Color.Beige)
         Cores.Add(Color.MediumBlue)
@@ -49,6 +51,14 @@ Public Class DadosUsuario
 
         If System.IO.File.Exists("userdata.inf") Then
             Dim text = System.IO.File.ReadAllText("userdata.inf")
+            If text.Contains("AudioDir = ") Then
+                Dim pos = text.IndexOf("AudioDir = ")
+                Dim posApEsq = text.IndexOf("'", pos)
+                Dim posApDir = text.IndexOf("'", posApEsq + 1)
+                If posApEsq <> -1 AndAlso posApDir <> -1 Then
+                    DiretorioAudio = text.Substring(posApEsq + 1, posApDir - posApEsq - 1)
+                End If
+            End If
             If text.Contains("IdiomId = ") Then
                 Dim novoIdioma As Double
                 novoIdioma = ParseProprio(text.Substring(text.IndexOf("IdiomId = ") + 10))
@@ -151,7 +161,7 @@ Public Class DadosUsuario
         Saida = "IdiomId = " & IdIdioma & " " & vbCrLf & "Volume = " & Volume & " " & vbCrLf & "hSpacing = " & EspacamentoNotas & vbCrLf
         Saida = Saida & "nDiameter = " & DiametroNotas & " " & vbCrLf & "Chords = " & Int(Acordes) & vbCrLf & "Grid = " & Int(Grade) & vbCrLf
         Saida = Saida & "Presentation = " & Int(Apresentacao) & vbCrLf & "Menu = " & Int(Menu) & vbCrLf & "nActivation = " & Int(Ativacao) & vbCrLf
-        Saida = Saida & "sActivation = " & Int(AtivacaoE) & vbCrLf
+        Saida = Saida & "sActivation = " & Int(AtivacaoE) & vbCrLf & "AudioDir = '" & DiretorioAudio & "'" & vbCrLf
         For i = 1 To 7
             SaidaCores = SaidaCores & ("Color" & i & " = " & Cores.Item(i - 1).R & ";" & Cores.Item(i - 1).G & ";" & Cores.Item(i - 1).B & vbCrLf)
         Next

@@ -1,6 +1,6 @@
 ﻿'--- TocaNota ---
 'Autor: Guilherme Pereira Porto Londe
-'Última modificação: 20 de setembro de 2018
+'Última modificação: 10 de julho de 2019
 
 Imports SoundEffect = Microsoft.Xna.Framework.Audio.SoundEffect
 Imports Content = Microsoft.Xna.Framework.Content.ContentManager
@@ -21,15 +21,25 @@ Public Class TocaNota
     Private Volume As Double
 
     Public Sub New()
+        Volume = 0.8
+    End Sub
+
+    Public Sub Carregar(ByVal Diretorio As String)
         Dim G As New Game
         Dim X As Content = New Content(G.Services)
-        Volume = 0.8
+        For i = 0 To 4
+            SE(i) = Nothing
+        Next
         For i = 0 To 4
             Dim myFileStream As System.IO.FileStream
-            If System.IO.File.Exists("audio/" & (i + 1) & ".wav") = False Then
-                Throw New System.Exception("Missing file: audio/" & (i + 1) & ".wav ")
+            Dim DiretorioCompleto = "audio/" & Diretorio & "/" & (i + 1) & ".wav"
+            If System.IO.File.Exists(DiretorioCompleto) = False Then
+                For j = 0 To 4
+                    SE(j) = Nothing
+                Next
+                Throw New System.Exception(DiretorioCompleto)
             End If
-            myFileStream = New System.IO.FileStream("audio/" & (i + 1) & ".wav", System.IO.FileMode.Open, System.IO.FileAccess.Read)
+            myFileStream = New System.IO.FileStream(DiretorioCompleto, System.IO.FileMode.Open, System.IO.FileAccess.Read)
             Dim Arquivo = New System.IO.MemoryStream
             Arquivo.SetLength(myFileStream.Length)
             myFileStream.Read(Arquivo.GetBuffer(), 0, myFileStream.Length)
@@ -43,6 +53,9 @@ Public Class TocaNota
     End Sub
 
     Public Sub Tocar(ByVal Oitava As Integer, ByVal Escala As Integer)
+        If SE(0) Is Nothing Then
+            Return
+        End If
         'Oitava: aceita valor entre 1 - 5; Escala: aceita valor entre 1 - 12, 
         'exceto a Oitava 5 que aceita a Escala 13.
         Oitava = Oitava - 1

@@ -96,22 +96,6 @@ Partial Class TelaPrincipal
         Me.PictureBox5 = New System.Windows.Forms.PictureBox()
         Me.Velocidade = New System.Windows.Forms.Button()
         Me.Teclas = New System.Windows.Forms.Panel()
-        Me.MenuPrincipal = New System.Windows.Forms.Panel()
-        Me.PictureBox4 = New System.Windows.Forms.PictureBox()
-        Me.PictureBox3 = New System.Windows.Forms.PictureBox()
-        Me.PictureBox2 = New System.Windows.Forms.PictureBox()
-        Me.SalvarComo = New System.Windows.Forms.Button()
-        Me.Excluir = New System.Windows.Forms.Button()
-        Me.Colar = New System.Windows.Forms.Button()
-        Me.Cortar = New System.Windows.Forms.Button()
-        Me.Copiar = New System.Windows.Forms.Button()
-        Me.ModoCascata = New System.Windows.Forms.CheckBox()
-        Me.Novo = New System.Windows.Forms.Button()
-        Me.ModoEdição = New System.Windows.Forms.CheckBox()
-        Me.Desfazer = New System.Windows.Forms.Button()
-        Me.Refazer = New System.Windows.Forms.Button()
-        Me.Salvar = New System.Windows.Forms.Button()
-        Me.Abrir = New System.Windows.Forms.Button()
         Me.Barra = New System.Windows.Forms.ProgressBar()
         Me.ToolTip = New System.Windows.Forms.ToolTip(Me.components)
         Me.TelaPai = New System.Windows.Forms.Label()
@@ -119,7 +103,6 @@ Partial Class TelaPrincipal
         Me.Editar = New System.Windows.Forms.Button()
         Me.Exibir = New System.Windows.Forms.Button()
         Me.Configuracoes = New System.Windows.Forms.Button()
-        Me.Divisor1 = New System.Windows.Forms.PictureBox()
         Me.PictureBox1 = New System.Windows.Forms.PictureBox()
         Me.TabIndexVolume = New System.Windows.Forms.TrackBar()
         Me.ControleVolume = New System.Windows.Forms.Panel()
@@ -127,20 +110,38 @@ Partial Class TelaPrincipal
         Me.PainelVelocidade = New System.Windows.Forms.Panel()
         Me.VelocidadePersonalizada = New System.Windows.Forms.MaskedTextBox()
         Me.ListaVelocidades = New System.Windows.Forms.ListBox()
+        Me.Voz = New System.Windows.Forms.Button()
+        Me.Abrir = New System.Windows.Forms.Button()
+        Me.Salvar = New System.Windows.Forms.Button()
+        Me.Refazer = New System.Windows.Forms.Button()
+        Me.Desfazer = New System.Windows.Forms.Button()
+        Me.ModoEdição = New System.Windows.Forms.CheckBox()
+        Me.Novo = New System.Windows.Forms.Button()
+        Me.ModoCascata = New System.Windows.Forms.CheckBox()
+        Me.Copiar = New System.Windows.Forms.Button()
+        Me.Cortar = New System.Windows.Forms.Button()
+        Me.Colar = New System.Windows.Forms.Button()
+        Me.Excluir = New System.Windows.Forms.Button()
+        Me.SalvarComo = New System.Windows.Forms.Button()
+        Me.PictureBox2 = New System.Windows.Forms.PictureBox()
+        Me.PictureBox3 = New System.Windows.Forms.PictureBox()
+        Me.PictureBox4 = New System.Windows.Forms.PictureBox()
+        Me.MenuPrincipal = New System.Windows.Forms.Panel()
+        Me.Divisor1 = New System.Windows.Forms.PictureBox()
         Me.Controles.SuspendLayout()
         CType(Me.Divisor2, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.PictureBox5, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.Teclas.SuspendLayout()
-        Me.MenuPrincipal.SuspendLayout()
-        CType(Me.PictureBox4, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.PictureBox3, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.PictureBox2, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.Divisor1, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.TabIndexVolume, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.ControleVolume.SuspendLayout()
         CType(Me.UpDownVelocidade, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.PainelVelocidade.SuspendLayout()
+        CType(Me.PictureBox2, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.PictureBox3, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.PictureBox4, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.MenuPrincipal.SuspendLayout()
+        CType(Me.Divisor1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'Tecla_1
@@ -1299,259 +1300,6 @@ Partial Class TelaPrincipal
         Me.Teclas.Size = New System.Drawing.Size(961, 145)
         Me.Teclas.TabIndex = 62
         '
-        'MenuPrincipal
-        '
-        Me.MenuPrincipal.BackColor = System.Drawing.Color.Gray
-        Me.MenuPrincipal.Controls.Add(Me.PictureBox4)
-        Me.MenuPrincipal.Controls.Add(Me.PictureBox3)
-        Me.MenuPrincipal.Controls.Add(Me.PictureBox2)
-        Me.MenuPrincipal.Controls.Add(Me.SalvarComo)
-        Me.MenuPrincipal.Controls.Add(Me.Excluir)
-        Me.MenuPrincipal.Controls.Add(Me.Colar)
-        Me.MenuPrincipal.Controls.Add(Me.Cortar)
-        Me.MenuPrincipal.Controls.Add(Me.Copiar)
-        Me.MenuPrincipal.Controls.Add(Me.ModoCascata)
-        Me.MenuPrincipal.Controls.Add(Me.Novo)
-        Me.MenuPrincipal.Controls.Add(Me.ModoEdição)
-        Me.MenuPrincipal.Controls.Add(Me.Desfazer)
-        Me.MenuPrincipal.Controls.Add(Me.Refazer)
-        Me.MenuPrincipal.Controls.Add(Me.Salvar)
-        Me.MenuPrincipal.Controls.Add(Me.Abrir)
-        Me.MenuPrincipal.Location = New System.Drawing.Point(0, 25)
-        Me.MenuPrincipal.Name = "MenuPrincipal"
-        Me.MenuPrincipal.Size = New System.Drawing.Size(981, 30)
-        Me.MenuPrincipal.TabIndex = 63
-        '
-        'PictureBox4
-        '
-        Me.PictureBox4.BackColor = System.Drawing.SystemColors.ControlDarkDark
-        Me.PictureBox4.Location = New System.Drawing.Point(286, 3)
-        Me.PictureBox4.Margin = New System.Windows.Forms.Padding(0)
-        Me.PictureBox4.Name = "PictureBox4"
-        Me.PictureBox4.Size = New System.Drawing.Size(1, 24)
-        Me.PictureBox4.TabIndex = 80
-        Me.PictureBox4.TabStop = False
-        '
-        'PictureBox3
-        '
-        Me.PictureBox3.BackColor = System.Drawing.SystemColors.ControlDarkDark
-        Me.PictureBox3.Location = New System.Drawing.Point(175, 3)
-        Me.PictureBox3.Margin = New System.Windows.Forms.Padding(0)
-        Me.PictureBox3.Name = "PictureBox3"
-        Me.PictureBox3.Size = New System.Drawing.Size(1, 24)
-        Me.PictureBox3.TabIndex = 79
-        Me.PictureBox3.TabStop = False
-        '
-        'PictureBox2
-        '
-        Me.PictureBox2.BackColor = System.Drawing.SystemColors.ControlDarkDark
-        Me.PictureBox2.Location = New System.Drawing.Point(113, 3)
-        Me.PictureBox2.Margin = New System.Windows.Forms.Padding(0)
-        Me.PictureBox2.Name = "PictureBox2"
-        Me.PictureBox2.Size = New System.Drawing.Size(1, 24)
-        Me.PictureBox2.TabIndex = 71
-        Me.PictureBox2.TabStop = False
-        '
-        'SalvarComo
-        '
-        Me.SalvarComo.BackColor = System.Drawing.Color.Transparent
-        Me.SalvarComo.BackgroundImage = Global.Compositor.My.Resources.Resources.saveAsIcon
-        Me.SalvarComo.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch
-        Me.SalvarComo.Cursor = System.Windows.Forms.Cursors.Hand
-        Me.SalvarComo.FlatAppearance.BorderSize = 0
-        Me.SalvarComo.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Transparent
-        Me.SalvarComo.FlatAppearance.MouseOverBackColor = System.Drawing.Color.DimGray
-        Me.SalvarComo.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.SalvarComo.ImageAlign = System.Drawing.ContentAlignment.TopLeft
-        Me.SalvarComo.Location = New System.Drawing.Point(84, 5)
-        Me.SalvarComo.Margin = New System.Windows.Forms.Padding(0)
-        Me.SalvarComo.Name = "SalvarComo"
-        Me.SalvarComo.Size = New System.Drawing.Size(20, 20)
-        Me.SalvarComo.TabIndex = 78
-        Me.SalvarComo.UseVisualStyleBackColor = False
-        '
-        'Excluir
-        '
-        Me.Excluir.BackColor = System.Drawing.Color.Transparent
-        Me.Excluir.BackgroundImage = Global.Compositor.My.Resources.Resources.eraseIcon
-        Me.Excluir.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch
-        Me.Excluir.Cursor = System.Windows.Forms.Cursors.Hand
-        Me.Excluir.FlatAppearance.BorderSize = 0
-        Me.Excluir.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Transparent
-        Me.Excluir.FlatAppearance.MouseOverBackColor = System.Drawing.Color.DimGray
-        Me.Excluir.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.Excluir.Location = New System.Drawing.Point(259, 5)
-        Me.Excluir.Name = "Excluir"
-        Me.Excluir.Size = New System.Drawing.Size(20, 20)
-        Me.Excluir.TabIndex = 77
-        Me.Excluir.UseVisualStyleBackColor = False
-        '
-        'Colar
-        '
-        Me.Colar.BackColor = System.Drawing.Color.Transparent
-        Me.Colar.BackgroundImage = Global.Compositor.My.Resources.Resources.pasteIcon
-        Me.Colar.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch
-        Me.Colar.Cursor = System.Windows.Forms.Cursors.Hand
-        Me.Colar.FlatAppearance.BorderSize = 0
-        Me.Colar.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Transparent
-        Me.Colar.FlatAppearance.MouseOverBackColor = System.Drawing.Color.DimGray
-        Me.Colar.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.Colar.Location = New System.Drawing.Point(235, 5)
-        Me.Colar.Name = "Colar"
-        Me.Colar.Size = New System.Drawing.Size(20, 20)
-        Me.Colar.TabIndex = 76
-        Me.Colar.UseVisualStyleBackColor = False
-        '
-        'Cortar
-        '
-        Me.Cortar.BackColor = System.Drawing.Color.Transparent
-        Me.Cortar.BackgroundImage = Global.Compositor.My.Resources.Resources.cutIcon
-        Me.Cortar.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch
-        Me.Cortar.Cursor = System.Windows.Forms.Cursors.Hand
-        Me.Cortar.FlatAppearance.BorderSize = 0
-        Me.Cortar.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Transparent
-        Me.Cortar.FlatAppearance.MouseOverBackColor = System.Drawing.Color.DimGray
-        Me.Cortar.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.Cortar.Location = New System.Drawing.Point(210, 5)
-        Me.Cortar.Name = "Cortar"
-        Me.Cortar.Size = New System.Drawing.Size(20, 20)
-        Me.Cortar.TabIndex = 75
-        Me.Cortar.UseVisualStyleBackColor = False
-        '
-        'Copiar
-        '
-        Me.Copiar.BackColor = System.Drawing.Color.Transparent
-        Me.Copiar.BackgroundImage = Global.Compositor.My.Resources.Resources.copyIcon
-        Me.Copiar.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch
-        Me.Copiar.Cursor = System.Windows.Forms.Cursors.Hand
-        Me.Copiar.FlatAppearance.BorderSize = 0
-        Me.Copiar.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Transparent
-        Me.Copiar.FlatAppearance.MouseOverBackColor = System.Drawing.Color.DimGray
-        Me.Copiar.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.Copiar.Location = New System.Drawing.Point(186, 5)
-        Me.Copiar.Name = "Copiar"
-        Me.Copiar.Size = New System.Drawing.Size(20, 20)
-        Me.Copiar.TabIndex = 74
-        Me.Copiar.UseVisualStyleBackColor = False
-        '
-        'ModoCascata
-        '
-        Me.ModoCascata.Appearance = System.Windows.Forms.Appearance.Button
-        Me.ModoCascata.BackColor = System.Drawing.Color.Transparent
-        Me.ModoCascata.BackgroundImage = Global.Compositor.My.Resources.Resources.autoRipple
-        Me.ModoCascata.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch
-        Me.ModoCascata.CheckAlign = System.Drawing.ContentAlignment.MiddleCenter
-        Me.ModoCascata.Cursor = System.Windows.Forms.Cursors.Hand
-        Me.ModoCascata.FlatAppearance.BorderColor = System.Drawing.Color.DimGray
-        Me.ModoCascata.FlatAppearance.CheckedBackColor = System.Drawing.SystemColors.ActiveCaption
-        Me.ModoCascata.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Transparent
-        Me.ModoCascata.FlatAppearance.MouseOverBackColor = System.Drawing.SystemColors.ActiveCaption
-        Me.ModoCascata.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.ModoCascata.Location = New System.Drawing.Point(320, 5)
-        Me.ModoCascata.Name = "ModoCascata"
-        Me.ModoCascata.Size = New System.Drawing.Size(20, 20)
-        Me.ModoCascata.TabIndex = 73
-        Me.ModoCascata.UseVisualStyleBackColor = False
-        '
-        'Novo
-        '
-        Me.Novo.BackColor = System.Drawing.Color.Transparent
-        Me.Novo.BackgroundImage = CType(resources.GetObject("Novo.BackgroundImage"), System.Drawing.Image)
-        Me.Novo.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch
-        Me.Novo.Cursor = System.Windows.Forms.Cursors.Hand
-        Me.Novo.FlatAppearance.BorderSize = 0
-        Me.Novo.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Transparent
-        Me.Novo.FlatAppearance.MouseOverBackColor = System.Drawing.Color.DimGray
-        Me.Novo.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.Novo.Location = New System.Drawing.Point(7, 5)
-        Me.Novo.Name = "Novo"
-        Me.Novo.Size = New System.Drawing.Size(20, 20)
-        Me.Novo.TabIndex = 71
-        Me.Novo.UseVisualStyleBackColor = False
-        '
-        'ModoEdição
-        '
-        Me.ModoEdição.Appearance = System.Windows.Forms.Appearance.Button
-        Me.ModoEdição.BackColor = System.Drawing.Color.Transparent
-        Me.ModoEdição.BackgroundImage = Global.Compositor.My.Resources.Resources.editModeIcon
-        Me.ModoEdição.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch
-        Me.ModoEdição.CheckAlign = System.Drawing.ContentAlignment.MiddleCenter
-        Me.ModoEdição.Cursor = System.Windows.Forms.Cursors.Hand
-        Me.ModoEdição.FlatAppearance.BorderColor = System.Drawing.Color.DimGray
-        Me.ModoEdição.FlatAppearance.CheckedBackColor = System.Drawing.SystemColors.ActiveCaption
-        Me.ModoEdição.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Transparent
-        Me.ModoEdição.FlatAppearance.MouseOverBackColor = System.Drawing.SystemColors.ActiveCaption
-        Me.ModoEdição.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.ModoEdição.Location = New System.Drawing.Point(296, 5)
-        Me.ModoEdição.Name = "ModoEdição"
-        Me.ModoEdição.Size = New System.Drawing.Size(20, 20)
-        Me.ModoEdição.TabIndex = 70
-        Me.ModoEdição.UseVisualStyleBackColor = False
-        '
-        'Desfazer
-        '
-        Me.Desfazer.BackColor = System.Drawing.Color.Transparent
-        Me.Desfazer.BackgroundImage = Global.Compositor.My.Resources.Resources.undoIcon
-        Me.Desfazer.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch
-        Me.Desfazer.Cursor = System.Windows.Forms.Cursors.Hand
-        Me.Desfazer.FlatAppearance.BorderSize = 0
-        Me.Desfazer.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Transparent
-        Me.Desfazer.FlatAppearance.MouseOverBackColor = System.Drawing.Color.DimGray
-        Me.Desfazer.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.Desfazer.Location = New System.Drawing.Point(122, 5)
-        Me.Desfazer.Name = "Desfazer"
-        Me.Desfazer.Size = New System.Drawing.Size(20, 20)
-        Me.Desfazer.TabIndex = 69
-        Me.Desfazer.UseVisualStyleBackColor = False
-        '
-        'Refazer
-        '
-        Me.Refazer.BackColor = System.Drawing.Color.Transparent
-        Me.Refazer.BackgroundImage = Global.Compositor.My.Resources.Resources.redoIcon
-        Me.Refazer.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch
-        Me.Refazer.Cursor = System.Windows.Forms.Cursors.Hand
-        Me.Refazer.FlatAppearance.BorderSize = 0
-        Me.Refazer.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Transparent
-        Me.Refazer.FlatAppearance.MouseOverBackColor = System.Drawing.Color.DimGray
-        Me.Refazer.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.Refazer.Location = New System.Drawing.Point(147, 5)
-        Me.Refazer.Name = "Refazer"
-        Me.Refazer.Size = New System.Drawing.Size(20, 20)
-        Me.Refazer.TabIndex = 68
-        Me.Refazer.UseVisualStyleBackColor = False
-        '
-        'Salvar
-        '
-        Me.Salvar.BackColor = System.Drawing.Color.Transparent
-        Me.Salvar.BackgroundImage = Global.Compositor.My.Resources.Resources.saveIcon
-        Me.Salvar.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch
-        Me.Salvar.Cursor = System.Windows.Forms.Cursors.Hand
-        Me.Salvar.FlatAppearance.BorderSize = 0
-        Me.Salvar.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Transparent
-        Me.Salvar.FlatAppearance.MouseOverBackColor = System.Drawing.Color.DimGray
-        Me.Salvar.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.Salvar.Location = New System.Drawing.Point(57, 5)
-        Me.Salvar.Name = "Salvar"
-        Me.Salvar.Size = New System.Drawing.Size(20, 20)
-        Me.Salvar.TabIndex = 67
-        Me.Salvar.UseVisualStyleBackColor = False
-        '
-        'Abrir
-        '
-        Me.Abrir.BackColor = System.Drawing.Color.Transparent
-        Me.Abrir.BackgroundImage = Global.Compositor.My.Resources.Resources.openIcon
-        Me.Abrir.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch
-        Me.Abrir.Cursor = System.Windows.Forms.Cursors.Hand
-        Me.Abrir.FlatAppearance.BorderSize = 0
-        Me.Abrir.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Transparent
-        Me.Abrir.FlatAppearance.MouseOverBackColor = System.Drawing.Color.DimGray
-        Me.Abrir.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.Abrir.Location = New System.Drawing.Point(32, 5)
-        Me.Abrir.Name = "Abrir"
-        Me.Abrir.Size = New System.Drawing.Size(20, 20)
-        Me.Abrir.TabIndex = 66
-        Me.Abrir.UseVisualStyleBackColor = False
-        '
         'Barra
         '
         Me.Barra.Cursor = System.Windows.Forms.Cursors.Hand
@@ -1650,22 +1398,12 @@ Partial Class TelaPrincipal
         Me.Configuracoes.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
         Me.Configuracoes.UseVisualStyleBackColor = False
         '
-        'Divisor1
-        '
-        Me.Divisor1.BackColor = System.Drawing.SystemColors.ControlDarkDark
-        Me.Divisor1.Location = New System.Drawing.Point(0, 25)
-        Me.Divisor1.Margin = New System.Windows.Forms.Padding(0)
-        Me.Divisor1.Name = "Divisor1"
-        Me.Divisor1.Size = New System.Drawing.Size(300, 1)
-        Me.Divisor1.TabIndex = 69
-        Me.Divisor1.TabStop = False
-        '
         'PictureBox1
         '
         Me.PictureBox1.BackColor = System.Drawing.SystemColors.ControlDarkDark
         Me.PictureBox1.Location = New System.Drawing.Point(0, -2)
         Me.PictureBox1.Name = "PictureBox1"
-        Me.PictureBox1.Size = New System.Drawing.Size(266, 28)
+        Me.PictureBox1.Size = New System.Drawing.Size(316, 28)
         Me.PictureBox1.TabIndex = 70
         Me.PictureBox1.TabStop = False
         '
@@ -1742,15 +1480,298 @@ Partial Class TelaPrincipal
         Me.ListaVelocidades.Size = New System.Drawing.Size(51, 130)
         Me.ListaVelocidades.TabIndex = 78
         '
+        'Voz
+        '
+        Me.Voz.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
+        Me.Voz.FlatAppearance.BorderColor = System.Drawing.SystemColors.ControlDarkDark
+        Me.Voz.FlatAppearance.BorderSize = 0
+        Me.Voz.FlatAppearance.MouseDownBackColor = System.Drawing.SystemColors.ButtonShadow
+        Me.Voz.FlatAppearance.MouseOverBackColor = System.Drawing.SystemColors.ButtonShadow
+        Me.Voz.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.Voz.Font = New System.Drawing.Font("Microsoft YaHei", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Voz.ForeColor = System.Drawing.SystemColors.Control
+        Me.Voz.Location = New System.Drawing.Point(266, -2)
+        Me.Voz.Margin = New System.Windows.Forms.Padding(0)
+        Me.Voz.Name = "Voz"
+        Me.Voz.Size = New System.Drawing.Size(49, 28)
+        Me.Voz.TabIndex = 79
+        Me.Voz.Text = "Voz"
+        Me.Voz.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
+        Me.Voz.UseVisualStyleBackColor = False
+        '
+        'Abrir
+        '
+        Me.Abrir.BackColor = System.Drawing.Color.Transparent
+        Me.Abrir.BackgroundImage = Global.Compositor.My.Resources.Resources.openIcon
+        Me.Abrir.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch
+        Me.Abrir.Cursor = System.Windows.Forms.Cursors.Hand
+        Me.Abrir.FlatAppearance.BorderSize = 0
+        Me.Abrir.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Transparent
+        Me.Abrir.FlatAppearance.MouseOverBackColor = System.Drawing.Color.DimGray
+        Me.Abrir.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.Abrir.Location = New System.Drawing.Point(32, 5)
+        Me.Abrir.Name = "Abrir"
+        Me.Abrir.Size = New System.Drawing.Size(20, 20)
+        Me.Abrir.TabIndex = 66
+        Me.Abrir.UseVisualStyleBackColor = False
+        '
+        'Salvar
+        '
+        Me.Salvar.BackColor = System.Drawing.Color.Transparent
+        Me.Salvar.BackgroundImage = Global.Compositor.My.Resources.Resources.saveIcon
+        Me.Salvar.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch
+        Me.Salvar.Cursor = System.Windows.Forms.Cursors.Hand
+        Me.Salvar.FlatAppearance.BorderSize = 0
+        Me.Salvar.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Transparent
+        Me.Salvar.FlatAppearance.MouseOverBackColor = System.Drawing.Color.DimGray
+        Me.Salvar.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.Salvar.Location = New System.Drawing.Point(57, 5)
+        Me.Salvar.Name = "Salvar"
+        Me.Salvar.Size = New System.Drawing.Size(20, 20)
+        Me.Salvar.TabIndex = 67
+        Me.Salvar.UseVisualStyleBackColor = False
+        '
+        'Refazer
+        '
+        Me.Refazer.BackColor = System.Drawing.Color.Transparent
+        Me.Refazer.BackgroundImage = Global.Compositor.My.Resources.Resources.redoIcon
+        Me.Refazer.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch
+        Me.Refazer.Cursor = System.Windows.Forms.Cursors.Hand
+        Me.Refazer.FlatAppearance.BorderSize = 0
+        Me.Refazer.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Transparent
+        Me.Refazer.FlatAppearance.MouseOverBackColor = System.Drawing.Color.DimGray
+        Me.Refazer.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.Refazer.Location = New System.Drawing.Point(147, 5)
+        Me.Refazer.Name = "Refazer"
+        Me.Refazer.Size = New System.Drawing.Size(20, 20)
+        Me.Refazer.TabIndex = 68
+        Me.Refazer.UseVisualStyleBackColor = False
+        '
+        'Desfazer
+        '
+        Me.Desfazer.BackColor = System.Drawing.Color.Transparent
+        Me.Desfazer.BackgroundImage = Global.Compositor.My.Resources.Resources.undoIcon
+        Me.Desfazer.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch
+        Me.Desfazer.Cursor = System.Windows.Forms.Cursors.Hand
+        Me.Desfazer.FlatAppearance.BorderSize = 0
+        Me.Desfazer.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Transparent
+        Me.Desfazer.FlatAppearance.MouseOverBackColor = System.Drawing.Color.DimGray
+        Me.Desfazer.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.Desfazer.Location = New System.Drawing.Point(122, 5)
+        Me.Desfazer.Name = "Desfazer"
+        Me.Desfazer.Size = New System.Drawing.Size(20, 20)
+        Me.Desfazer.TabIndex = 69
+        Me.Desfazer.UseVisualStyleBackColor = False
+        '
+        'ModoEdição
+        '
+        Me.ModoEdição.Appearance = System.Windows.Forms.Appearance.Button
+        Me.ModoEdição.BackColor = System.Drawing.Color.Transparent
+        Me.ModoEdição.BackgroundImage = Global.Compositor.My.Resources.Resources.editModeIcon
+        Me.ModoEdição.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch
+        Me.ModoEdição.CheckAlign = System.Drawing.ContentAlignment.MiddleCenter
+        Me.ModoEdição.Cursor = System.Windows.Forms.Cursors.Hand
+        Me.ModoEdição.FlatAppearance.BorderColor = System.Drawing.Color.DimGray
+        Me.ModoEdição.FlatAppearance.CheckedBackColor = System.Drawing.SystemColors.ActiveCaption
+        Me.ModoEdição.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Transparent
+        Me.ModoEdição.FlatAppearance.MouseOverBackColor = System.Drawing.SystemColors.ActiveCaption
+        Me.ModoEdição.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.ModoEdição.Location = New System.Drawing.Point(296, 5)
+        Me.ModoEdição.Name = "ModoEdição"
+        Me.ModoEdição.Size = New System.Drawing.Size(20, 20)
+        Me.ModoEdição.TabIndex = 70
+        Me.ModoEdição.UseVisualStyleBackColor = False
+        '
+        'Novo
+        '
+        Me.Novo.BackColor = System.Drawing.Color.Transparent
+        Me.Novo.BackgroundImage = CType(resources.GetObject("Novo.BackgroundImage"), System.Drawing.Image)
+        Me.Novo.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch
+        Me.Novo.Cursor = System.Windows.Forms.Cursors.Hand
+        Me.Novo.FlatAppearance.BorderSize = 0
+        Me.Novo.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Transparent
+        Me.Novo.FlatAppearance.MouseOverBackColor = System.Drawing.Color.DimGray
+        Me.Novo.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.Novo.Location = New System.Drawing.Point(7, 5)
+        Me.Novo.Name = "Novo"
+        Me.Novo.Size = New System.Drawing.Size(20, 20)
+        Me.Novo.TabIndex = 71
+        Me.Novo.UseVisualStyleBackColor = False
+        '
+        'ModoCascata
+        '
+        Me.ModoCascata.Appearance = System.Windows.Forms.Appearance.Button
+        Me.ModoCascata.BackColor = System.Drawing.Color.Transparent
+        Me.ModoCascata.BackgroundImage = Global.Compositor.My.Resources.Resources.autoRipple
+        Me.ModoCascata.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch
+        Me.ModoCascata.CheckAlign = System.Drawing.ContentAlignment.MiddleCenter
+        Me.ModoCascata.Cursor = System.Windows.Forms.Cursors.Hand
+        Me.ModoCascata.FlatAppearance.BorderColor = System.Drawing.Color.DimGray
+        Me.ModoCascata.FlatAppearance.CheckedBackColor = System.Drawing.SystemColors.ActiveCaption
+        Me.ModoCascata.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Transparent
+        Me.ModoCascata.FlatAppearance.MouseOverBackColor = System.Drawing.SystemColors.ActiveCaption
+        Me.ModoCascata.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.ModoCascata.Location = New System.Drawing.Point(320, 5)
+        Me.ModoCascata.Name = "ModoCascata"
+        Me.ModoCascata.Size = New System.Drawing.Size(20, 20)
+        Me.ModoCascata.TabIndex = 73
+        Me.ModoCascata.UseVisualStyleBackColor = False
+        '
+        'Copiar
+        '
+        Me.Copiar.BackColor = System.Drawing.Color.Transparent
+        Me.Copiar.BackgroundImage = Global.Compositor.My.Resources.Resources.copyIcon
+        Me.Copiar.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch
+        Me.Copiar.Cursor = System.Windows.Forms.Cursors.Hand
+        Me.Copiar.FlatAppearance.BorderSize = 0
+        Me.Copiar.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Transparent
+        Me.Copiar.FlatAppearance.MouseOverBackColor = System.Drawing.Color.DimGray
+        Me.Copiar.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.Copiar.Location = New System.Drawing.Point(186, 5)
+        Me.Copiar.Name = "Copiar"
+        Me.Copiar.Size = New System.Drawing.Size(20, 20)
+        Me.Copiar.TabIndex = 74
+        Me.Copiar.UseVisualStyleBackColor = False
+        '
+        'Cortar
+        '
+        Me.Cortar.BackColor = System.Drawing.Color.Transparent
+        Me.Cortar.BackgroundImage = Global.Compositor.My.Resources.Resources.cutIcon
+        Me.Cortar.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch
+        Me.Cortar.Cursor = System.Windows.Forms.Cursors.Hand
+        Me.Cortar.FlatAppearance.BorderSize = 0
+        Me.Cortar.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Transparent
+        Me.Cortar.FlatAppearance.MouseOverBackColor = System.Drawing.Color.DimGray
+        Me.Cortar.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.Cortar.Location = New System.Drawing.Point(210, 5)
+        Me.Cortar.Name = "Cortar"
+        Me.Cortar.Size = New System.Drawing.Size(20, 20)
+        Me.Cortar.TabIndex = 75
+        Me.Cortar.UseVisualStyleBackColor = False
+        '
+        'Colar
+        '
+        Me.Colar.BackColor = System.Drawing.Color.Transparent
+        Me.Colar.BackgroundImage = Global.Compositor.My.Resources.Resources.pasteIcon
+        Me.Colar.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch
+        Me.Colar.Cursor = System.Windows.Forms.Cursors.Hand
+        Me.Colar.FlatAppearance.BorderSize = 0
+        Me.Colar.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Transparent
+        Me.Colar.FlatAppearance.MouseOverBackColor = System.Drawing.Color.DimGray
+        Me.Colar.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.Colar.Location = New System.Drawing.Point(235, 5)
+        Me.Colar.Name = "Colar"
+        Me.Colar.Size = New System.Drawing.Size(20, 20)
+        Me.Colar.TabIndex = 76
+        Me.Colar.UseVisualStyleBackColor = False
+        '
+        'Excluir
+        '
+        Me.Excluir.BackColor = System.Drawing.Color.Transparent
+        Me.Excluir.BackgroundImage = Global.Compositor.My.Resources.Resources.eraseIcon
+        Me.Excluir.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch
+        Me.Excluir.Cursor = System.Windows.Forms.Cursors.Hand
+        Me.Excluir.FlatAppearance.BorderSize = 0
+        Me.Excluir.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Transparent
+        Me.Excluir.FlatAppearance.MouseOverBackColor = System.Drawing.Color.DimGray
+        Me.Excluir.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.Excluir.Location = New System.Drawing.Point(259, 5)
+        Me.Excluir.Name = "Excluir"
+        Me.Excluir.Size = New System.Drawing.Size(20, 20)
+        Me.Excluir.TabIndex = 77
+        Me.Excluir.UseVisualStyleBackColor = False
+        '
+        'SalvarComo
+        '
+        Me.SalvarComo.BackColor = System.Drawing.Color.Transparent
+        Me.SalvarComo.BackgroundImage = Global.Compositor.My.Resources.Resources.saveAsIcon
+        Me.SalvarComo.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch
+        Me.SalvarComo.Cursor = System.Windows.Forms.Cursors.Hand
+        Me.SalvarComo.FlatAppearance.BorderSize = 0
+        Me.SalvarComo.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Transparent
+        Me.SalvarComo.FlatAppearance.MouseOverBackColor = System.Drawing.Color.DimGray
+        Me.SalvarComo.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.SalvarComo.ImageAlign = System.Drawing.ContentAlignment.TopLeft
+        Me.SalvarComo.Location = New System.Drawing.Point(84, 5)
+        Me.SalvarComo.Margin = New System.Windows.Forms.Padding(0)
+        Me.SalvarComo.Name = "SalvarComo"
+        Me.SalvarComo.Size = New System.Drawing.Size(20, 20)
+        Me.SalvarComo.TabIndex = 78
+        Me.SalvarComo.UseVisualStyleBackColor = False
+        '
+        'PictureBox2
+        '
+        Me.PictureBox2.BackColor = System.Drawing.SystemColors.ControlDarkDark
+        Me.PictureBox2.Location = New System.Drawing.Point(113, 3)
+        Me.PictureBox2.Margin = New System.Windows.Forms.Padding(0)
+        Me.PictureBox2.Name = "PictureBox2"
+        Me.PictureBox2.Size = New System.Drawing.Size(1, 24)
+        Me.PictureBox2.TabIndex = 71
+        Me.PictureBox2.TabStop = False
+        '
+        'PictureBox3
+        '
+        Me.PictureBox3.BackColor = System.Drawing.SystemColors.ControlDarkDark
+        Me.PictureBox3.Location = New System.Drawing.Point(175, 3)
+        Me.PictureBox3.Margin = New System.Windows.Forms.Padding(0)
+        Me.PictureBox3.Name = "PictureBox3"
+        Me.PictureBox3.Size = New System.Drawing.Size(1, 24)
+        Me.PictureBox3.TabIndex = 79
+        Me.PictureBox3.TabStop = False
+        '
+        'PictureBox4
+        '
+        Me.PictureBox4.BackColor = System.Drawing.SystemColors.ControlDarkDark
+        Me.PictureBox4.Location = New System.Drawing.Point(286, 3)
+        Me.PictureBox4.Margin = New System.Windows.Forms.Padding(0)
+        Me.PictureBox4.Name = "PictureBox4"
+        Me.PictureBox4.Size = New System.Drawing.Size(1, 24)
+        Me.PictureBox4.TabIndex = 80
+        Me.PictureBox4.TabStop = False
+        '
+        'MenuPrincipal
+        '
+        Me.MenuPrincipal.BackColor = System.Drawing.Color.Gray
+        Me.MenuPrincipal.Controls.Add(Me.PictureBox4)
+        Me.MenuPrincipal.Controls.Add(Me.PictureBox3)
+        Me.MenuPrincipal.Controls.Add(Me.PictureBox2)
+        Me.MenuPrincipal.Controls.Add(Me.SalvarComo)
+        Me.MenuPrincipal.Controls.Add(Me.Excluir)
+        Me.MenuPrincipal.Controls.Add(Me.Colar)
+        Me.MenuPrincipal.Controls.Add(Me.Cortar)
+        Me.MenuPrincipal.Controls.Add(Me.Copiar)
+        Me.MenuPrincipal.Controls.Add(Me.ModoCascata)
+        Me.MenuPrincipal.Controls.Add(Me.Novo)
+        Me.MenuPrincipal.Controls.Add(Me.ModoEdição)
+        Me.MenuPrincipal.Controls.Add(Me.Desfazer)
+        Me.MenuPrincipal.Controls.Add(Me.Refazer)
+        Me.MenuPrincipal.Controls.Add(Me.Salvar)
+        Me.MenuPrincipal.Controls.Add(Me.Abrir)
+        Me.MenuPrincipal.Location = New System.Drawing.Point(0, 25)
+        Me.MenuPrincipal.Name = "MenuPrincipal"
+        Me.MenuPrincipal.Size = New System.Drawing.Size(981, 30)
+        Me.MenuPrincipal.TabIndex = 63
+        '
+        'Divisor1
+        '
+        Me.Divisor1.BackColor = System.Drawing.SystemColors.ControlDarkDark
+        Me.Divisor1.Location = New System.Drawing.Point(-1, 25)
+        Me.Divisor1.Margin = New System.Windows.Forms.Padding(0)
+        Me.Divisor1.Name = "Divisor1"
+        Me.Divisor1.Size = New System.Drawing.Size(316, 1)
+        Me.Divisor1.TabIndex = 81
+        Me.Divisor1.TabStop = False
+        '
         'TelaPrincipal
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
         Me.ClientSize = New System.Drawing.Size(980, 568)
+        Me.Controls.Add(Me.Divisor1)
+        Me.Controls.Add(Me.Voz)
         Me.Controls.Add(Me.PainelVelocidade)
         Me.Controls.Add(Me.ControleVolume)
-        Me.Controls.Add(Me.Divisor1)
         Me.Controls.Add(Me.Arquivo)
         Me.Controls.Add(Me.Configuracoes)
         Me.Controls.Add(Me.Exibir)
@@ -1771,11 +1792,6 @@ Partial Class TelaPrincipal
         CType(Me.Divisor2, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.PictureBox5, System.ComponentModel.ISupportInitialize).EndInit()
         Me.Teclas.ResumeLayout(False)
-        Me.MenuPrincipal.ResumeLayout(False)
-        CType(Me.PictureBox4, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.PictureBox3, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.PictureBox2, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.Divisor1, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.TabIndexVolume, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ControleVolume.ResumeLayout(False)
@@ -1783,6 +1799,11 @@ Partial Class TelaPrincipal
         CType(Me.UpDownVelocidade, System.ComponentModel.ISupportInitialize).EndInit()
         Me.PainelVelocidade.ResumeLayout(False)
         Me.PainelVelocidade.PerformLayout()
+        CType(Me.PictureBox2, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.PictureBox3, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.PictureBox4, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.MenuPrincipal.ResumeLayout(False)
+        CType(Me.Divisor1, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
 
     End Sub
@@ -1851,34 +1872,17 @@ Partial Class TelaPrincipal
     Friend WithEvents Controles As Forms.Panel
     Friend WithEvents Tocar As Forms.Button
     Friend WithEvents Teclas As Forms.Panel
-    Friend WithEvents MenuPrincipal As Forms.Panel
     Friend WithEvents Parar As Forms.Button
     Friend WithEvents Próximo As Forms.Button
     Friend WithEvents Anterior As Forms.Button
-    Friend WithEvents Abrir As Forms.Button
-    Friend WithEvents Salvar As Forms.Button
-    Friend WithEvents Refazer As Forms.Button
-    Friend WithEvents Desfazer As Forms.Button
-    Friend WithEvents ModoEdição As Forms.CheckBox
     Friend WithEvents Barra As Forms.ProgressBar
     Friend WithEvents ToolTip As Forms.ToolTip
-    Friend WithEvents Novo As Forms.Button
-    Friend WithEvents ModoCascata As Forms.CheckBox
-    Friend WithEvents Colar As Forms.Button
-    Friend WithEvents Cortar As Forms.Button
-    Friend WithEvents Copiar As Forms.Button
-    Friend WithEvents Excluir As Forms.Button
     Friend WithEvents TelaPai As Forms.Label
     Friend WithEvents Arquivo As Forms.Button
     Friend WithEvents Editar As Forms.Button
     Friend WithEvents Exibir As Forms.Button
     Friend WithEvents Configuracoes As Forms.Button
-    Friend WithEvents SalvarComo As Forms.Button
-    Friend WithEvents Divisor1 As Forms.PictureBox
     Friend WithEvents PictureBox1 As Forms.PictureBox
-    Friend WithEvents PictureBox4 As Forms.PictureBox
-    Friend WithEvents PictureBox3 As Forms.PictureBox
-    Friend WithEvents PictureBox2 As Forms.PictureBox
     Friend WithEvents Volume As Forms.Button
     Friend WithEvents Divisor2 As Forms.PictureBox
     Friend WithEvents PictureBox5 As Forms.PictureBox
@@ -1890,4 +1894,22 @@ Partial Class TelaPrincipal
     Friend WithEvents ListaVelocidades As Forms.ListBox
     Friend WithEvents VelocidadePersonalizada As Forms.MaskedTextBox
     Friend WithEvents Cronometro As Forms.Label
+    Friend WithEvents Voz As Forms.Button
+    Friend WithEvents Abrir As Forms.Button
+    Friend WithEvents Salvar As Forms.Button
+    Friend WithEvents Refazer As Forms.Button
+    Friend WithEvents Desfazer As Forms.Button
+    Friend WithEvents ModoEdição As Forms.CheckBox
+    Friend WithEvents Novo As Forms.Button
+    Friend WithEvents ModoCascata As Forms.CheckBox
+    Friend WithEvents Copiar As Forms.Button
+    Friend WithEvents Cortar As Forms.Button
+    Friend WithEvents Colar As Forms.Button
+    Friend WithEvents Excluir As Forms.Button
+    Friend WithEvents SalvarComo As Forms.Button
+    Friend WithEvents PictureBox2 As Forms.PictureBox
+    Friend WithEvents PictureBox3 As Forms.PictureBox
+    Friend WithEvents PictureBox4 As Forms.PictureBox
+    Friend WithEvents MenuPrincipal As Forms.Panel
+    Friend WithEvents Divisor1 As Forms.PictureBox
 End Class

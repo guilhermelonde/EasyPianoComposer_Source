@@ -1,8 +1,9 @@
 ﻿'--- TelaPrincipal ---
 'Autores: Rafael Gomes da Silva, Guilherme Pereira Porto Londe
-'última modificação: 10 de outubro de 2018
+'última modificação: 10 de julho de 2019
 
 Imports System.Drawing
+Imports System.IO
 Imports System.Windows.Forms
 Imports Compositor.My.Resources.Resources
 Imports Point = System.Drawing.Point
@@ -29,6 +30,7 @@ Public Class TelaPrincipal
     Private LocalMenuIdioma As Point
     Private ObjetoDadoUsuario As DadosUsuario
     Private WithEvents Timer As New System.Windows.Threading.DispatcherTimer
+    Private DiretorioAudio As String
 
 
     Public Sub New()
@@ -65,6 +67,7 @@ Public Class TelaPrincipal
         ControleVolume.Hide()
         PainelVelocidade.Hide()
         GanhouDestaque = New Point(-1, -1)
+        CarregarAudio(ObjetoDadoUsuario.DiretorioAudio)
         ' Adicione qualquer inicialização após a chamada InitializeComponent().
     End Sub
 
@@ -109,6 +112,23 @@ Public Class TelaPrincipal
             Timer.Interval = New TimeSpan(0, 0, 0, 0, 1)
             Timer.Start()
         End If
+    End Sub
+
+    Public Sub CarregarAudio(ByVal DiretorioAudio As String)
+        Me.DiretorioAudio = ""
+        Try
+            SP.SetDiretorioAudio(DiretorioAudio)
+            Me.DiretorioAudio = DiretorioAudio
+        Catch ex As Exception
+            If ex.Message.IndexOf("audio") = -1 Then
+                MessageBox.Show(ex.Message, ObjetoIdioma.Entrada(53), MessageBoxButtons.OK, MessageBoxIcon.Error)
+            Else
+                MessageBox.Show(ObjetoIdioma.Entrada(58) & DiretorioAudio & ObjetoIdioma.Entrada(59) & ex.Message & ObjetoIdioma.Entrada(60),
+                            ObjetoIdioma.Entrada(53), MessageBoxButtons.OK, MessageBoxIcon.Error)
+            End If
+        End Try
+        ObjetoDadoUsuario.DiretorioAudio = Me.DiretorioAudio
+        ObjetoDadoUsuario.Flush()
     End Sub
 
     Public Sub Timer_Tick(ByVal sender As Object, ByVal e As EventArgs) Handles Timer.Tick
@@ -928,6 +948,7 @@ fimlaço:
         Editar.Text = ObjetoIdioma.Entrada(18)
         Exibir.Text = ObjetoIdioma.Entrada(19)
         Configuracoes.Text = ObjetoIdioma.Entrada(20)
+        Voz.Text = ObjetoIdioma.Entrada(61)
         ToolTip.SetToolTip(SalvarComo, ObjetoIdioma.Entrada(3))
         ToolTip.SetToolTip(Excluir, ObjetoIdioma.Entrada(9))
         ToolTip.SetToolTip(Salvar, ObjetoIdioma.Entrada(2))
@@ -1059,6 +1080,31 @@ fimlaço:
             itemIdioma.Tag = i
         Next
         cms2.Show(Me, LocalMenuIdioma)
+    End Sub
+
+    Private Sub Voz_Click(sender As Object, e As EventArgs) Handles Voz.Click
+        Try
+            Dim cms = New ContextMenuStrip
+            cms.BackColor = System.Drawing.Color.DarkGray
+            cms.Stretch = True
+            cms.ShowImageMargin = False
+            For Each Dir As String In Directory.GetDirectories("audio")
+                Dim pos = Dir.IndexOf("\") + 1
+                Dim atualDir = Dir.Substring(pos, Dir.Length - pos)
+                Dim itemVoz = cms.Items.Add("   " & atualDir)
+                If atualDir = DiretorioAudio Then
+                    itemVoz.BackColor = System.Drawing.Color.Gray
+                End If
+                AddHandler itemVoz.Click, AddressOf F_AlterarVoz
+            Next
+            cms.Show(Me, New Point(Voz.Left, Voz.Top + Voz.Height))
+        Catch ex As Exception
+            MessageBox.Show(ex.Message, ObjetoIdioma.Entrada(53), MessageBoxButtons.OK, MessageBoxIcon.Error)
+        End Try
+    End Sub
+
+    Private Sub F_AlterarVoz(sender As Object, e As EventArgs)
+        CarregarAudio(sender.ToString.Trim())
     End Sub
 
     Private Sub SetVelocidadePlayer(sender As Object, e As EventArgs)

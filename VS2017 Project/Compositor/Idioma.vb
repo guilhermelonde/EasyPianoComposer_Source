@@ -1,12 +1,12 @@
 ﻿'--- Idioma ---
 'Autor: Guilherme Pereira Porto Londe
-'Última modificação: 17 de maio de 2019
+'Última modificação: 10 de julho de 2019
 
 Imports Microsoft.VisualBasic
 
 Public Class Idioma
     Public Const ContagemIdiomas = 2
-    Private Tabela(58, ContagemIdiomas) As String
+    Private Tabela(62, ContagemIdiomas) As String
     Public IdIdioma As Integer = 1
 
     Public Sub New()
@@ -126,6 +126,14 @@ Public Class Idioma
         Tabela(56, 1) = New String("Move to the next octave")
         Tabela(57, 0) = New String("Mover para oitava anterior")
         Tabela(57, 1) = New String("Move to the previous octave")
+        Tabela(58, 0) = New String("O diretório de audio '")
+        Tabela(58, 1) = New String("The audio directory '")
+        Tabela(59, 0) = New String("' está corrompido. O arquivo '")
+        Tabela(59, 1) = New String("' is corrupted. The file '")
+        Tabela(60, 0) = New String("' não existe.")
+        Tabela(60, 1) = New String("' does not exist.")
+        Tabela(61, 0) = New String("Voz")
+        Tabela(61, 1) = New String("Voice")
     End Sub
 
     Public Function Entrada(ByVal i As Integer) As String

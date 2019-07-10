@@ -1,6 +1,6 @@
 ﻿'--- Player ---
 'Autores: Guilherme Pereira Porto Londe, Jorge Menezes dos Santos
-'Última modificação: 10 de outubro de 2018
+'Última modificação: 10 de julho de 2019
 
 Imports System.IO
 Imports System.Collections
@@ -34,9 +34,6 @@ Public Class Player
             MessageBox.Show("There is a problem with XNA framework. Try to install Microsoft XNA Framework Redistributable 4.0 or higher to fix the problem.", "Error!",
             MessageBoxButtons.OK, MessageBoxIcon.Error)
             Throw e
-        Catch e As Exception
-            MessageBox.Show(e.ToString, "Error!", MessageBoxButtons.OK, MessageBoxIcon.Error)
-            Throw e
         End Try
         Me.SubPlayerPai = SubPlayerPai
         Intervalo = 100
@@ -45,6 +42,10 @@ Public Class Player
             Notas(i) = New List(Of Integer)
         Next
         NovoArquivo()
+    End Sub
+
+    Public Sub SetDiretorioAudio(ByVal S As String)
+        TN.Carregar(S)
     End Sub
 
     Public Sub TocarNota(ByVal Oitava As Integer, ByVal Escala As Integer)
