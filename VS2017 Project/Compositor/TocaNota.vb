@@ -2,8 +2,11 @@
 'Autor: Guilherme Pereira Porto Londe
 'Última modificação: 10 de julho de 2019
 
-Imports System.Reflection
-Imports System.Windows.Forms
+Imports SoundEffect = Microsoft.Xna.Framework.Audio.SoundEffect
+Imports Content = Microsoft.Xna.Framework.Content.ContentManager
+Imports Game = Microsoft.Xna.Framework.Game
+'É necessário instalar o Microsoft XNA Redistributable 4.0 ou superior para importar
+'corretamente as bibliotecas
 
 Public Class TocaNota
     'Classe que carrega um diretório com 5 arquivos de áudio no formato .wav e que 
@@ -12,58 +15,23 @@ Public Class TocaNota
     'No diretório de áudio contém 5 arquivos .wav, onde cada um deles representa 
     'uma nota média entre todas As notas de sua oitava.
 
-    Private SE(5) As Object
-    Dim ContentManager As Type
-    Dim SoundEffect As Type
-    Dim Game As Type
+    Private SE(5) As SoundEffect
     'Player atribuido à cada arquivo de áudio
 
     Private Volume As Double
 
     Public Sub New()
-        Dim erro As Boolean = False
-        Dim strErro As String = ""
-        Try
-            ContentManager = Assembly.LoadFrom("Microsoft.Xna.Framework.dll").GetType("Microsoft.Xna.Framework.Content.ContentManager")
-            SoundEffect = Assembly.LoadFrom("Microsoft.Xna.Framework.dll").GetType("Microsoft.Xna.Framework.Audio.SoundEffect")
-        Catch ex As Exception
-            strErro = "Microsoft.Xna.Framework.dll"
-            erro = True
-        End Try
-        Try
-            Game = Assembly.LoadFrom("Microsoft.Xna.Framework.Game.dll").GetType("Microsoft.Xna.Framework.Game")
-        Catch ex As Exception
-            If erro Then
-                strErro = strErro & ", "
-            End If
-            strErro = strErro & "Microsoft.Xna.Framework.Game.dll"
-            erro = True
-        End Try
-        Try
-            InputTouch = Assembly.LoadFrom("Microsoft.Xna.Framework.Input.Touch.dll").GetType("Microsoft.Xna.Framework.Input.Touch")
-        Catch e As Exception
-            If erro Then
-                strErro = strErro & ", "
-            End If
-            strErro = strErro & "Microsoft.Xna.Framework.Input.Touch.dll"
-            erro = True
-        End Try
-        If erro Then
-            MessageBox.Show("Files not found or locked: " & strErro, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
-            Throw New System.Exception
-        End If
         Volume = 0.8
     End Sub
 
     Public Sub Carregar(ByVal Diretorio As String)
-        Dim G = Activator.CreateInstance(Game)
-        Dim X = Activator.CreateInstance(ContentManager, G.Services)
-
+        Dim G As New Game
+        Dim X As Content = New Content(G.Services)
         For i = 0 To 4
             SE(i) = Nothing
         Next
-
         For i = 0 To 4
+            Dim myFileStream As System.IO.FileStream
             Dim DiretorioCompleto = "audio/" & Diretorio & "/" & (i + 1) & ".wav"
             If System.IO.File.Exists(DiretorioCompleto) = False Then
                 For j = 0 To 4
@@ -71,16 +39,13 @@ Public Class TocaNota
                 Next
                 Throw New System.Exception(DiretorioCompleto)
             End If
-
-            Dim myFileStream As System.IO.FileStream
             myFileStream = New System.IO.FileStream(DiretorioCompleto, System.IO.FileMode.Open, System.IO.FileAccess.Read)
-            Dim Arquivo As New System.IO.MemoryStream
+            Dim Arquivo = New System.IO.MemoryStream
             Arquivo.SetLength(myFileStream.Length)
             myFileStream.Read(Arquivo.GetBuffer(), 0, myFileStream.Length)
-            SE(i) = SoundEffect.GetMethod("FromStream").Invoke(vbNull, {Arquivo})
+            SE(i) = SoundEffect.FromStream(Arquivo)
             'Carrega 5 vezes o mesmo áudio na i-ésima oitava.
         Next i
-
     End Sub
 
     Public Sub SetVolume(ByVal V As Integer)

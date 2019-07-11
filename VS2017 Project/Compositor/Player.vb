@@ -28,7 +28,13 @@ Public Class Player
     Private SubPlayerPai As SubPlayer
 
     Public Sub New(ByRef SubPlayerPai As SubPlayer)
-        TN = New TocaNota()
+        Try
+            TN = New TocaNota()
+        Catch e As System.IO.FileNotFoundException
+            MessageBox.Show("There is a problem with XNA framework. Try to install Microsoft XNA Framework Redistributable 4.0 or higher to fix the problem.", "Error!",
+            MessageBoxButtons.OK, MessageBoxIcon.Error)
+            Throw e
+        End Try
         Me.SubPlayerPai = SubPlayerPai
         Intervalo = 100
 
