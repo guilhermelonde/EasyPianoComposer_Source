@@ -55,7 +55,7 @@ Public Class DadosUsuario
                 Dim pos = text.IndexOf("AudioDir = ")
                 Dim posApEsq = text.IndexOf("'", pos)
                 Dim posApDir = text.IndexOf("'", posApEsq + 1)
-                If posApEsq <> -1 AndAlso posApDir <> -1 Then
+                If posApEsq <> -1 AndAlso posApDir <> -1 AndAlso posApDir - 1 > posApEsq Then
                     DiretorioAudio = text.Substring(posApEsq + 1, posApDir - posApEsq - 1)
                 End If
             End If

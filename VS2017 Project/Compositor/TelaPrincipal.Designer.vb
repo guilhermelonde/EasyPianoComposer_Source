@@ -1338,7 +1338,6 @@ Partial Class TelaPrincipal
         Me.Arquivo.Size = New System.Drawing.Size(60, 28)
         Me.Arquivo.TabIndex = 64
         Me.Arquivo.Text = "Arquivo"
-        Me.Arquivo.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
         Me.Arquivo.TextImageRelation = System.Windows.Forms.TextImageRelation.TextAboveImage
         Me.Arquivo.UseVisualStyleBackColor = False
         '
@@ -1358,7 +1357,6 @@ Partial Class TelaPrincipal
         Me.Editar.Size = New System.Drawing.Size(54, 28)
         Me.Editar.TabIndex = 65
         Me.Editar.Text = "Editar"
-        Me.Editar.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
         Me.Editar.UseVisualStyleBackColor = False
         '
         'Exibir
@@ -1376,7 +1374,6 @@ Partial Class TelaPrincipal
         Me.Exibir.Size = New System.Drawing.Size(54, 28)
         Me.Exibir.TabIndex = 66
         Me.Exibir.Text = "Exibir"
-        Me.Exibir.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
         Me.Exibir.UseVisualStyleBackColor = False
         '
         'Configuracoes
@@ -1395,7 +1392,6 @@ Partial Class TelaPrincipal
         Me.Configuracoes.Size = New System.Drawing.Size(94, 28)
         Me.Configuracoes.TabIndex = 67
         Me.Configuracoes.Text = "Configurações"
-        Me.Configuracoes.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
         Me.Configuracoes.UseVisualStyleBackColor = False
         '
         'PictureBox1
@@ -1496,7 +1492,6 @@ Partial Class TelaPrincipal
         Me.Voz.Size = New System.Drawing.Size(49, 28)
         Me.Voz.TabIndex = 79
         Me.Voz.Text = "Voz"
-        Me.Voz.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
         Me.Voz.UseVisualStyleBackColor = False
         '
         'Abrir

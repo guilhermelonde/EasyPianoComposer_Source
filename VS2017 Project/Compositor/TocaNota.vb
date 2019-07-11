@@ -3,6 +3,7 @@
 'Última modificação: 10 de julho de 2019
 
 Imports System.Reflection
+Imports System.Windows.Forms
 
 Public Class TocaNota
     'Classe que carrega um diretório com 5 arquivos de áudio no formato .wav e que 
@@ -12,19 +13,49 @@ Public Class TocaNota
     'uma nota média entre todas As notas de sua oitava.
 
     Private SE(5) As Object
+    Dim ContentManager As Type
+    Dim SoundEffect As Type
+    Dim Game As Type
     'Player atribuido à cada arquivo de áudio
 
     Private Volume As Double
 
     Public Sub New()
+        Dim erro As Boolean = False
+        Dim strErro As String = ""
+        Try
+            ContentManager = Assembly.LoadFrom("Microsoft.Xna.Framework.dll").GetType("Microsoft.Xna.Framework.Content.ContentManager")
+            SoundEffect = Assembly.LoadFrom("Microsoft.Xna.Framework.dll").GetType("Microsoft.Xna.Framework.Audio.SoundEffect")
+        Catch ex As Exception
+            strErro = "Microsoft.Xna.Framework.dll"
+            erro = True
+        End Try
+        Try
+            Game = Assembly.LoadFrom("Microsoft.Xna.Framework.Game.dll").GetType("Microsoft.Xna.Framework.Game")
+        Catch ex As Exception
+            If erro Then
+                strErro = strErro & ", "
+            End If
+            strErro = strErro & "Microsoft.Xna.Framework.Game.dll"
+            erro = True
+        End Try
+        Try
+            InputTouch = Assembly.LoadFrom("Microsoft.Xna.Framework.Input.Touch.dll").GetType("Microsoft.Xna.Framework.Input.Touch")
+        Catch e As System.IO.FileNotFoundException
+            If erro Then
+                strErro = strErro & ", "
+            End If
+            strErro = strErro & "Microsoft.Xna.Framework.Input.Touch.dll"
+            erro = True
+        End Try
+        If erro Then
+            MessageBox.Show("Files not found: " & strErro, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            Throw New System.Exception
+        End If
         Volume = 0.8
     End Sub
 
     Public Sub Carregar(ByVal Diretorio As String)
-        Dim Game = Assembly.LoadFrom("Microsoft.Xna.Framework.Game.dll").GetType("Microsoft.Xna.Framework.Game")
-        Dim ContentManager = Assembly.LoadFrom("Microsoft.Xna.Framework.dll").GetType("Microsoft.Xna.Framework.Content.ContentManager")
-        Dim SoundEffect = Assembly.LoadFrom("Microsoft.Xna.Framework.dll").GetType("Microsoft.Xna.Framework.Audio.SoundEffect")
-
         Dim G = Activator.CreateInstance(Game)
         Dim X = Activator.CreateInstance(ContentManager, G.Services)
 
