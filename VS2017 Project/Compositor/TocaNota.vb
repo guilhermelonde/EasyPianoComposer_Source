@@ -41,7 +41,7 @@ Public Class TocaNota
         End Try
         Try
             InputTouch = Assembly.LoadFrom("Microsoft.Xna.Framework.Input.Touch.dll").GetType("Microsoft.Xna.Framework.Input.Touch")
-        Catch e As System.IO.FileNotFoundException
+        Catch e As Exception
             If erro Then
                 strErro = strErro & ", "
             End If
@@ -49,7 +49,7 @@ Public Class TocaNota
             erro = True
         End Try
         If erro Then
-            MessageBox.Show("Files not found: " & strErro, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            MessageBox.Show("Files not found or locked: " & strErro, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
             Throw New System.Exception
         End If
         Volume = 0.8
